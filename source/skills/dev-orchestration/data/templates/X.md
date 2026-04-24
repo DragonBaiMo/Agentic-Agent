@@ -1,0 +1,110 @@
+# 横切操作模板
+
+## 委托质量标准
+
+> 委托质量标准请务必遵循主 SKILL 协议。
+
+横切追加：prompt 自包含，不依赖当前 Phase 上下文。oracle-consult 用 3-segment 并输出含 gate 证据字段。blocking-resolution 按阻塞类型选择 agent，记录写入 blocker-log。
+
+---
+## Cross: oracle-consult
+> Agent: @oracle | X — 横切模板
+
+3-segment prompt：`[CONTEXT]: {{TASK_NAME}}（{{MODE}}），{{CURRENT_PHASE}}` / `[GOAL]: 咨询目标` / `[REQUEST]: 具体问题`
+约束：只读审查，不写代码。输出：结论 + 理由 + 替代方案 + 置信度。
+记录追加到 `{{LOG_DIR}}/oracle-consults.md`（`### Round N — [日期]` → 问题/结论/行动）。
+
+Gate 二审证据文件（供 gate 复用）保存路径：`{{REVIEW_DIR}}/<phase>-<gate>.md`
+
+最小格式：
+```md
+Gate: P6A/backend_build_pass
+Reviewer: oracle
+Scope: architecture + dependency-impact
+Upstream-Dependencies: ...
+Downstream-Dependencies: ...
+Verdict: PASS
+```
+
+---
+## Cross: blocking-resolution
+> Agent: 编排者自身 | X — 横切模板
+
+快速短路：TOOL_FAILURE 重试 ≤2 次成功 / DEPENDENCY_UNREADY 前置可立即补完 → 记录继续。
+
+| 类型 | 处理 | 升级条件 |
+|------|------|---------|
+| TOOL_FAILURE | 重试→换工具→累计 3 次→blocked | 3 次后报告 |
+| AGENT_TIMEOUT | 等待→换 agent 重试 | agent 不可用 |
+| DEPENDENCY_UNREADY | 查前置→重排→递归 | 循环依赖 |
+| KNOWLEDGE_GAP | 搜索文档→评估方案→由 Librarian 触发 ask-others | 穷尽自动手段 |
+| CONFLICT | 确认→评估→仅在显著影响范围时 ask_user | ≥2 任务受影响 |
+
+**KNOWLEDGE_GAP 完整恢复链路**（按顺序穷尽）：
+1. @librarian 搜索外部文档/开源先例
+2. @oracle 基于已有信息评估可行方案
+3. 穷尽后仍不确定 → 委派 @librarian 加载 ask-others SKILL，并将调研请求落到 `.sisyphus/research/ask-others/`
+
+**CONFLICT 恢复链路**：
+1. @explore 确认实际状态（代码库结构、API 签名、数据格式）
+2. @oracle 评估影响范围（受影响模块数、是否触及核心假设）
+3. 影响 ≥2 任务 → 暂停实现 → 回退受影响 Phase 重新审核
+
+记录写入 `{{SYNC_DIR}}/blocker-log.md`。
+
+---
+## Cross: amendment-protocol
+> Agent: 编排者自身 | X — 横切模板
+
+| 类型 | 处理 |
+|------|------|
+| Additive 契约/Schema | 确认不影响已有 → 更新契约 → 通知另一 Track |
+| Breaking 契约 | **暂停** → 评估影响 → 更新契约 → 两 Track 恢复 |
+| Breaking Schema | **暂停** → 分步迁移（加新→迁数据→删旧，每步可回滚） |
+| 需求变更 | **暂停** → 影响矩阵 → 增量重规划 → 仅在需要用户业务裁定时 ask_user |
+
+**Schema Amendment 子协议**：
+- Additive Schema（加列/加表/加索引）：确认不影响已有 → 写 migration(up+down) → dry-run → 执行
+- Breaking Schema（改列/删列/重命名）：暂停依赖 Task → @oracle 评估 → 安全迁移（加新→迁数据→删旧，每步可回滚）→ 更新数据访问层+契约+类型 → 恢复 Task
+- 不可逆 Migration：原则禁止；必须时 → 数据备份 + @oracle 审查脚本 + dry-run 通过后才执行
+
+**Phase 回退分级**：
+
+| 级别 | 触发 | 处理 |
+|------|------|------|
+| L1 局部修补 | 单字段/端点遗漏 | 走 Additive Amendment，不暂停 |
+| L2 契约修订 | 多端点需变更 | 暂停受影响 Task → Breaking Amendment → @oracle → 逐个恢复 |
+| L3 架构回退 | 核心假设错误 | 暂停全部 → @oracle 诊断 → 仅在需要用户业务裁定时 ask_user → 回退到出错 Phase |
+
+**需求变更 5 步**：暂停受影响 Task → @oracle 影响评估 → @prometheus 增量重规划 → 仅当需求存在多种合理解释且显著影响范围时 ask_user → 执行+恢复
+
+影响评估：受影响文件 + 任务依赖链 + 工作量增量 + 回退风险。Breaking 立即暂停受影响子任务。记录写入 `{{SYNC_DIR}}/blocker-log.md`。
+
+---
+## Cross: work-logs
+> Agent: 编排者自身 | X — 横切模板
+
+记录放 `{{LOG_DIR}}/`，只记关键决策和阻塞项。不创建 Phase 日志、agent 调用日志、plans 重复、修改流水。
+
+目录职责边界：notepad 负责共享工作记忆，`{{REVIEW_DIR}}` 负责 gate 审查证据，`{{LOG_DIR}}` 负责运营性 work-log，dispatch 输出只作为瞬时执行指令，不作为持久记录介质。
+
+| 文件 | 触发 | 核心字段 |
+|------|------|---------|
+| `decision.md` | P0 后 | 任务名、模式、管线、跳过 Phase+理由 |
+| `intel-summary.md` | P1 后 | 本地代码库、外部依赖、约束与风险（标注来源 agent） |
+| `review-log.md` | P3 每轮 | 轮次、评级、发现数、分类状态、未解决 BLOCKER |
+| `blocker-tracker.md` | BLOCKER 时 | ID、级别、描述、来源、负责、状态、解决方案 |
+
+### decision.md（P0 后必写）
+内容：任务名 · 模式 · 管线 · 跳过 Phase+理由 · 日期。
+
+### intel-summary.md（P1 后必写）
+内容：本地代码库(@explore) · 外部依赖(@librarian) · 约束与风险（标注来源 agent）。
+
+### review-log.md（P3 每轮追加）
+每轮记录：轮次 · 评级 · 发现数（BLOCKER/RISK/MINOR）· 分类处理状态 · 未解决 BLOCKER。
+
+### blocker-tracker.md（BLOCKER 时创建）
+表格字段：ID · 级别 · 描述 · 来源轮次 · 负责 · 状态 · 解决方案。已解决标 ✅。
+
+**不需要的文档**：Phase 日志、agent 调用日志、plans 重复、修改流水 — 全是噪音，不创建。

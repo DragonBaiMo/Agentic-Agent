@@ -1,0 +1,116 @@
+# Phase 1: 意图澄清 + 情报
+
+## 步骤概览
+
+| 步骤 | Agent | 组 | 并行 |
+|------|-------|---|------|
+| metis-intent | @metis | g1 | 串行 |
+| explore-intel | @explore | g2 | ⚡并行 with librarian-intel |
+| librarian-intel | @librarian | g2 | ⚡并行 with explore-intel |
+
+已完成步骤: {{COMPLETED_STEPS}}
+
+---
+
+## Step: metis-intent
+> @metis — 解析用户需求，识别歧义与隐含假设，界定范围，标注知识盲区。
+
+**注入上下文** [+额外注入]（基础清单见 SKILL.md）
+- 用户原始需求全文
+- P0 分流结论（模式 {{MODE}}、管线 {{PIPELINE}}）
+
+### 触发/跳过条件
+**全部满足才可跳过 metis-intent**：
+- 用户提供完整功能列表（每功能有明确动作，无“等”/“之类的”/“可能”）
+- 技术栈已指定（≥ 后端框架+前端框架+数据库）
+- 角色/权限模型已明确
+- 无一功能点需追问
+
+任一不满足 → 必须执行。
+
+**@metis 返回歧义清单后**：有歧义 → ask_user 逐条澄清；有知识盲区 → 在 explore-intel/librarian-intel 中带入盲区清单。
+
+**MUST DO**
+- 功能点 > 15 或含复杂集成时建议 MVP + 增量迭代
+
+**产出写入** `{{LOG_DIR}}/metis-intent-output.md`，骨架：
+```
+# 意图澄清产出
+## 功能清单（每条=一个可实现动作）
+## 歧义处理（已澄清项 + 待澄清项）
+## 范围结论（包含 / 排除 / 延后）
+## 盲区清单（explore/librarian 需填补的知识空缺）
+```
+
+**完成验证**: 产出含功能清单 + 歧义处理 + 范围结论 + 盲区清单
+
+**退出**
+```
+dev-orch done P1 metis-intent
+dev-orch mark P1 ambiguity_resolved passed "{{REVIEW_DIR}}/P1-ambiguity_resolved.md"
+```
+
+---
+
+## Step: explore-intel
+> @explore ⚡并行 with librarian — 搜索已有代码库，产出本地技术情报供后续规划使用。
+
+**注入上下文** 3-segment prompt:
+- CONTEXT: {{TASK_NAME}} + 功能需求清单 + 知识盲区 + 搜索目录范围（编排者填入）
+- GOAL: 搜索代码库结构、命名约定、接口签名、测试覆盖
+- REQUEST: 结构化情报清单（绝对路径 + 一句话说明，按维度分组）
+
+### 触发/跳过条件
+- 已有代码库（非空项目目录）→ 执行
+- Greenfield（空项目/新建目录）→ 输出 `N/A — greenfield 项目，无既有代码` → 直接标记完成
+
+**MUST DO**
+- 探索深度: {{EXPLORE_DEPTH}}
+
+**产出写入** `{{LOG_DIR}}/explore-intel-output.md`
+- Greenfield 时也写入同一路径，内容使用 `N/A — greenfield 项目，无既有代码`
+
+**完成验证**: 每维度有结构化结果 + 含绝对路径
+
+**退出**
+```
+dev-orch done P1 explore-intel
+dev-orch mark P1 knowledge_gaps_filled passed "{{REVIEW_DIR}}/P1-knowledge_gaps_filled.md"
+```
+
+---
+
+## Step: librarian-intel
+> @librarian ⚡并行 with explore — 针对知识盲区，收集外部技术依赖的确切行为与约束。
+
+**注入上下文** 3-segment prompt:
+- CONTEXT: {{TASK_NAME}} + @metis 知识盲区清单 + 探索深度 {{EXPLORE_DEPTH}}
+- GOAL: 针对知识盲区收集外部技术依赖的行为与约束
+- REQUEST: 调研结论报告，输出到 {{INTEL_SUMMARY_PATH}}
+
+**MUST DO**
+- 知识盲区清单中每项均需有覆盖
+
+**完成验证**: 每个盲区有调研结论 + permalink 证据
+
+**退出**: `dev-orch done P1 librarian-intel`
+
+---
+
+## 情报整合（explore + librarian 均完成后）
+
+编排者汇总两个 Agent 产出为 **技术上下文摘要**，写入 `{{LOG_DIR}}/intel-summary.md`：
+
+```
+## 技术上下文摘要
+### 本地代码库（@explore）
+- 现有结构：...
+- 命名约定：...
+- 相关接口：...
+### 外部依赖（@librarian）
+- {库名}：{版本} — {关键行为/约束}
+### 约束与风险
+- {约束/风险}：来源 {agent}
+```
+
+**退出条件**：所有盲区已填补 + intel-summary.md 已写入。后续 Phase 强依赖此文件。

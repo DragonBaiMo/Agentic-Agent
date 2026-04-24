@@ -1,0 +1,112 @@
+# Phase 5: 契约基础
+
+## 步骤概览
+
+| 步骤 | Agent | 组 | 并行 |
+|------|-------|---|------|
+| contract-schema | @hephaestus | g1 | 串行 |
+| contract-api | @hephaestus | g2 | 串行 |
+| contract-types | @hephaestus | g3 | 串行 |
+
+已完成步骤: {{COMPLETED_STEPS}}
+
+## 委托质量标准
+
+- prompt 自包含，路径绝对路径，关键信息内联
+- 注入：CONVENTIONS + DOCTRINE 相关章节 + Notepad Inherited Wisdom
+- Instruction Preflight：委托前读取 {{INSTRUCTION_PACK_PATH}} 并提炼注释/TODO 规范
+- 验证标准：migration up/down 可逆 + 类型幂等 + build = 0 error
+- 三层过滤：仅 Layer 3。Agent 已知的 N+1/参数化/strict mode 不注入
+
+---
+
+## Step: contract-schema
+> @hephaestus — 设计数据库 Schema 并生成可回滚 Migration，遵循 `{{DOCTRINE_PATH}}` D 章节。
+
+**注入上下文** [+额外注入] `{{DOCTRINE_PATH}}` D 章节 · `{{CONVENTIONS_PATH}}` DB 约定 · P3 数据模型 · 映射表表清单
+**MUST DO**
+1. Schema 来源 = P3 方案数据模型 + 映射表
+2. 遵循 `{{DOCTRINE_PATH}}` D 章节与 `{{CONVENTIONS_PATH}}` 数据库约定
+3. Schema 设计三层递进：概念→逻辑→物理，不跳过
+4. 关键查询索引必须同步创建
+5. migration/DDL 中涉及 SQL 时优先采用标准化 SQL（ANSI SQL）；方言语法需在 {{CONVENTIONS_PATH}} 记录理由与影响范围
+**产出写入** `{{LOG_DIR}}/contract-schema-output.md`
+- 写入 Schema 设计摘要、migration 路径、索引与方言决策
+**完成验证** migration up + down 执行成功 · `{{CONVENTIONS_PATH}}` 已追加 DB 约定 · 索引已创建（针对高频查询模式）
+**退出**
+```
+dev-orch done P5 contract-schema
+dev-orch mark P5 schema_executable passed "{{REVIEW_DIR}}/P5-schema_executable.md"
+```
+
+---
+
+## Step: contract-api
+> @hephaestus — 根据 Schema 和业务需求定义 API 契约到 `{{CONTRACTS_PATH}}`。
+
+**注入上下文** [+额外注入] Schema 产出 · P3 接口设计 · 映射表端点清单
+**MUST DO**
+1. 端点数 = 业务操作数
+2. 分页/筛选/排序规范追加到 `{{CONVENTIONS_PATH}}`
+3. `{{MODE}}` 为 `frontend` 时先 curl 真实 API 比对
+4. 每端点覆盖 success + 多种 error 状态码（不只 happy path）
+**完成验证** 契约语法正确 · 每端点含 request/response/error · `{{CONTRACTS_PATH}}` 索引已创建 · `{{CONVENTIONS_PATH}}` 已追加 API 相关决策
+**退出**
+```
+dev-orch done P5 contract-api
+dev-orch mark P5 api_contract_complete passed "{{REVIEW_DIR}}/P5-api_contract_complete.md"
+```
+
+---
+
+## Step: contract-types
+> @hephaestus — 从 API 契约自动生成共享类型，配置可重复生成流程。
+
+**注入上下文** [+额外注入] 契约文件 · Schema 产出 · `{{SYNC_DIR}}`
+**MUST DO**
+1. 类型 100% 从契约生成，零手写
+2. 生成脚本一键可执行
+3. 文件头含 auto-generated 标记
+4. 更新 `{{SYNC_DIR}}/contract-status.md`
+**完成验证** 重新生成 → diff = 0（幂等）
+**退出**
+```
+dev-orch done P5 contract-types
+dev-orch mark P5 types_generated passed "{{REVIEW_DIR}}/P5-types_generated.md"
+dev-orch mark P5 contracts_md_created passed "{{REVIEW_DIR}}/P5-contracts_md_created.md"
+dev-orch mark P5 contract_locked passed "{{REVIEW_DIR}}/P5-contract_locked.md"
+```
+
+---
+
+## 退出 Gate
+
+全部通过才能进入实现阶段：
+- [ ] Schema DDL 可执行，migration up/down 通过
+- [ ] API 契约完整（所有端点、所有状态码、鉴权要求）
+- [ ] 共享类型已自动生成，生成脚本可重复执行
+- [ ] `{{CONVENTIONS_PATH}}` 已追加 DB + API 约定
+- [ ] `{{CONTRACTS_PATH}}` 索引已创建
+- [ ] `{{SYNC_DIR}}/contract-status.md` 已初始化
+- [ ] 无待澄清事项
+
+---
+
+## 特殊模式处理
+
+| 模式 | 调整 |
+|------|------|
+| frontend（后端已有） | 跳 contract-schema；contract-api 改为“从已有后端提取 + curl 验证 API 契约” — 以实际响应为准修正契约 |
+| database | 只执行 contract-schema，退出后直接进交付验证 |
+
+---
+
+## 阻塞触发
+
+| 情况 | 编排者动作 |
+|------|-----------|
+| Schema 涉及不熟悉的业务领域 | @librarian 查资料 → @oracle 评估 → 穷尽后由 @librarian 加载 ask-others |
+| 鉴权/授权方案不确定 | @oracle 评估 → @librarian 补充外部方案；如仍缺业务决定再 ask_user |
+| 数据库选型不确定 | @librarian 查可行方案 → @oracle 评估 → 如仍缺业务决定或环境约束再 ask_user |
+
+
