@@ -80,3 +80,4 @@ python scripts/distribute.py --mode merge
 - 一切面向 build 产物，不直接改真实安装路径
 - 每次 build 幂等：目标目录先清再写
 - 平台专有字段（如 Copilot 的 `tools` / `user-invocable`）由各自适配器决定保留/丢弃，不污染 source
+# Agentic-Agent
