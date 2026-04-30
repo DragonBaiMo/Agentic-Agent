@@ -1,0 +1,121 @@
+# Phase 2: 规划 + 审查
+
+## 步骤概览
+
+| 步骤 | Agent | 组 | 并行 |
+|------|-------|---|------|
+| prometheus-plan | @prometheus | g1 | 串行 |
+| momus-review | @momus | g2 | ⚡并行 with oracle-plan-review |
+| oracle-plan-review | @oracle | g2 | ⚡并行 with momus-review |
+
+已完成步骤: {{COMPLETED_STEPS}}
+
+---
+
+## Step: prometheus-plan
+> Agent: @prometheus | Phase 2 — 规划 + 审查
+
+**上下文**: P1 意图澄清产出（需求+范围）/ 技术情报 {{INTEL_SUMMARY_PATH}} / 模式 {{MODE}} / 管线 {{PIPELINE}}
+
+**目标**: 基于已澄清需求和技术情报，输出有序可执行工程计划到 {{PLAN_OUTPUT_PATH}}。
+
+**MUST DO**:
+- 任务粒度 ≤ L（S=半天 / M=1天 / L=2-3天），超 L 必须拆分
+- 待决策项单独列表（含候选方案 + 影响范围 + 阻塞的任务）
+- 输出到 {{PLAN_OUTPUT_PATH}}（含依赖、并行组、每任务标注 target_phase: P5/P6A/P6B/P7）
+- 企业级开发任务的后端/集成实现项必须显式带出以下派发提醒，供编排者在后续对 @hephaestus 的 7-segment MUST DO 中重复强调：DTO 类型安全、参数校验、事务管理、异常处理、错误码枚举、日志增强、SSRF 防护、Entity 隔离；涉及 SQL 时优先采用标准化 SQL（ANSI SQL）
+
+### 计划格式
+输出到 `{{PLAN_OUTPUT_PATH}}`，每个 Task 含：
+
+| 字段 | 说明 |
+|------|------|
+| WHERE | 目标文件/模块路径 |
+| WHY | 为什么需要 |
+| HOW | 具体方法 |
+| EXPECTED_RESULT | 可观测的验收标准 |
+| DEPENDS_ON | 前置任务编号（无则留空） |
+| TARGET_PHASE | P5 / P6A / P6B / P7 |
+| TYPE | design / implement / test / config |
+
+**完成验证**:
+- [ ] 任务列表覆盖全部功能点 + 非功能需求
+- [ ] 依赖关系无循环
+- [ ] 待决策项已识别并附候选方案
+
+**退出**: `dev-orch done P2 prometheus-plan`
+
+---
+
+## Step: momus-review
+> Agent: @momus | Phase 2 — 规划 + 审查 | ⚡ 可与 @oracle 并行
+
+**上下文**: CONTEXT: {{TASK_NAME}} + 计划 {{PLAN_OUTPUT_PATH}} + P1 产出 + 情报 {{INTEL_SUMMARY_PATH}} / GOAL: Pre-flight 阻塞检查 / REQUEST: VERDICT + BLOCKER 清单
+
+**目标**: 对 @prometheus 计划进行 Pre-flight 检查，只报 BLOCKER 级阻塞项，输出 VERDICT。
+
+**MUST DO**:
+- 只报 BLOCKER 级阻塞；MINOR/SUGGESTION 记录但不阻塞
+
+**结果写入** `{{LOG_DIR}}/momus-review.md`
+- 写入 VERDICT、BLOCKER 清单、可直接交还编排者的修订建议
+
+### 反馈分级处理
+| 级别 | 判据 | 编排者动作 |
+|------|------|-----------|
+| 阻塞级 | 缺失关键 Task / 循环依赖 / 架构性遗漏 | 回 @prometheus 重分解 |
+| 补充级 | 粒度不均 / 待决策项遗漏 / 依赖顺序微调 | 编排者直接修补计划 |
+| 需求级 | 发现需求遗漏，且存在多种合理解释并显著影响范围 | ask_user 澄清 |
+| 建议级 | 风格偏好 / 非阻塞优化 | 记录不阻塞 |
+
+**完成验证**:
+- [ ] VERDICT 明确：`0 BLOCKER` 或 `N BLOCKER(s)`
+- [ ] 有 BLOCKER → 回退 @prometheus 修订
+
+**退出**: `dev-orch done P2 momus-review`
+
+---
+
+## Step: oracle-plan-review
+> Agent: @oracle | Phase 2 — 规划 + 审查 | ⚡ 可与 @momus 并行
+
+**上下文**: CONTEXT: {{TASK_NAME}} + 计划 {{PLAN_OUTPUT_PATH}} + 情报 {{INTEL_SUMMARY_PATH}} + 待决策项 / GOAL: 架构审查 + 裁定待决策项 / REQUEST: 结论 + 推荐/理由/替代
+
+**目标**: 对 @prometheus 计划进行架构合理性审查，并裁定所有待决策项。
+
+**MUST DO**:
+- 每个待决策项输出：推荐 + 理由 + 替代方案
+- 用户已锁定的选型不给替代推荐，仅审风险
+
+**结果写入** `{{LOG_DIR}}/oracle-plan-review.md`
+- 写入架构审查结论、待决策项裁定、推荐理由与替代方案
+
+**完成验证**:
+- [ ] 架构审查结论明确（通过 / 需调整 + 具体问题）
+- [ ] 每个待决策项有推荐 + 理由
+
+**退出**: `dev-orch done P2 oracle-plan-review`
+
+
+---
+
+## 计划收敛与例外升级（momus + oracle 审查通过后）
+
+编排者汇总：计划任务数 + 关键依赖 + 待决策项裁定结果，写入 `{{LOG_DIR}}/plan-confirmation-summary.md` 并默认自动继续。
+
+仅当待决策项缺少用户才能提供的业务决定、权限、账号或环境信息，或需求仍存在多种合理解释且显著影响范围时，才 ask_user 呈递。
+
+**结果写入** `{{LOG_DIR}}/plan-confirmation-summary.md`
+- 写入计划摘要、自动推进结论，以及是否因三类例外而需要回退重规划
+
+**如命中 ask_user 例外并收到结论后**：
+```
+dev-orch mark P2 user_plan_confirmed passed "{{REVIEW_DIR}}/P2-user_plan_confirmed.md"
+```
+
+## Gate 二审（必做）
+
+- 计划可执行性优先复用 Step: `momus-review` 结论，并补齐依赖影响说明。
+- 架构/依赖影响复核可执行：`dev-orch dispatch --cross oracle-consult`。
+- 生成 `{{REVIEW_DIR}}/P2-<gate>.md`，内容覆盖 Upstream/Downstream 依赖影响。
+- 完成证据文件后再执行 `dev-orch mark P2 <gate> passed "<review-path>"`。

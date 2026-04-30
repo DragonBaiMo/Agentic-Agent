@@ -17,3 +17,5 @@ from .base import (  # noqa: F401
 from . import copilot as _copilot  # noqa: F401
 from . import codex as _codex  # noqa: F401
 from . import windsurf as _windsurf  # noqa: F401
+from . import opencode as _opencode  # noqa: F401
+from . import kimicode as _kimicode  # noqa: F401
