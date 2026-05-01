@@ -20,7 +20,7 @@
 > Agent: 编排者自身 | Phase 8 — 交付验证
 > P8 g1
 
-**测试方法论参考** 如需补充测试，参考 `c:\Users\Dragon\.copilot\skills\ai-testing-workflow\SKILL.md` 获取完整测试工作流。
+**测试方法论参考** 如需补充测试，参考 `{{AI_TESTING_WORKFLOW_SKILL_MD}}` 获取完整测试工作流。
 
 0. **一致性扫描**：grep 关键术语（确认前后一致）+ grep 关键数值（无矛盾）+ grep 旧术语（无残留）；代码类再加全量构建+测试+类型+lint 全绿
 1. **构建+测试+Lint**：tsc/mypy → eslint/ruff → 单元+集成测试 — 全部 exit 0；任一失败 → 修复 → 重跑

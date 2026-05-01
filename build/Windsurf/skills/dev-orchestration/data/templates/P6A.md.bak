@@ -180,9 +180,9 @@
 
 
 **测试方法论参考** 执行前读取以下文件获取完整测试规范：
-- 单元测试：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\unit-testing.md`
-- 集成测试：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\integration-testing.md`
-- 可测试性重构：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\testability-refactor.md`
+- 单元测试：`{{AI_TESTING_WORKFLOW_REFERENCES_ROOT}}\unit-testing.md`
+- 集成测试：`{{AI_TESTING_WORKFLOW_REFERENCES_ROOT}}\integration-testing.md`
+- 可测试性重构：`{{AI_TESTING_WORKFLOW_REFERENCES_ROOT}}\testability-refactor.md`
 **MUST DO**
 - 测试框架全项目统一
 - 覆盖率：行 ≥80%，分支 ≥60%

@@ -31,7 +31,7 @@ npx playwright test --debug tests/login.spec.ts
 npx playwright show-report
 ```
 
-Windows: use `npx playwright test` — no `./node_modules/.bin` prefix needed.
+macOS/Linux: use `npx playwright test`; avoid hardcoding `./node_modules/.bin` unless the project requires it.
 
 ---
 
@@ -348,7 +348,7 @@ export default defineConfig({
 
 ## CI configuration
 
-GitHub Actions (Windows runner):
+GitHub Actions (macOS/Linux runner):
 
 ```yaml
 - name: Install Playwright browsers

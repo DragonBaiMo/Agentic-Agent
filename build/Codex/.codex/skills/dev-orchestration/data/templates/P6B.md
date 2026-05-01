@@ -140,8 +140,8 @@ P6B 追加（前端实现）：用户交互体验 · 操作逻辑与点击依赖
 **注入上下文** F1—F6 全部产出
 
 **测试方法论参考** 执行前读取以下文件获取完整测试规范：
-- 单元测试：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\unit-testing.md`
-- 系统测试（UI+API）：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\system-testing.md`
+- 单元测试：`~/.copilot/skills/ai-testing-workflow/references\unit-testing.md`
+- 系统测试（UI+API）：`~/.copilot/skills/ai-testing-workflow/references\system-testing.md`
 **MUST DO**
 - Bundle gzip ≤ 200KB（SPA 首屏）
 - 已切真实 API 的模块无 mock 残留
