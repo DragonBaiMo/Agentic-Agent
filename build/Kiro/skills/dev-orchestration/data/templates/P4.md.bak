@@ -1,0 +1,136 @@
+# Phase 4: 编排落地
+
+## 步骤概览
+
+| 步骤 | Agent | 组 | 并行 |
+|------|-------|---|------|
+| conventions | @hephaestus | g1 | ⚡并行 with doctrine, mapping-table |
+| doctrine | @hephaestus | g1 | ⚡并行 with conventions, mapping-table |
+| mapping-table | @hephaestus | g1 | ⚡并行 with conventions, doctrine |
+
+已完成步骤: {{COMPLETED_STEPS}}
+
+## 委托质量标准
+
+- prompt 自包含，路径绝对路径，关键信息内联
+- 验证标准：结构完整性 + 维度覆盖 + 🔒/💡 标记完整。禁止在 EXPECTED OUTCOME 写 build/test/typecheck 要求
+- Instruction Preflight：委托前读取 {{INSTRUCTION_PACK_PATH}} 并提炼注释/TODO 规范
+- 仅注入 Layer 3（模板 MUST DO）
+
+---
+
+## Step: conventions
+> @hephaestus ⚡并行 — 创建 `{{CONVENTIONS_PATH}}`，提取或建立项目级约定。
+
+**注入上下文** [+额外注入] P3 架构决策 + 已有代码库扫描结果 + Oracle 推荐 + 用户偏好
+**MUST DO**
+1. 覆盖 ≥ 8 维度（技术栈/目录/命名/数据库/API/错误处理/代码模式/测试/业务约定）
+
+**CONVENTIONS 文档结构骨架**（@hephaestus 按此骨架创建，根据项目实际填充）：
+
+| # | 维度 | 应覆盖要点 |
+|---|------|----------|
+| 1 | 技术栈与版本 | 语言版本、框架版本、包管理器、运行时 |
+| 2 | 目录结构 | 顶层目录划分、模块组织方式（按特性/按技术层）、共享代码放置 |
+| 3 | 命名约定 | 文件/目录/变量/函数/类/接口/常量命名规则 |
+| 4 | 数据库约定 | ORM/migration 工具、主键策略、分页策略、时间字段约定、软删除策略 |
+| 5 | API 约定 | API 风格（REST/GraphQL/tRPC）、错误响应格式、版本策略、鉴权方案 |
+| 6 | 错误处理 | 统一错误模型、错误码体系、日志格式 |
+| 7 | 代码模式 | 分层架构约定、模块间通信方式、状态管理方案（前端） |
+| 8 | 测试约定 | 测试框架、目录组织、覆盖要求、Integration 测试策略 |
+| 9 | 业务约定 | 角色/权限模型、业务状态机、领域术语表 |
+
+标记规则：🔒 = 已锁定不可改；💡 = 建议值，@hephaestus 可调整但必须记录理由。未确定项标 💡，不留空白。
+2. 已有代码库先扫描提取（编排者注入扫描结果），新项目用默认值
+3. 🔒=锁定不可改，💡=建议值；未确定项标 💡，不留空白
+4. 企业级后端约定必须明确：DTO 类型安全、参数校验、事务管理、异常处理、错误码枚举、日志增强、SSRF 防护、Entity 隔离；涉及 SQL 时优先采用标准化 SQL（ANSI SQL）
+
+**完成验证** ≥8 维度 + 🔒/💡 标记 + 文件已创建
+**退出**
+```
+dev-orch done P4 conventions
+dev-orch mark P4 conventions_created passed "{{REVIEW_DIR}}/P4-conventions_created.md"
+```
+
+---
+
+## Step: doctrine
+> @hephaestus ⚡并行 — 创建 `{{DOCTRINE_PATH}}`，按 `{{MODE}}` 裁剪章节。
+
+**注入上下文** [+额外注入] P3 架构决策 + 当前模式 `{{MODE}}` + 已有代码库现有模式
+**MUST DO**
+1. 按 `{{MODE}}` 裁剪：全栈 A+B+C+D+E | 仅后端 A+B+D+E | 仅前端 A+C+E | 仅数据库 A+D+E
+
+**DOCTRINE 文档章节骨架**（@hephaestus 按此创建）：
+
+```
+A. 架构范式
+   - 默认架构策略（Modular Monolith First 🔒）
+   - 模块通信规则
+   - 决策记录（ADR）存放与管理规则
+
+B. 后端实现范式
+   B.1 目录与分层（按业务模块组织 🔒，含参考目录结构）
+   B.2 请求处理流（Handler → DTO → Service → Repository → Mapper → Response）
+   B.3 错误模型（统一 AppError + 全局 error handler）
+   B.4 测试矩阵（6 列：success / validation / business-rule / conflict / not-found / permission）
+   B.5 Seed Data 策略
+
+C. 前端实现范式
+   C.1 组件层级（Tokens → Primitives → Composites → Sections → Pages）
+   C.2 组件规范（Props 接口 / 状态矩阵 / ARIA / 响应式）
+   C.3 页面骨架（列表页 / 表单页 / 详情页 / 仪表盘 — 含 5 状态处理）
+   C.4 数据层策略（codegen only / Query 全局默认值显式配置）
+
+D. 数据库范式
+   - Schema 设计三层递进（概念→逻辑→物理）
+   - Migration 规范（up + down / 不可逆守护）
+
+E. 质量门控
+   - 后端 Gate（模块边界 / DTO / 事务 / 错误模型 / 测试矩阵）
+   - 前端 Gate（类型检查 / Bundle / Mock 清理 / 组件规范）
+```
+
+**MODE 裁剪规则**：
+| MODE | 保留章节 |
+|------|---------|
+| fullstack / fullstack+design | A + B + C + D + E |
+| backend | A + B + D + E |
+| frontend | A + C + E |
+| database | A + D + E |
+| standard / simple / review / design | 按实际涉及的技术栈裁剪 |
+
+🔒/💡 规则同 CONVENTIONS。冻结后修改 → 走 `dev-orch dispatch --cross amendment-protocol`。
+2. 不确定项标 💡，关键条目标 🔒
+3. 后端相关章节需冻结：DTO/参数校验/事务/异常处理/错误码枚举/日志增强/SSRF 防护/Entity 隔离；数据库相关章节需声明 SQL 优先采用标准化 SQL（ANSI SQL）
+**完成验证** 按 `{{MODE}}` 裁剪 + 零空白占位符 + 每章含代码示例
+**退出**
+```
+dev-orch done P4 doctrine
+dev-orch mark P4 doctrine_frozen passed "{{REVIEW_DIR}}/P4-doctrine_frozen.md"
+```
+
+---
+
+## Step: mapping-table
+> @hephaestus ⚡并行 — 将业务需求映射到工程模块，按依赖拓扑排序。
+
+**注入上下文** [+额外注入] P2 任务分解 + P3 模块划分与架构设计 + `{{SYNC_DIR}}` 目标路径
+**MUST DO**
+1. 输出映射表：业务模块 → P5 契约 → P6A 后端 → P6B 前端 → 优先级 → 阻塞依赖
+2. 优先级 P0=被依赖 / P1=核心价值 / P2=增强
+
+**映射表输出格式**：
+| 业务模块 | P5 契约（Schema+API）| P6A 后端（B 步骤）| P6B 前端（F 步骤）| 优先级 | 阻塞依赖 |
+3. 全栈模式初始化 `{{SYNC_DIR}}/` 4 文件（contract-status / backend-progress / frontend-progress / blocker-log）
+4. 创建 {{SYNC_DIR}}/phase-4-summary.md，内容：模式、管线、CONVENTIONS 摘要、DOCTRINE 章节清单、映射表摘要、待关注风险
+
+**完成验证** 全模块已映射 + 无循环依赖 + 同步文件已创建（全栈模式）
+**退出**
+```
+dev-orch done P4 mapping-table
+dev-orch mark P4 mapping_table_done passed "{{REVIEW_DIR}}/P4-mapping_table_done.md"
+dev-orch mark P4 sync_initialized passed "{{REVIEW_DIR}}/P4-sync_initialized.md"
+dev-orch mark P4 phase_summary_written passed "{{REVIEW_DIR}}/P4-phase_summary_written.md"
+```
+

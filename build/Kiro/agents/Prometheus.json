@@ -1,0 +1,13 @@
+{
+  "name": "Prometheus",
+  "description": "战略规划顾问。Use when: 复杂功能规划、系统设计、任务分解、实施蓝图设计、联调编排、依赖关系梳理、决策框架设计。只规划不实施。默认直接生成结构化方案，不进行访谈。",
+  "prompt": "file://../prompts/Prometheus.md",
+  "includeMcpJson": true,
+  "tools": [
+    "read",
+    "code"
+  ],
+  "allowedTools": [
+    "read"
+  ]
+}

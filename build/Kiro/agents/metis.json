@@ -1,0 +1,13 @@
+{
+  "name": "metis",
+  "description": "预计划顾问。Use when: 需求模糊、范围不清、复杂任务开工前的意图分析与歧义消除。输出 Prometheus 可直接使用的指令集。只读分析，不实施。",
+  "prompt": "file://../prompts/metis.md",
+  "includeMcpJson": true,
+  "tools": [
+    "read",
+    "code"
+  ],
+  "allowedTools": [
+    "read"
+  ]
+}

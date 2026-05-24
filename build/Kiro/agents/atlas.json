@@ -1,0 +1,16 @@
+{
+  "name": "atlas",
+  "description": "工作流指挥家。驱动 dev-orchestration 管线：分析→委托→验证→记录→推进，循环不停歇。不写代码，只做编排。",
+  "prompt": "file://../prompts/atlas.md",
+  "includeMcpJson": true,
+  "tools": [
+    "read",
+    "write",
+    "shell",
+    "code",
+    "@builtin"
+  ],
+  "allowedTools": [
+    "read"
+  ]
+}

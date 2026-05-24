@@ -1,0 +1,13 @@
+{
+  "name": "Librarian",
+  "description": "外部文档与开源研究专家。Use when: 库/框架用法查询、API 参考、开源实现溯源、文档解析（MinerU）、网页爬取（scrapling）、外部调研（可加载 ask-others SKILL）。研究成果写入 .sisyphus/research/。",
+  "prompt": "file://../prompts/Librarian.md",
+  "includeMcpJson": true,
+  "tools": [
+    "read",
+    "code"
+  ],
+  "allowedTools": [
+    "read"
+  ]
+}

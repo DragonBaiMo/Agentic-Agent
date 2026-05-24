@@ -1,0 +1,225 @@
+---
+name: dev-orchestration
+description: "开发编排 SOP。编排者操作手册：管线控制、Agent 调度、Notepad 协议、架构驱动流程。"
+---
+
+## 适用范围
+
+企业级系统开发主协议。覆盖：Web 应用（API/数据库/前端UI）· CLI 工具 · 内部平台 · 集成服务 · 数据管线 · 自动化系统。`simple` 模式 = 轻量企业级任务管线，不限于 Web 功能迭代。
+
+---
+
+## 三层上下文模型
+
+模板中的 MUST DO 仅包含**任务特化约束**。其余两层由各自载体承担：
+
+| 层 | 载体 | 内容 | 模板是否包含 |
+|---|---|---|---|
+| Agent 内建能力 | agent.md（自动加载） | 通用工程知识（N+1 检测、TypeScript strict、RESTful 惯例） | 否 |
+| 项目约定 | CONVENTIONS / DOCTRINE（基础清单注入） | 本项目的命名、错误格式、Mapper 规范、目录结构 | 否 |
+| 任务特化约束 | 模板 MUST DO | 数据来源路径、产出写入路径、步骤间串联规则 | **是（唯一）** |
+
+构造 prompt 时：基础清单自动带入层 2，模板 MUST DO 带入层 3，层 1 无需注入。
+
+## 基础上下文注入清单
+
+所有 @hephaestus 委托的 CONTEXT 段包含以下基础项：
+
+1. 项目技术栈与框架版本
+2. `{{CONVENTIONS_PATH}}` 相关约定
+3. `{{DOCTRINE_PATH}}` 相关章节
+4. `{{CONTRACTS_PATH}}` 相关端点/Schema（如有）
+5. Notepad Inherited Wisdom（只注入相关条目）
+6. 前序步骤已创建的文件路径列表
+
+模板标注 `[+额外注入]` 的项追加到基础之上。无标注的步骤只需基础清单。
+
+## 每步操作模式
+
+`dev-orch dispatch` 返回模板后，执行以下循环：
+
+1. 读取 Phase 模板 → 识别下一个待完成步骤（参考 "已完成步骤" 和步骤概览表） → 收集该步骤的上下文
+2. 用"任务定义"+"MUST DO"+"MUST NOT DO"构造委托 prompt
+3. 发送到指定 Agent
+4. SubAgent 返回后，按"完成验证"逐项检查
+5. 全通过 → `dev-orch done <phase> <step>`。Phase 内所有步骤完成后 → `dev-orch gate <phase> --auto-advance`
+6. 不通过 → 按"失败处理"操作
+7. 模板只含 task-specific 约束。SubAgent 的通用领域知识由其 agent.md 承载——不在 prompt 中教 SubAgent 做它已经知道的事。
+8. 三层过滤：MUST DO 中的通用工程知识（Agent 已知）和项目约定（CONVENTIONS/DOCTRINE 已覆盖）不注入 prompt。只注入模板中的任务特化约束。
+9. 每步完成后执行模板末尾的 `退出` 命令。
+10. Phase 文件含该阶段所有步骤。只处理当前步骤组（参考 Phase 调度速查表），跳过已完成步骤。
+
+## 发布前预制（Instruction Preflight）
+
+发布实现类委托前（@hephaestus / @explore-写入 / @librarian-深度研究），必须在 7-segment prompt 的 MUST DO 注入 instruction 预制段：
+
+1. 先读取 `{{INSTRUCTION_PACK_PATH}}`，禁止只贴路径不阅读
+2. 从指令包提炼 3-5 条与当前任务最相关的规范，写入本次 prompt
+3. 提炼结果至少覆盖：注释规范 + TODO/FIXME 标签规范
+4. 要求 SubAgent 在最终汇报回传“已遵循的规则清单 + 标签位置（文件:行号）”
+
+未注入预制段不得发布实现类委托。
+
+## Gate 二审协议（Mandatory Recheck）
+
+每个 gate 在标记 `passed` 前，必须先完成一次咨询/审查（按阶段选择 @oracle 或 @momus），并将审查证据落盘。
+
+证据格式遵循 `{{GATE_REVIEW_SPEC_PATH}}`。
+
+证据文件最低字段（缺一不可）：
+
+- Gate: `<phase>/<gate>`
+- Reviewer
+- Scope
+- Upstream-Dependencies
+- Downstream-Dependencies
+- Verdict: PASS
+
+执行要求：
+
+1. 二审结论写入 `.sisyphus/reviews/<phase>-<gate>.md`
+2. `dev-orch mark <phase> <gate> passed` 的 `reason` 必须传证据路径
+3. gate 校验阶段会二次读取该证据文件，防止手工篡改 state 绕过
+
+## CLI 命令
+
+| 命令 | 用途 |
+|------|------|
+| `dev-orch init <mode> <task-name>` | 初始化项目 |
+| `dev-orch route [--verbose]` | 获取当前路由 |
+| `dev-orch dispatch <phase>` | 获取 Phase 完整指令（含所有步骤） |
+| `dev-orch dispatch --cross <template>` | 横切 dispatch |
+| `dev-orch gate <phase>` | 检查门控 |
+| `dev-orch gate <phase> --auto-advance` | 检查门控，全通过自动推进 |
+| `dev-orch mark <phase> <gate> passed "<review-path>"` | 标记门控通过（需 review_path） |
+| `dev-orch mark <phase> <gate> skipped "<reason>"` | 跳过门控 |
+| `dev-orch done <phase> <step> [step2 ...]` | 标记步骤完成 |
+| `dev-orch redo <phase> <step> [step2 ...] [--force]` | 重置步骤 |
+| `dev-orch advance` | 推进阶段 |
+| `dev-orch current` | 查看当前状态 |
+
+## 模式管线
+
+| 模式 | 管线 |
+|------|------|
+| fullstack | P0→P1→P2→P4→P5→P6A→P6B→P7→P8 |
+| fullstack+design | P0→P1→P2→P3→P4→P5→P6A→P6B→P7→P8 |
+| standard | P0→P1→P2→P4→P6A→P6B→P7→P8 |
+| backend | P0→P1→P2→P4→P5→P6A→P8 |
+| frontend | P0→P1→P2→P4→P5→P6B→P8 |
+| database | P0→P1→P2→P4→P5→P8 |
+| design | P0→P1→P2→P3→P8 |
+| simple | P0→P1→P2→P8 |
+| review | P0→P1→P7→P8 |
+
+## Phase 调度速查
+
+| 阶段 | 组 | 步骤 | Agent | 并行 |
+|------|----|------|-------|------|
+| P0 | 1 | triage | 编排者自身 | — |
+| P1 | 1 | metis-intent | @metis | — |
+| P1 | 2 | explore-intel | @explore | ⚡ |
+| P1 | 2 | librarian-intel | @librarian | ⚡ |
+| P2 | 1 | prometheus-plan | @prometheus | — |
+| P2 | 2 | momus-review | @momus | ⚡ |
+| P2 | 2 | oracle-plan-review | @oracle | ⚡ |
+| P3 | 1 | hephaestus-design | @hephaestus | — |
+| P3 | 2 | oracle-design-review | @oracle | — |
+| P3 | 3 | oracle-review-classify | 编排者自身 | — |
+| P4 | 1 | conventions, doctrine, mapping | @hephaestus | ⚡ |
+| P5 | 1→2→3 | contract-schema → api → types | @hephaestus | — |
+| P6A | 1→…→8 | B1-scaffold → … → B8-test | @hephaestus | — |
+| P6B | 1→…→7 | F1-scaffold → … → F7-quality | @hephaestus | — |
+| P7 | 1 | smoke | @hephaestus | — |
+| P7 | 2 | e2e, security-validation | @hephaestus | ⚡ |
+| P8 | 1 | self-verify | 编排者自身 | — |
+| P8 | 2 | oracle-final | @oracle [ADVERSARIAL] | — |
+| P8 | 3 | delivery | 编排者自身 | — |
+| X | — | oracle-consult | @oracle | --cross |
+| X | — | blocking-resolution | 视情况委托 | --cross |
+| X | — | amendment-protocol | 视情况委托 | --cross |
+| X | — | work-logs | 编排者自身 | --cross |
+
+## Prompt 格式
+
+**7-segment（实现类：@hephaestus / @explore-写入 / @librarian-深度研究）**:
+PURPOSE → TASK → EXPECTED OUTCOME → REQUIRED TOOLS → MUST DO → MUST NOT DO → CONTEXT
+
+**3-segment（研究类：@explore / @librarian / @metis / @oracle 咨询）**:
+CONTEXT → GOAL → REQUEST
+
+质量自检：自包含？有路径？有 MUST DO/NOT？可验证？
+
+## 用户交互边界
+
+- 默认自动继续；不得为“是否进入下一步”“是否继续执行”“是否批准当前计划”这类流程审批问题打断用户
+- 仅在以下三类场景允许 ask_user：
+  1. 需求存在多种合理解释，且会显著影响范围、方案或交付边界
+  2. 外部阻塞成立，且自动手段已穷尽
+  3. 缺少只有用户能提供的业务决定、权限、账号或环境信息
+- 以上三类之外，编排者必须自行收敛并继续推进
+
+## 外部研究边界
+
+- 编排者不得直接加载 ask-others SKILL
+- 需要外部研究升级时，由编排者委托 @librarian 处理，固定链路：编排者 → @librarian → ask-others
+
+## 架构先行判定
+
+按双轴矩阵判定架构深度：
+
+| 决策空间 \ 技术栈 | 固定 | 半固定 | 未定 |
+|---|---|---|---|
+| 低 | L0: 直接实现 | L1: 轻量备忘 | L1: 锁定最小边界 |
+| 中 | L1/L2: 模块蓝图 | L2: 关键接口 | L2/L3: 选型收敛 |
+| 高 | L2: 系统重组 | L3: 架构+权衡 | L3: 完整架构 |
+
+- L0/L1：编排者自行处理，不委托
+- L2/L3：委托 @prometheus，Prometheus 自行校准最终深度
+- L3 产出强制经 @oracle 审查
+
+
+## 状态目录职责边界
+
+### Notepad 协议
+```
+.sisyphus/notepads/{plan-name}/
+  project-context.md   # 项目全貌
+  learnings.md         # 约定和陷阱
+  decisions.md         # 架构决策
+  issues.md            # 问题和陷阱
+  problems.md         # 未解决阻塞
+  checkpoint.md        # 断点快照
+```
+
+- append-only（project-context.md 和 checkpoint.md 可整段更新）
+- 委托前必读 → 提取 Inherited Wisdom → 注入 CONTEXT 段
+- 不注入全量，只注入当前任务相关条目
+- 写入质量：一条=一行、含路径/行号、零口水话
+
+`.sisyphus/notepads/{plan-name}/`：编排共享工作记忆。记录项目上下文、决策、问题、阻塞、断点，不承载 gate 证据与 phase 日志
+
+### 其余目录协议
+
+- `.sisyphus/reviews/`：gate 二审、对抗审查、最终复核证据。只放 review 结论与依赖影响，不记录过程性工作日志
+- `{{LOG_DIR}}/`：work-logs。记录阶段摘要、阻塞跟踪、审查轮次与运营性过程产物，不替代 notepad 的共享记忆职责
+- `dev-orch dispatch` 输出：当前步骤执行指令的瞬时视图，不是持久化状态源；执行结论必须回写到 notepad、reviews、work-logs 或 CLI state，而不是回写 dispatch 输出
+
+## 迭代协议
+
+- `dev-orch redo <phase> <step>` 重置步骤 + 门控 + 迭代计数器+1
+- Round 3 警告、Round 5 拒绝（除非 --force）
+- 审查不通过 → redo 前置步骤，不 redo 审查步骤本身
+- 失败恢复：1次→修根因；2次→换方案+@oracle；3次→停止+回滚+@librarian 查案例
+
+## 上下文溢出预防
+
+- 精简注入：notepad → 只提取相关条目，不全量
+- Agent 结果 Synthesis：保留路径/行号/决策，不复述原文
+- 溢出响应：写 checkpoint.md → 更新 Todo → `dev-orch current` → 断点续做
+- 新对话恢复：`dev-orch route --verbose` + 读 notepad
+
+## 读取禁区
+
+- `scripts/` 源码：通过 CLI 交互，不读源码
+- `data/templates/*.md`（11 个 Phase 文件 + 旧文件）：通过 `dev-orch dispatch` 获取渲染结果，不直接读模板

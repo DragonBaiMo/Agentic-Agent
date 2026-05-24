@@ -1,0 +1,13 @@
+{
+  "name": "momus",
+  "description": "计划审查者。Use when: 执行工作计划前验证引用有效性与可执行性。只找阻塞项，批准偏向。",
+  "prompt": "file://../prompts/momus.md",
+  "includeMcpJson": true,
+  "tools": [
+    "read",
+    "code"
+  ],
+  "allowedTools": [
+    "read"
+  ]
+}

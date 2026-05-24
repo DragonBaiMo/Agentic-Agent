@@ -1,0 +1,134 @@
+# Phase 7: 集成联调
+
+## 步骤概览
+
+| 步骤 | Agent | 组 | 并行 |
+|------|-------|---|------|
+| smoke | @hephaestus | g1 | 串行 |
+| e2e | @hephaestus | g2 | ⚡并行 with security-validation |
+| security-validation | @hephaestus | g2 | ⚡并行 with e2e |
+
+已完成步骤: {{COMPLETED_STEPS}}
+
+## 委托质量标准
+
+- prompt 自包含，路径绝对路径，关键信息内联
+- 注入：CONVENTIONS + DOCTRINE + 契约 + Notepad Inherited Wisdom
+- Instruction Preflight：委托前读取 {{INSTRUCTION_PACK_PATH}} 并提炼注释/TODO 规范
+- 验证标准：全层通过 + 数据往返 + 契约比对
+- 三层过滤：仅 Layer 3
+
+---
+
+## Step: smoke
+
+> Agent: @hephaestus | Phase 7 — 集成联调
+> P7 g1
+
+### 注入上下文
+- 项目技术栈与启动命令；{{CONTRACTS_PATH}} 端点总览（如有）
+
+**测试方法论参考** 执行前读取：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\integration-testing.md`
+
+### 委托目标
+验证全栈环境可运行，Mock 残留清除，构建与测试全绿。
+
+### MUST DO
+1. 后端 + 前端 + 数据库 + env 启动正常；API 基地址指向真实后端，grep mock/fixture/msw 无残留
+2. tsc --noEmit + 完整构建 exit code 0
+3. {{CONTRACTS_PATH}} 非 N/A 时：路径 + 请求体 + 响应体 + 状态码逐项比对
+4. Seed 正常退出 + 列表 API > 0 条；无 Seed → API 创建最小数据集
+5. 后端单元 + 集成 + 前端测试全绿（仅已知 skip 允许）
+6. 数据往返验证（每个核心模块执行 8 步）：
+   | 步骤 | 操作 | 验证 |
+   |------|------|------|
+   | 1 | POST 创建数据 A | 201 + 正确数据 |
+   | 2 | GET 读取数据 A | 与步骤 1 一致 |
+   | 3 | 直接查数据库 | SELECT 确认已持久化 |
+   | 4 | PUT/PATCH 修改为 B | 200 + 更新后数据 |
+   | 5 | GET 再次读取 | 返回数据 B |
+   | 6 | DELETE 删除 | 200/204 |
+   | 7 | GET 已删除 | 404 或软删除不可见 |
+   | 8 | GET list + 分页 | 正确 total + pageSize |
+
+### 结果写入
+`{{LOG_DIR}}/p7-smoke-report.md`
+- 写入启动结果、构建与测试状态、Contract 比对结论、数据往返检查表
+
+### 退出
+`{{SYNC_DIR}}/integration-progress.md` 标记完成 → `dev-orch done P7 smoke`
+
+---
+
+## Step: e2e
+
+> Agent: @hephaestus | Phase 7 — 集成联调
+> ⚡ P7 g2 与 security-validation 并行
+
+### 注入上下文
+- 完整端点清单（模块、方法、路径、测试层分配）；{{CONTRACTS_PATH}}；{{CONVENTIONS_PATH}}
+
+**测试方法论参考** 执行前读取：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\system-testing.md`
+
+### 委托目标
+逐层验证全部端点数据往返正确性，Bug 修复后全量回归全绿。
+
+### MUST DO
+1. **分层执行 T1→T4**：同层内并行；T1 零依赖→T2 父资源→T3 状态机/批量→T4 跨模块；T-EXT 外部调用独立分层，不可用 skip ≠ bug；每端点必须分配层
+2. **代理铁律**：后端 mount 路径数 = 前端代理声明数，逐一核对
+3. **前端验证**：零红色请求 + Console 零 Error + 路由全通达 + 页面 5 态
+4. **Bug 修复**：失败修复后重跑该层；全层通过后全量回归，统计 passed/skipped/failed
+5. **“完成”定义**：功能实际工作（API→正确数据→数据库已持久化）；UI 实际渲染（非永远 Loading/placeholder）；用户流端到端（操作→状态变更→持久化→刷新后仍在）；错误状态已处理（非只 happy path）
+
+### 结果写入
+`{{LOG_DIR}}/p7-e2e-report.md`
+- 写入分层执行结果、回归统计、失败修复记录与最终通过状态
+
+### 退出
+`{{SYNC_DIR}}/integration-progress.md` 标记完成 → `dev-orch done P7 e2e`
+
+---
+
+## Step: security-validation
+
+> Agent: @hephaestus | Phase 7 — 集成联调
+> ⚡ P7 g2 与 e2e 并行
+
+### 注入上下文
+- 安全关注点清单（认证端点、公开端点、文件上传、用户输入入口、权限模型）；{{CONTRACTS_PATH}}
+
+### 委托目标
+5 维度安全验证全覆盖，零未修复安全缺陷。
+
+### MUST DO
+1. **攻击面盘点**：认证端点 + 公开端点 + 文件上传 + 用户输入入口 + 外部依赖 + 权限模型 — 完整清单
+2. **注入攻击**：SQL/NoSQL/XSS/路径穿越/命令注入 — 每种 ≥ 3 端点，覆盖 query/body/param
+3. **认证授权**：无Token/伪造/过期→401，低权限/越权→403|404；覆盖 ID 枚举、批量与嵌套资源越权
+4. **输入边界**：空body→422 / 超长→413|422 / 类型错误→422 / 特殊字符→转义 / 唯一键→409；500 = Bug
+5. **基础设施**：CORS 白名单 + 安全头完整 + 限流→429 + 错误不暴露堆栈 + 零敏感数据泄露
+6. **SSRF 防护**：涉及外连 URL 的能力必须验证协议白名单 + 内网网段阻断 + DNS Rebinding/重定向绕过防护
+
+### 结果写入
+`{{LOG_DIR}}/p7-security-report.md`
+- 写入攻击面盘点、各类安全验证结果、未通过项与修复状态
+
+### 退出
+`{{SYNC_DIR}}/integration-progress.md` 标记完成 → `dev-orch done P7 security`
+
+---
+
+## 退出 Gate
+
+## Gate 二审（必做）
+
+- 先执行 `dev-orch dispatch --cross oracle-consult` 做架构与依赖影响复核。
+- 生成 `{{REVIEW_DIR}}/P7-<gate>.md`，必须包含 Upstream/Downstream 依赖影响。
+- 完成证据文件后再执行 `dev-orch mark P7 <gate> passed "<review-path>"`。
+
+全部通过才能进入 P8：
+- [ ] Smoke 5 项 + 数据往返检查表通过
+- [ ] E2E T1→T4 分层全绿，全量回归通过
+- [ ] 安全验证 5 维度零未修复缺陷
+- [ ] `{{SYNC_DIR}}/integration-progress.md` 所有步骤 → completed
+- [ ] 无未处理 Contract Amendment
+

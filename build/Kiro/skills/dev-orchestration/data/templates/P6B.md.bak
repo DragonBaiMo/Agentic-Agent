@@ -1,0 +1,187 @@
+# Phase 6B: 前端实现
+## 步骤概览
+
+| 步骤 | Agent | 组 | 并行 |
+|------|-------|---|------|
+| F1-scaffold | @hephaestus | g1 | 串行 |
+| F2-data-layer | @hephaestus | g2 | 串行 |
+| F3-mock | @hephaestus | g3 | 串行 |
+| F4-components | @hephaestus | g4 | 串行 |
+| F5-pages | @hephaestus | g5 | 串行 |
+| F6-interaction | @hephaestus | g6 | 串行 |
+| F7-quality | @hephaestus | g7 | 串行 |
+
+已完成步骤: {{COMPLETED_STEPS}}
+
+## 委托质量标准
+
+- prompt 自包含，路径绝对路径，关键信息内联
+- 注入：CONVENTIONS + DOCTRINE 相关章节 + Notepad Inherited Wisdom
+- Instruction Preflight：委托前读取 {{INSTRUCTION_PACK_PATH}} 并提炼注释/TODO 规范
+- 验证标准：build + test + typecheck = 0 error + 组件渲染正确
+- 三层过滤：仅 Layer 3。Agent 已知的 TypeScript strict / 响应式 / a11y 不注入
+
+---
+
+## Step: F1-scaffold
+> @hephaestus — 创建前端项目骨架，从零到可启动
+
+**注入上下文** {{CONTRACTS_PATH}} 技术选型端点与类型总览
+**MUST DO**
+- 后端 mount 多少路径，代理声明多少个
+- Design Tokens 配置（Spacing / Radius / Shadow / Typography / Color Roles）
+- 所有选型决策记录到 {{CONVENTIONS_PATH}}
+- 根 Layout + 路由骨架（至少首页 + 404）
+- TypeScript strict mode 开启
+- API Base URL 禁止硬编码 — 通过 env var 配置
+
+**完成验证**
+- [ ] 项目启动成功，API 代理通过
+- [ ] ``{{SYNC_DIR}}/frontend-progress.md``：F1 → completed
+- [ ] TS strict mode 已开启
+
+**退出**: ``dev-orch done P6B F1-scaffold``
+
+---
+
+## Step: F2-data-layer
+> @hephaestus — 构建前端数据层，确保前后端类型安全连接
+
+**注入上下文** F1 脚手架产出 + {{CONTRACTS_PATH}} API 端点与类型定义
+**MUST DO**
+- API Client 请求/响应类型 100% 从契约生成，零手写
+- 生成工具记录到 {{CONVENTIONS_PATH}}
+- Query 全局默认策略必须显式配置（遵循 {{DOCTRINE_PATH}} C.4）：staleTime / gcTime / retry / refetchOnWindowFocus 不接受库默认值裸奔
+- {{CONTRACTS_PATH}} 为 N/A 时（standard 模式无 P5）：手写类型定义 + 从后端实际 API 推导响应结构，类型文件标注 // manual - no contract 以便后续契约就绪时迁移
+
+**完成验证**
+- [ ] 生成脚本可重复执行
+- [ ] ``{{SYNC_DIR}}/frontend-progress.md``：F2 → completed
+- [ ] Query 全局默认已显式配置
+
+**退出**: ``dev-orch done P6B F2-data-layer``
+
+---
+
+## Step: F3-mock
+> @hephaestus — 建立 Mock 层（后端已就绪则跳过）
+
+**注入上下文** F2 数据层产出
+**MUST DO**
+- Mock 数据从 {{CONTRACTS_PATH}} 生成，覆盖所有 F2 端点
+- 一键切换 Mock ↔ 真实 API
+- 后端模块就绪后按 ``{{SYNC_DIR}}/backend-progress.md`` 逐模块切真实 API
+
+**完成验证**
+- [ ] env 切换可用
+- [ ] ``{{SYNC_DIR}}/frontend-progress.md``：F3 → completed
+
+**退出**: ``dev-orch done P6B F3-mock``
+
+---
+
+## Step: F4-components
+> @hephaestus — 构建组件库，按层次实现
+
+**注入上下文** F1 Design Tokens + F2 类型定义
+**MUST DO**
+- Tokens → Primitives → Composites → Sections → Pages 层次
+- 业务模块 ≥3 时按模块分批实施，编排者在 notepad 追踪各批次进度
+- 使用 UI 库时可跳过基础组件，直接做业务封装
+- 每个非 trivial 组件满足 {{DOCTRINE_PATH}} C.2 规范：Props 接口（TS interface 导出）+ 状态矩阵（default/hover/focus/disabled/loading/error/empty）+ 可访问性（ARIA + 键盘导航）+ 响应式
+- 样式引用 Design Tokens，禁止硬编码魔法值（如裸写 px-3 rounded-lg）
+
+**完成验证**
+- [ ] 组件可渲染，样式无泄漏
+- [ ] ``{{SYNC_DIR}}/frontend-progress.md``：F4 → completed
+
+**退出**: ``dev-orch done P6B F4-components``
+
+---
+
+## Step: F5-pages
+> @hephaestus — 基于 F4 组件与 F2 Hooks 组装全部页面
+
+**注入上下文** F4 组件产出 + F2 Query Hooks
+**MUST DO**
+- 每核心页面覆盖 5 状态：Loading / Success / Empty / Error / Permission Denied
+- 路由表完整注册，含动态参数、嵌套路由、404 catch-all
+- 响应式布局（至少 mobile + desktop 两个断点）
+- 页面禁止直接拼裸 HTML — 必须组装已有组件（遵循 {{DOCTRINE_PATH}} C.1 层级）
+- 遵循 {{DOCTRINE_PATH}} C.3 页面骨架：列表页 / 表单页 / 详情页 / 仪表盘 各有标准骨架
+- 数据获取只能走 F2 生成的 hooks，禁止手写 fetch（遵循 {{DOCTRINE_PATH}} C.4）
+
+**完成验证**
+- [ ] 每个页面 5 状态渲染正确
+- [ ] ``{{SYNC_DIR}}/frontend-progress.md``：F5 → completed
+
+**退出**: ``dev-orch done P6B F5-pages``
+
+---
+
+## Step: F6-interaction
+> @hephaestus — 实现全部用户交互与客户端状态管理
+
+**注入上下文** F5 页面产出（页面列表与交互点清单）
+**MUST DO**
+- 未保存表单离开时脏检查提示
+- 状态管理方案记录到 {{CONVENTIONS_PATH}}
+
+**完成验证**
+- [ ] 表单提交成功 + 校验拒绝无效输入
+- [ ] ``{{SYNC_DIR}}/frontend-progress.md``：F6 → completed
+- [ ] 状态管理方案已记录到 {{CONVENTIONS_PATH}}
+
+**退出**: ``dev-orch done P6B F6-interaction``
+
+---
+
+## Step: F7-quality
+> @hephaestus — 前端质量收尾与门控验证
+
+**注入上下文** F1—F6 全部产出
+
+**测试方法论参考** 执行前读取以下文件获取完整测试规范：
+- 单元测试：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\unit-testing.md`
+- 系统测试（UI+API）：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\system-testing.md`
+**MUST DO**
+- Bundle gzip ≤ 200KB（SPA 首屏）
+- 已切真实 API 的模块无 mock 残留
+- tsc --noEmit 零 error
+- ESLint 零 error
+- 检查有无巨型依赖可替换
+
+**完成验证**
+- [ ] 测试全部通过，Bundle 大小达标
+- [ ] ``{{SYNC_DIR}}/frontend-progress.md``：F7 → completed
+
+**退出**: ``dev-orch done P6B F7-quality``
+
+---
+
+## Mock → 真实 API 切换（编排者协调）
+
+> ⚠️ 当前管线 P6A→P6B 为顺序执行。以下协调协议为**未来并行模式**预留。顺序模式下，P6B 启动时后端已全部就绪，F3 可直接标记完成并跳过 Mock 环境。
+
+全栈并行模式下，编排者在 Backend Track 某模块完成时触发：
+1. 读取 `{{SYNC_DIR}}/backend-progress.md` → 某模块标记 completed
+2. 派 @hephaestus：“将前端中依赖该模块的组件从 Mock 切到真实 API（env var 切换）”
+3. 验证：切换后类型检查通过 + 功能正常
+4. 类型报错 → 走 `dev-orch dispatch --cross amendment-protocol`
+
+## 退出 Gate
+
+## Gate 二审（必做）
+
+- 先执行 `dev-orch dispatch --cross oracle-consult` 做架构与依赖影响复核。
+- 生成 `{{REVIEW_DIR}}/P6B-<gate>.md`，必须包含 Upstream/Downstream 依赖影响。
+- 完成证据文件后再执行 `dev-orch mark P6B <gate> passed "<review-path>"`。
+
+全部通过才能进入 P7：
+- [ ] 组件规范：非 trivial 组件满足 {{DOCTRINE_PATH}} C.2（Props 接口 + 状态矩阵 + a11y + 响应式）
+- [ ] Token 一致：样式引用 design tokens，无魔法硬编码值
+- [ ] 状态完整：每个页面处理 loading / empty / error / success / permission-denied
+- [ ] Query 策略显式：staleTime / gcTime / retry / refetchOnWindowFocus 有显式配置
+- [ ] 数据层纯净：零手写 fetch，全部走 codegen client
+- [ ] Mock 清理（如已切真实 API）：无 mock 残留
+- [ ] `{{SYNC_DIR}}/frontend-progress.md` 全部步骤 → completed

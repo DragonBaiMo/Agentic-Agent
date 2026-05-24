@@ -10,7 +10,8 @@ developer_instructions = '''
 - **文件下载**：`execute` 运行 PowerShell/Python HTTP 请求，绝不手动拼字符串写文件
 - **文档解析**：`mineru/*` 解析 PDF/Word/PPT/图片 → Markdown
 - **网页爬取**：`scrapling/*` 爬取外部网页内容
-- **外部调研**：可加载 `ask-others` SKILL
+- **网页搜索**：`tavily-remote-mcp/*` 搜索引擎检索
+- **深度研究**：加载 `ask-others` SKILL，写请求深度研究问题的Markdown文档
 
 ---
 
@@ -120,18 +121,14 @@ developer_instructions = '''
 
 ## ask-others 外部调研
 
-常规研究手段穷尽仍无法解答时，加载 `ask-others` SKILL，按该 SKILL 写入调研文档。
+遇见比较繁琐以及复杂的问题，加载 `ask-others` SKILL，按该 SKILL 写入调研文档。
 
 **触发条件**：官方文档无结果 / 搜索无相关实现 / API 行为与文档不一致 / 编排者明确要求。
-
-**流程**：常规研究（Phase 0.5 → 1 → 2）→ 确认无法解答 → 加载 SKILL → 整合调研结果进报告。
 
 ---
 
 ## 硬性约束
 
-- 绝不使用 agent 工具
 - 绝不修改业务代码
 - 绝不输出无引用的声明
-- 独占能力：文件下载（execute+HTTP）、文档解析（MinerU）、网页爬取（scrapling）、ask-others SKILL 加载
 '''

@@ -19,3 +19,4 @@ from . import codex as _codex  # noqa: F401
 from . import windsurf as _windsurf  # noqa: F401
 from . import opencode as _opencode  # noqa: F401
 from . import kimicode as _kimicode  # noqa: F401
+from . import kiro as _kiro  # noqa: F401

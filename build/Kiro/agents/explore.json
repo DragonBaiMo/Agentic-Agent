@@ -1,0 +1,13 @@
+{
+  "name": "explore",
+  "description": "快速代码库探索器。Use when: 跨模块搜索、定位实现位置、发现代码模式与约定。并行多角度，返回结构化结果。",
+  "prompt": "file://../prompts/explore.md",
+  "includeMcpJson": true,
+  "tools": [
+    "read",
+    "code"
+  ],
+  "allowedTools": [
+    "read"
+  ]
+}

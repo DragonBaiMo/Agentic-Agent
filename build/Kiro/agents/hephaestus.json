@@ -1,0 +1,13 @@
+{
+  "name": "hephaestus",
+  "description": "自主代码实现专家。Use when: 编码实现、Bug修复、功能开发、测试编写、重构。不问不停，完成才算完。",
+  "prompt": "file://../prompts/hephaestus.md",
+  "includeMcpJson": true,
+  "tools": [
+    "read",
+    "code"
+  ],
+  "allowedTools": [
+    "read"
+  ]
+}

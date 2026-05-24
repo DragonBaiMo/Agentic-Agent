@@ -1,0 +1,35 @@
+# Phase 0: 分流决策
+
+## 步骤概览
+
+| 步骤 | Agent | 组 | 并行 |
+|------|-------|---|------|
+| triage | 编排者自身 | g1 | 串行 |
+
+已完成步骤: {{COMPLETED_STEPS}}
+
+---
+
+## Step: triage
+> Agent: 编排者自身 | Phase 0 — 分流决策
+
+### 执行步骤
+
+1. **任务清晰度**：从用户描述提取 ≥1 具体交付物 → 能则继续，不能则向用户澄清
+2. **确认模式**：当前 {{MODE}} / {{PIPELINE}} → 不匹配则删 .sisyphus/state.json 并以正确模式重新 init
+3. **移交包检测**：检查 .sisyphus/handoff/plan-to-enterprise.md → 存在则读取移交包跳 P1 进 P4；不存在则从 P1 开始
+4. **决策记录**：创建 {{DECISION_PATH}}，内容：任务名、选定模式、管线、跳过的 Phase 及理由、日期
+
+### 完成验证
+
+- [ ] 模式与需求匹配
+- [ ] 移交包已检测并处理
+- [ ] {{DECISION_PATH}} 已创建
+
+### 退出
+
+```
+dev-orch done P0 triage
+dev-orch mark P0 path_selected passed "{{REVIEW_DIR}}/P0-path_selected.md"
+dev-orch mark P0 decision_logged passed "{{REVIEW_DIR}}/P0-decision_logged.md"
+```
