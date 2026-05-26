@@ -35,7 +35,7 @@ def _find_sisyphus_root(start_dir=None):
 
 
 def _new_run_id(runs_dir):
-    """生成唯一 run-id（Windows 友好，无冒号）。"""
+    """生成唯一 run-id（跨平台友好，无冒号）。"""
     base = now_iso().replace(":", "").replace("T", "-")
     run_id = base
     suffix = 1

@@ -28,7 +28,7 @@
 ### 注入上下文
 - 项目技术栈与启动命令；{{CONTRACTS_PATH}} 端点总览（如有）
 
-**测试方法论参考** 执行前读取：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\integration-testing.md`
+**测试方法论参考** 执行前读取：`{{AI_TESTING_WORKFLOW_REFERENCES_ROOT}}\integration-testing.md`
 
 ### 委托目标
 验证全栈环境可运行，Mock 残留清除，构建与测试全绿。
@@ -68,7 +68,7 @@
 ### 注入上下文
 - 完整端点清单（模块、方法、路径、测试层分配）；{{CONTRACTS_PATH}}；{{CONVENTIONS_PATH}}
 
-**测试方法论参考** 执行前读取：`c:\Users\Dragon\.copilot\skills\ai-testing-workflow\references\system-testing.md`
+**测试方法论参考** 执行前读取：`{{AI_TESTING_WORKFLOW_REFERENCES_ROOT}}\system-testing.md`
 
 ### 委托目标
 逐层验证全部端点数据往返正确性，Bug 修复后全量回归全绿。

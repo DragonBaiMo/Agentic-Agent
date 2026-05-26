@@ -22,11 +22,11 @@ applyTo: "**"
 
 ## 执行环境
 
-- 默认：Windows 11 PowerShell（UTF-8）
-- 多命令串接：`;`，禁用 `&&`
-- 路径：Windows 风格（`C:\...` / `C:\\...`），不假设 Linux-only 路径
+- 默认：macOS zsh/bash（UTF-8）
+- 多命令串接：优先拆分为独立命令；确需串接时使用 POSIX shell 语义
+- 路径：POSIX 风格（`/Users/...`、`~/...`、`./...`），不假设其他平台专用路径
 - 禁止推荐或依赖 Docker（除非用户明确要求）
-- `.bat` / `.ps1` 脚本执行或编码出问题 → 优先考虑 Nodejs / Python 包装
+- shell 脚本执行或权限出问题 -> 优先检查 shebang、可执行权限和 POSIX 兼容性；跨平台场景优先考虑 Node.js / Python 包装
 
 ## 外部资源生命周期
 
