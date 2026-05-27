@@ -113,6 +113,25 @@ def _rebuild(
             report = adapter.build(source, out_root)
             print(f"[build] {report.summary()}")
 
+            # Copilot is a personal local install — restore original source files
+            # that were neutralized for public platforms.
+            if adapter.display_name == "Copilot":
+                _restore_personal_files(source_dir, out_root)
+
+
+def _restore_personal_files(source_dir: Path, copilot_out: Path) -> None:
+    """Copy source files that should not be neutralized for personal Copilot install."""
+    _PERSONAL_INSTRUCTIONS = [
+        "development-environment.instructions.md",
+    ]
+    instructions_out = copilot_out / "instructions"
+    for name in _PERSONAL_INSTRUCTIONS:
+        src = source_dir / "instructions" / name
+        dst = instructions_out / name
+        if src.exists() and dst.exists():
+            shutil.copy2(src, dst)
+            print(f"[personal] Copilot: restored {name} from source")
+
 
 def _default_home() -> Path:
     if sys.platform == "win32":
