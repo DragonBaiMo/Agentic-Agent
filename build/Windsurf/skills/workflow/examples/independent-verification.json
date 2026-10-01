@@ -1,0 +1,14 @@
+{
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "groups": 3,
+  "layers": 11,
+  "native_type_layers": 8,
+  "composite_mae": 0.12004359563191731,
+  "ring_toggle_changed_values": 995821,
+  "core_toggle_changed_values": 165513,
+  "type_toggle_changed_values": 170745,
+  "passed": true
+}

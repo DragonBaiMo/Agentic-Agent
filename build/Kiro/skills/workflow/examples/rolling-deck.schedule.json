@@ -1,0 +1,14 @@
+{
+  "schema": "schedule-1",
+  "tasks": [
+    {"id": "S02-master", "input_version": "direction-v1", "input_files": ["pages/S02.json"]},
+    {"id": "S03-master", "input_version": "direction-v1", "input_files": ["pages/S03.json"]},
+    {"id": "representative-layers", "input_version": "approved-master-v1", "input_files": ["pages/S01.json"]},
+    {"id": "S02-layers", "depends_on": ["S02-master"], "priority": 1},
+    {"id": "S03-layers", "depends_on": ["S03-master"], "priority": 1},
+    {"id": "representative-rebuild", "depends_on": ["representative-layers"], "priority": 1},
+    {"id": "S02-layout", "depends_on": ["S02-layers", "representative-rebuild"]},
+    {"id": "S03-layout", "depends_on": ["S03-layers", "representative-rebuild"]},
+    {"id": "final-build", "depends_on": ["S02-layout", "S03-layout", "representative-rebuild"]}
+  ]
+}

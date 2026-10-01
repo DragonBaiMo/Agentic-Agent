@@ -1,0 +1,17 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>%%TITLE%% · 图层审阅</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#111820;color:#e9eff5;font:15px/1.6 system-ui,sans-serif}header{padding:24px 4vw;border-bottom:1px solid #354453}h1{margin:0;font-size:24px}p{margin:8px 0;color:#b5c2cf}.workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 240px;gap:24px;padding:28px 4vw}.picture img,.picture canvas{display:block;width:100%;height:auto;background:repeating-conic-gradient(#35404c 0% 25%,#29333f 0% 50%) 50%/20px 20px}h2{font-size:16px;font-weight:500}label{display:block;padding:12px 0;border-bottom:1px solid #354453;overflow-wrap:anywhere}button{background:#dce9f5;color:#101923;border:0;padding:10px 16px;cursor:pointer}input{margin-right:10px}button:focus-visible,input:focus-visible{outline:3px solid #ffb458;outline-offset:3px}@media(max-width:900px){.workspace{grid-template-columns:1fr 1fr}aside{grid-column:1/-1}}@media(max-width:550px){.workspace{grid-template-columns:1fr}}
+</style>
+<header><h1>%%TITLE%%</h1><p>完整母图与真实 PNG 图层合成对照。此页面用于审阅，不代表已经在 Photoshop 中打开、编辑或保存。</p><p id="conformance" role="note"></p></header>
+<main class="workspace"><section class="picture"><h2>已选完整设计</h2><img src="%%MASTER%%" alt="完整母图"></section><section class="picture"><h2>原位图层合成</h2><canvas id="preview" aria-label="可切换图层的合成预览"></canvas></section><aside><h2>显示图层</h2><div id="layers"></div><p>关闭图层，检查是否仍有残影或串层。所有图层在 (0,0) 原位绘制。</p><button id="reset">恢复所有图层</button><p id="status" role="status"></p></aside></main>
+<script id="manifest" type="application/json">%%DATA%%</script>
+<script>
+'use strict';
+const data=JSON.parse(document.getElementById('manifest').textContent),canvas=document.getElementById('preview'),ctx=canvas.getContext('2d');
+canvas.width=data.width;canvas.height=data.height;document.getElementById('conformance').textContent=data.conformance_note||'';
+const enabled=new Set(data.layers.map(x=>x.id)),images=new Map(),modes={normal:'source-over',screen:'screen',multiply:'multiply',overlay:'overlay'};
+function render(){ctx.clearRect(0,0,canvas.width,canvas.height);for(const layer of data.layers){if(!enabled.has(layer.id))continue;ctx.globalAlpha=Math.round(layer.opacity*255)/255;ctx.globalCompositeOperation=modes[layer.blend];ctx.drawImage(images.get(layer.id),0,0);}ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';document.getElementById('status').textContent=`显示 ${enabled.size} / ${data.layers.length} 层。浏览器与 PSD 的最终取整可能有微小差异。`;}
+Promise.all(data.layers.map(layer=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>{images.set(layer.id,img);resolve();};img.onerror=reject;img.src=layer.image;}))).then(()=>{for(const layer of [...data.layers].reverse()){const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.checked=true;input.addEventListener('change',()=>{input.checked?enabled.add(layer.id):enabled.delete(layer.id);render();});label.append(input,document.createTextNode(layer.name));document.getElementById('layers').append(label);}render();}).catch(()=>{document.getElementById('status').textContent='有图层无法解码，请检查交付包完整性。';});
+document.getElementById('reset').onclick=()=>{for(const layer of data.layers)enabled.add(layer.id);for(const input of document.querySelectorAll('input'))input.checked=true;render();};
+</script></html>

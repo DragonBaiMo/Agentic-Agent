@@ -1,0 +1,29 @@
+{
+  "mode": "built-in image_gen; actual prompt text from the original production run",
+  "reference_note": "The three edit calls referenced the same inspected master-art-reference.png; local paths are normalized here.",
+  "calls": [
+    {
+      "asset": "master-art-reference.png",
+      "transparent_background": false,
+      "prompt": "Use case: stylized-concept. Create an original premium art-direction concept for a Chinese future-laboratory poster, portrait 2:3 canvas, 1024 x 1536. Image only: absolutely no text, typography, numbers, symbols, logos or watermarks. Scene: an immaculate cold-white experimental gallery, softly graduated porcelain-white upper half and ice-blue floor; almost no architecture, one elegant long diagonal daylight shadow across the bottom. Central signature object: a sculptural levitating cobalt-blue ceramic and brushed silver toroidal research instrument, tilted in 3D, asymmetric split ring in two thick arcs with precision machined silver inner edge. A single warm tangerine-orange luminous liquid-glass sphere floats in its central opening. The ring is substantial and beautifully designed, not many thin orbit lines. Museum product photography / high-end CGI, physically convincing ceramic, satin aluminum, lightly frosted glass. Object has strong silhouette and is centered horizontally around x=54%, y=58%; entire subject bounded approximately x=18%-89%, y=32%-83%. Keep the top 28% and bottom 11% mostly calm negative space for future typography. One small detached cobalt fragment nearby on the lower right adds depth, nothing else. Palette: porcelain #F0F4FA, cobalt #244ADD, midnight #132343, steel #A9B7C8, tangerine #FF692E. Lighting: large soft overhead daylight, cool blue bounce, restrained orange core glow and real soft floor shadow. Strong editorial composition, tactile and refined, not generic cyberpunk; no neon circuits, HUD, starfield, particles, busy greebles, gradients used as decoration or lens flare. The subject must stand out clearly for later semantic alpha-layer extraction."
+    },
+    {
+      "asset": "background.png",
+      "reference": "master-art-reference.png",
+      "transparent_background": false,
+      "prompt": "Use case: precise-object-edit. Input image is the edit target and exact composition registration reference. Return exactly the same 1024 x 1536 portrait canvas, same camera and background, no reframing. Remove ALL solid foreground objects: the complete two cobalt/silver ring halves, central orange glass sphere, and small cobalt fragment. Inpaint the resulting area seamlessly with the clean cold-white and very pale blue gallery background and floor. Keep the existing soft floor shadows, reflected orange light and soft lighting consistent because these are the environment layer. Absolutely no objects, text or residual silhouettes. The image must be only the clean full-canvas background plate for a layered PSD."
+    },
+    {
+      "asset": "ring-generated.png",
+      "reference": "master-art-reference.png",
+      "transparent_background": true,
+      "prompt": "Use case: background-extraction. Input image is an exact editing and registration target. Output the SAME full 1024 x 1536 portrait canvas, no crop, no scaling, no recentering. Extract only the TWO large cobalt-blue / brushed-silver curved halves of the levitating ring, preserving their exact shape, positions, material detail and colored reflections pixel-faithfully. Remove the orange central sphere completely, remove the small detached cobalt fragment at lower right, and remove all background, floor, shadows. Every area outside the two ring halves, including the empty middle and all padding, must be truly transparent alpha. Preserve anti-aliased hard object edges. No new objects. This is the registered RING layer of a layered PSD, not a new design."
+    },
+    {
+      "asset": "core-generated.png",
+      "reference": "master-art-reference.png",
+      "transparent_background": true,
+      "prompt": "Use case: background-extraction. Input image is an exact edit and position reference. Output the SAME full 1024 x 1536 portrait canvas, no crop, no scaling, no recentering. Extract ONLY the orange glass sphere at the exact original center and original size, x approximately 573, y 738, approximately 260 pixels wide. Preserve its exact orange liquid-glass appearance, white highlights and detailed glow. Remove both cobalt-silver ring halves, small cobalt fragment, floor and backdrop. Everything outside this one orange sphere and its very restrained edge glow must be true transparent alpha. This is the registered CORE layer for a layered PSD."
+    }
+  ]
+}

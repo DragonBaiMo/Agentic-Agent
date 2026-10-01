@@ -1,0 +1,20 @@
+{
+  "schema_version": "pptx-1",
+  "name": "将此示例替换为当前作品",
+  "canvas": [1600, 900],
+  "background": "assets/clean-background.png",
+  "background_alt": "从已选完整母图重建的干净连续背景",
+  "theme": {"background": "#F8F6F0"},
+  "font_policy": {"basis": "design", "families": ["Noto Sans CJK SC"]},
+  "interaction": {"mode": "staged", "stop_at": ["master", "layer_architecture"], "user_visual_approval": false, "decisions": []},
+  "slides": [{
+    "id": "S01",
+    "section_id": "01",
+    "master_reference": "masters/S01-selected.png",
+    "elements": [
+      {"id": "art-title", "kind": "image", "file": "cropped/title.png", "box": [120, 130, 880, 210], "alt": "完整母图中的固定艺术标题，可移动替换，不能逐字输入"},
+      {"id": "editable-caption", "kind": "text", "text": "替换成准确正文", "box": [120, 390, 900, 80], "style": {"typeface": "Noto Sans CJK SC", "fontSize": 32, "color": "#252128", "autoFit": "none", "wrap": "none", "insets": {"top": 0, "left": 0, "right": 0, "bottom": 0}}}
+    ],
+    "notes": "示例不是事实材料。填写当前页真实来源和影响理解的限制，不填写制作自评。"
+  }]
+}

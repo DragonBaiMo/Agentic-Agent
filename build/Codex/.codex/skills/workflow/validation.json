@@ -1,0 +1,121 @@
+{
+  "skill": "workflow",
+  "version": "1.4.0",
+  "date_utc": "2026-09-30",
+  "compatibility": "additive coordinator and documentation; existing PSD/PPTX APIs preserved; optional image_job record_id",
+  "python_tests": {
+    "passed": 121,
+    "failed": 0,
+    "new_scheduling_tests": 46,
+    "coverage_method": "stdlib trace, executable Python statements; test files excluded",
+    "coverage": {
+      "schedule": {
+        "hit_lines": 33,
+        "executable_lines": 34,
+        "line_percent": 97.06
+      },
+      "scheduling.graph": {
+        "hit_lines": 63,
+        "executable_lines": 70,
+        "line_percent": 90.0
+      },
+      "image_job": {
+        "hit_lines": 86,
+        "executable_lines": 93,
+        "line_percent": 92.47
+      },
+      "scheduling.__init__": {
+        "hit_lines": 4,
+        "executable_lines": 4,
+        "line_percent": 100.0
+      },
+      "scheduling.coordinator": {
+        "hit_lines": 136,
+        "executable_lines": 145,
+        "line_percent": 93.79
+      },
+      "scheduling.storage": {
+        "hit_lines": 61,
+        "executable_lines": 61,
+        "line_percent": 100.0
+      },
+      "scheduling.metrics": {
+        "hit_lines": 60,
+        "executable_lines": 64,
+        "line_percent": 93.75
+      },
+      "scheduling.runner": {
+        "hit_lines": 87,
+        "executable_lines": 90,
+        "line_percent": 96.67
+      }
+    }
+  },
+  "javascript_tests": {
+    "passed": 33,
+    "failed": 0,
+    "line_coverage_percent": 96.39,
+    "branch_coverage_percent": 93.75
+  },
+  "syntax": "compileall passed",
+  "lint": "no dedicated lint/typecheck configuration or installed lint tool; not claimed",
+  "skill_validation": {
+    "workflow": "passed",
+    "consumer-first-writing": "passed"
+  },
+  "local_benchmark": {
+    "evidence": "validation/local-scheduling-benchmark.json",
+    "image_calls": 0,
+    "latency_kind": "asyncio.sleep fixture; not image service",
+    "median_seconds": {
+      "serial": 1.311827978999645,
+      "batch-2": 0.7909916220014566,
+      "rolling-2": 0.6632105190001312,
+      "rolling-4": 0.5971225129978848
+    }
+  },
+  "real_image_pilot": {
+    "calls": 3,
+    "tool": "image_gen.imagegen",
+    "model_version": "not_exposed",
+    "measured_client_peak_inflight": 2,
+    "server_parallelism": "unknown",
+    "clock": "UTC wall only; monotonic unavailable in native JS",
+    "registration_p90_seconds": 44.847524,
+    "goal_under_10_seconds": "not_met",
+    "cause_of_first_registration_lag": "not isolated; generatedImage was emitted before local registration command",
+    "dependent_call_used_actual_parent_result": true,
+    "dependent_image_started_before_slow_sibling_return": "not_verified",
+    "evidence": "validation/real-tool-pilot-report.json"
+  },
+  "protected_png_probe": {
+    "passed": true,
+    "exact_source_bytes_in_final_and_edit_copy": true,
+    "actual_export_reimport_render": true,
+    "moved_and_saved_reopened": true,
+    "video": "not_tested",
+    "native_text_replacement": "not_tested",
+    "target_desktop_application": "not_tested",
+    "evidence": "validation/static-media-probe.json"
+  },
+  "commercial_intake": {
+    "documentation": "reviewed and incorporated",
+    "full_commercial_case": "not_tested",
+    "complete_media_slot_validator": "not_implemented",
+    "video_animation_preservation": "not_verified"
+  },
+  "source_preservation": {
+    "input_zip_sha256": "d492990ca32f33593ea5ff98382efb17f4d8595fe71d6786745b821d2b120d50",
+    "consumer_files_unchanged": 6,
+    "all_original_files_present": 99
+  },
+  "not_verified": [
+    "six-page real end-to-end performance",
+    "service-side compute concurrency",
+    "native WordArt/navigation reconstruction",
+    "video playback",
+    "target PowerPoint/Photoshop GUI",
+    "font portability",
+    "commercial multimaterial end-to-end acceptance"
+  ]
+}

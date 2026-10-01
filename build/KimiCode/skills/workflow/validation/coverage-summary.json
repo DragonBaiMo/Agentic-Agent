@@ -1,0 +1,42 @@
+{
+  "schedule": {
+    "hit_lines": 33,
+    "executable_lines": 34,
+    "line_percent": 97.06
+  },
+  "scheduling.graph": {
+    "hit_lines": 63,
+    "executable_lines": 70,
+    "line_percent": 90.0
+  },
+  "image_job": {
+    "hit_lines": 86,
+    "executable_lines": 93,
+    "line_percent": 92.47
+  },
+  "scheduling.__init__": {
+    "hit_lines": 4,
+    "executable_lines": 4,
+    "line_percent": 100.0
+  },
+  "scheduling.coordinator": {
+    "hit_lines": 136,
+    "executable_lines": 145,
+    "line_percent": 93.79
+  },
+  "scheduling.storage": {
+    "hit_lines": 61,
+    "executable_lines": 61,
+    "line_percent": 100.0
+  },
+  "scheduling.metrics": {
+    "hit_lines": 60,
+    "executable_lines": 64,
+    "line_percent": 93.75
+  },
+  "scheduling.runner": {
+    "hit_lines": 87,
+    "executable_lines": 90,
+    "line_percent": 96.67
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema": "schedule-report-1",
+  "attempt_count": 3,
+  "measured_calls": 3,
+  "call_p50_seconds": 52.884,
+  "call_p90_seconds": 97.463,
+  "registration_p90_seconds": 44.847524,
+  "lag_basis": "caller_UTC_to_local_registration_UTC",
+  "server_parallelism": "unknown",
+  "client_window": 2,
+  "measured_client_peak_inflight": 2,
+  "measured_completion_per_minute": 0.9271229820621558,
+  "client_interval_union_basis": "caller_UTC; not server execution",
+  "rows": [
+    {
+      "job": "cover-croissant",
+      "attempt": "78ab9c9cc8b6fd76-1",
+      "state": "adopted",
+      "outcome": "returned",
+      "duration_basis": "UTC_wall_clock_only",
+      "client_seconds": 52.884,
+      "return_to_register_seconds": 44.847524,
+      "ready_to_claim_seconds": 0.002738,
+      "timing": {
+        "clock_id": "native-js-live-pilot",
+        "basis": "actual_tool_boundary_UTC_only",
+        "submit": {
+          "utc": "2026-09-30T14:51:19.534Z",
+          "monotonic_ns": null
+        },
+        "return": {
+          "utc": "2026-09-30T14:52:12.418Z",
+          "monotonic_ns": null
+        }
+      }
+    },
+    {
+      "job": "menu-food-atlas",
+      "attempt": "316f2fc93bc49034-1",
+      "state": "registered",
+      "outcome": "returned",
+      "duration_basis": "UTC_wall_clock_only",
+      "client_seconds": 97.463,
+      "return_to_register_seconds": 0.284923,
+      "ready_to_claim_seconds": 0.004722,
+      "timing": {
+        "clock_id": "native-js-live-pilot",
+        "basis": "actual_tool_boundary_UTC_only",
+        "submit": {
+          "utc": "2026-09-30T14:51:19.534Z",
+          "monotonic_ns": null
+        },
+        "return": {
+          "utc": "2026-09-30T14:52:56.997Z",
+          "monotonic_ns": null
+        }
+      }
+    },
+    {
+      "job": "croissant-shadowless",
+      "attempt": "b14a9d4813f48555-1",
+      "state": "adopted",
+      "outcome": "returned",
+      "duration_basis": "UTC_wall_clock_only",
+      "client_seconds": 42.0,
+      "return_to_register_seconds": 0.275524,
+      "ready_to_claim_seconds": 0.001669,
+      "timing": {
+        "clock_id": "native-js-live-pilot-third",
+        "basis": "actual_tool_boundary_UTC_only",
+        "submit": {
+          "utc": "2026-09-30T14:53:51.683Z",
+          "monotonic_ns": null
+        },
+        "return": {
+          "utc": "2026-09-30T14:54:33.683Z",
+          "monotonic_ns": null
+        }
+      }
+    }
+  ]
+}

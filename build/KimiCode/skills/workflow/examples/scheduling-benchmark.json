@@ -1,0 +1,15 @@
+{
+  "evidence_kind": "local_async_latency_fixture_not_image_service",
+  "description": "四页母图/语义层的延迟偏斜诊断；等待由本地 asyncio.sleep 模拟",
+  "schema": "schedule-1",
+  "tasks": [
+    {"id": "S01-master", "delay_seconds": 0.05},
+    {"id": "S02-master", "delay_seconds": 0.4},
+    {"id": "S03-master", "delay_seconds": 0.05},
+    {"id": "S04-master", "delay_seconds": 0.05},
+    {"id": "S01-layer", "depends_on": ["S01-master"], "priority": 1, "delay_seconds": 0.18},
+    {"id": "S02-layer", "depends_on": ["S02-master"], "priority": 1, "delay_seconds": 0.18},
+    {"id": "S03-layer", "depends_on": ["S03-master"], "priority": 1, "delay_seconds": 0.18},
+    {"id": "S04-layer", "depends_on": ["S04-master"], "priority": 1, "delay_seconds": 0.18}
+  ]
+}

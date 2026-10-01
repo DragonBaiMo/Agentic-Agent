@@ -1,0 +1,20 @@
+{
+  "usage":"用法：node scripts/assemble.cjs --config 配置.json --out 输出目录 [--overwrite]",
+  "config_invalid":"海报配置无效",
+  "asset_invalid":"素材必须是素材目录内可读取的普通文件",
+  "font_missing":"字体文件不存在，请设置配置中的字体路径或对应环境变量",
+  "size_mismatch":"输入素材尺寸与声明不一致",
+  "output_exists":"目标文件已存在；请换用新目录，或在明确允许覆盖时传入 --overwrite",
+  "build_start":"开始写入已组装的 PSD",
+  "build_done":"PSD 写入与回读验证通过",
+  "build_failed":"PSD 组装失败",
+  "roundtrip_failed":"PSD 回读验证失败",
+  "verify_failed":"独立 PSD 验证失败",
+  "empty_layer":"图层在当前画布内没有可见像素，请检查素材与位置",
+  "alpha_missing":"需要透明的图层没有透明像素，请检查源图与实际画布",
+  "structure_failed":"PSD 结构与配置不符",
+  "review_done":"基础检查完成；视觉结果仍需实际看图",
+  "missing_layer":"缺少或重复图层",
+  "unsupported_native":"原生文字模式仅支持简单横向单行文字；复杂文字需其他经过验证的排版后端",
+  "viewer_note":"本审阅页默认显示所有层；最终显隐以 PSD 与交付预览为准。布局校正已体现在导出的全画布图层中。"
+}

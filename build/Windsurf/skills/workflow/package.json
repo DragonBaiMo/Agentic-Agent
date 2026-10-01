@@ -1,0 +1,17 @@
+{
+  "name": "workflow",
+  "version": "1.4.1-rc.3",
+  "private": true,
+  "description": "Image-first semantic PSD and editable PPTX workflow",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test --experimental-test-coverage tests/*.test.cjs"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "0.1.100",
+    "ag-psd": "31.0.0"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "purpose": "执行者可选的简短计划示例，不是组装门禁；按具体项目改写",
+  "canvas": [
+    1024,
+    1536
+  ],
+  "design_reference": "assets/future-lab/reference-preview.png",
+  "reference_status": "历史完整成品，供本次素材重建示例使用；不是本次新生成母图",
+  "text_strategy": "按角色选择，不能默认全部原生或全部图片",
+  "copy": [
+    {
+      "id": "copy-1",
+      "value": "SPECULATIVE MATTER / 2026",
+      "mode": "native_simple",
+      "owner": "眉题 / 实验主题"
+    },
+    {
+      "id": "copy-2",
+      "value": "未来",
+      "mode": "native_simple",
+      "owner": "标题 / 未来"
+    },
+    {
+      "id": "copy-3",
+      "value": "实验室",
+      "mode": "native_simple",
+      "owner": "标题 / 实验室"
+    },
+    {
+      "id": "copy-4",
+      "value": "让想象发生",
+      "mode": "native_simple",
+      "owner": "副标题 / 让想象发生"
+    },
+    {
+      "id": "copy-5",
+      "value": "FUTURE LAB",
+      "mode": "native_simple",
+      "owner": "英文标题 / FUTURE LAB"
+    },
+    {
+      "id": "copy-6",
+      "value": "材料、光与未知的交汇",
+      "mode": "native_simple",
+      "owner": "说明 / 材料光与未知"
+    },
+    {
+      "id": "copy-7",
+      "value": "ORIGINAL CONCEPT POSTER",
+      "mode": "native_simple",
+      "owner": "底注 / 原创概念海报"
+    },
+    {
+      "id": "copy-8",
+      "value": "DragonBaiMo",
+      "mode": "native_simple",
+      "owner": "署名 / DragonBaiMo"
+    }
+  ],
+  "copy_note": "本历史示例完整文案与 future-lab.json 一致；计划本身不参与程序审批",
+  "layers": [
+    {
+      "name": "环境",
+      "owns": "冷白空间与地面",
+      "excludes": "装置、核心和文字",
+      "alpha": false
+    },
+    {
+      "name": "悬浮装置",
+      "owns": "钴蓝陶瓷与银色金属环",
+      "excludes": "橙色核心、文字和背景",
+      "alpha": true
+    },
+    {
+      "name": "核心",
+      "owns": "橙色玻璃球",
+      "excludes": "装置、文字和背景",
+      "alpha": true
+    }
+  ],
+  "working_decisions": [
+    "允许轻量平移与缩放",
+    "保持材质软 Alpha",
+    "最终观看完整构图"
+  ],
+  "remaining_issues": [],
+  "review_actor": "填写实际执行者，不冒称用户批准"
+}

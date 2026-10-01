@@ -1,0 +1,25 @@
+{
+  "title_contracts": [
+    {
+      "slide_id": "S01",
+      "text": "用户给定的准确标题",
+      "origin": "user_specified",
+      "source": "引用实际用户指令的位置；这是结构示例，不是本次真实标题",
+      "change_frequency": "fixed",
+      "representation": "semantic_art_image",
+      "object_id": "cover-art-title",
+      "editing": "整体移动、缩放、替换；不支持逐字输入"
+    },
+    {
+      "slide_id": "S02",
+      "text": "本页证据所支持的主题",
+      "origin": "lead_model",
+      "source": "引用实际材料与页面职责；不是为了字形添加口号",
+      "change_frequency": "frequent",
+      "representation": "native",
+      "object_id": "evidence-title",
+      "editing": "原生改字，保持准确数据与来源"
+    }
+  ],
+  "note": "来源和表现形式独立选择，以上不是一一对应规则。两种来源都可按实际编辑频率与艺术目标选择native或art。"
+}

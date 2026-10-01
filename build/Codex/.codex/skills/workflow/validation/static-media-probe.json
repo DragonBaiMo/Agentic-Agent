@@ -1,0 +1,31 @@
+{
+  "builds/P02/final.pptx": {
+    "original_png_sha256": "33e5971b151862aa3e2776deb5afa34b31600db8258067799599f99c16f9af8d",
+    "exact_byte_matches": [
+      "ppt/media/image2.png"
+    ]
+  },
+  "review/P02-edit/diagnostic.pptx": {
+    "original_png_sha256": "33e5971b151862aa3e2776deb5afa34b31600db8258067799599f99c16f9af8d",
+    "exact_byte_matches": [
+      "ppt/media/image2.png"
+    ]
+  },
+  "move_reopen": {
+    "passed": true,
+    "input": "builds/P02/final.pptx",
+    "actions": [
+      {
+        "kind": "image",
+        "slide": 1,
+        "name": "protected-navigation",
+        "left": 150
+      }
+    ],
+    "targetApplicationTest": false,
+    "workbookPreservationVerified": false,
+    "diagnosticOnly": true
+  },
+  "scope": "one protected PNG, no video, no native-text replacement",
+  "failed_first_attempt": "P01 passed empty font-policy family list; finalizer refused it. P02 omitted inapplicable font policy for image-only file, then passed."
+}

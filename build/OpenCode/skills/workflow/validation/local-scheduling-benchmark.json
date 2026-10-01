@@ -1,0 +1,2364 @@
+{
+  "evidence_kind": "local_async_latency_fixture_not_image_service",
+  "image_calls": 0,
+  "median_seconds": {
+    "serial": 1.311827978999645,
+    "batch-2": 0.7909916220014566,
+    "rolling-2": 0.6632105190001312,
+    "rolling-4": 0.5971225129978848
+  },
+  "trials": [
+    {
+      "mode": "serial",
+      "elapsed_seconds": 1.3157906200067373,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.180913052,
+        "call_p90_seconds": 0.401081594,
+        "registration_p90_seconds": 0.005602,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 1,
+        "measured_client_peak_inflight": 1,
+        "measured_completion_per_minute": 367.52915747813006,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050334158,
+            "return_to_register_seconds": 0.005602,
+            "ready_to_claim_seconds": 0.003808,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:17.521460+00:00",
+                "monotonic_ns": 57866971690033
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:17.571786+00:00",
+                "monotonic_ns": 57867022024191
+              },
+              "clock_id": "e820b10c-be0b-4b74-918f-29c11bca1f6f",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.401081594,
+            "return_to_register_seconds": 0.002128,
+            "ready_to_claim_seconds": 0.060767,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:17.578303+00:00",
+                "monotonic_ns": 57867028534516
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:17.979373+00:00",
+                "monotonic_ns": 57867429616110
+              },
+              "clock_id": "9ae1c8ae-0339-4394-92ff-eb78aa5a98d6",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050688248,
+            "return_to_register_seconds": 0.002366,
+            "ready_to_claim_seconds": 0.833599,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:18.352449+00:00",
+                "monotonic_ns": 57867802675590
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:18.403125+00:00",
+                "monotonic_ns": 57867853363838
+              },
+              "clock_id": "569e4277-c6f5-47c7-906c-eb17bd0bf5c3",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050908721,
+            "return_to_register_seconds": 0.002196,
+            "ready_to_claim_seconds": 0.888862,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:18.406328+00:00",
+                "monotonic_ns": 57867856553090
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:18.457223+00:00",
+                "monotonic_ns": 57867907461811
+              },
+              "clock_id": "8f8fc5bd-8135-466d-93bb-0dd16d853c20",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "50223b6fbaf2d6bd-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181005357,
+            "return_to_register_seconds": 0.001981,
+            "ready_to_claim_seconds": 0.403254,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:17.983258+00:00",
+                "monotonic_ns": 57867433484221
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:18.164249+00:00",
+                "monotonic_ns": 57867614489578
+              },
+              "clock_id": "ede90b16-6dae-40a8-9b57-6222b86bb32a",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "e2edab510bdcfd6e-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180993403,
+            "return_to_register_seconds": 0.001978,
+            "ready_to_claim_seconds": 0.182591,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:18.167299+00:00",
+                "monotonic_ns": 57867617524708
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:18.348280+00:00",
+                "monotonic_ns": 57867798518111
+              },
+              "clock_id": "846c8112-3c3a-478c-8568-29dbd89e40fc",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "679db23b37c963d4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181267602,
+            "return_to_register_seconds": 0.002515,
+            "ready_to_claim_seconds": 0.052898,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:18.460564+00:00",
+                "monotonic_ns": 57867910789322
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:18.641814+00:00",
+                "monotonic_ns": 57868092056924
+              },
+              "clock_id": "f74dc427-8f9f-47f8-b765-9833d8b556ef",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "95990529f0861467-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180913052,
+            "return_to_register_seconds": 0.001966,
+            "ready_to_claim_seconds": 0.184465,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:18.646569+00:00",
+                "monotonic_ns": 57868096805931
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:18.827479+00:00",
+                "monotonic_ns": 57868277718983
+              },
+              "clock_id": "8930add0-3400-41e5-be38-3a67d35b940b",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "batch-2",
+      "elapsed_seconds": 0.814292094000848,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.180079478,
+        "call_p90_seconds": 0.40235214,
+        "registration_p90_seconds": 0.036175,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 2,
+        "measured_client_peak_inflight": 2,
+        "measured_completion_per_minute": 595.2750100012507,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050297568,
+            "return_to_register_seconds": 0.001762,
+            "ready_to_claim_seconds": 0.001395,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:18.837445+00:00",
+                "monotonic_ns": 57868287674591
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:18.887732+00:00",
+                "monotonic_ns": 57868337972159
+              },
+              "clock_id": "ad45af3d-c1e3-463f-a06e-bdbc93c416e5",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.40235214,
+            "return_to_register_seconds": 0.002373,
+            "ready_to_claim_seconds": 0.001399,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:18.837500+00:00",
+                "monotonic_ns": 57868287722974
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:19.239836+00:00",
+                "monotonic_ns": 57868690075114
+              },
+              "clock_id": "ce8b88b0-ee2d-4939-a409-ff2344baf15f",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050827357,
+            "return_to_register_seconds": 0.003085,
+            "ready_to_claim_seconds": 0.054397,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:18.890315+00:00",
+                "monotonic_ns": 57868340539604
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:18.941127+00:00",
+                "monotonic_ns": 57868391366961
+              },
+              "clock_id": "0a921246-4849-45ab-9242-23ab725e137a",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.05050412,
+            "return_to_register_seconds": 0.001786,
+            "ready_to_claim_seconds": 0.109129,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:18.945201+00:00",
+                "monotonic_ns": 57868395426317
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:18.995692+00:00",
+                "monotonic_ns": 57868445930437
+              },
+              "clock_id": "56798b91-b822-4dfe-9fd3-404bade51287",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "2b5507c21f1828b6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180430132,
+            "return_to_register_seconds": 0.036175,
+            "ready_to_claim_seconds": 0.00104,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:19.245903+00:00",
+                "monotonic_ns": 57868696128959
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:19.426320+00:00",
+                "monotonic_ns": 57868876559091
+              },
+              "clock_id": "0275208e-6db4-436e-9a3a-17ccb1f705d6",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "d130611af8f84760-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180481069,
+            "return_to_register_seconds": 0.027805,
+            "ready_to_claim_seconds": 0.001497,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:19.245945+00:00",
+                "monotonic_ns": 57868696167737
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:19.426425+00:00",
+                "monotonic_ns": 57868876648806
+              },
+              "clock_id": "df8d3502-19ff-454f-86e1-2c30f54c9833",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "540a79222d13c3e0-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180646434,
+            "return_to_register_seconds": 0.002905,
+            "ready_to_claim_seconds": 0.211339,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:19.455743+00:00",
+                "monotonic_ns": 57868905972226
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:19.636381+00:00",
+                "monotonic_ns": 57869086618660
+              },
+              "clock_id": "15a0e357-7930-4697-8bed-7a657e43ae10",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "4b8833955b8f7e29-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180079478,
+            "return_to_register_seconds": 0.001828,
+            "ready_to_claim_seconds": 0.21937,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:19.463715+00:00",
+                "monotonic_ns": 57868913940816
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:19.643795+00:00",
+                "monotonic_ns": 57869094020294
+              },
+              "clock_id": "986ebf7b-08d8-4e23-a3fb-c9a9e6d77d7e",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "rolling-2",
+      "elapsed_seconds": 0.6619692309977836,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.180689403,
+        "call_p90_seconds": 0.400975031,
+        "registration_p90_seconds": 0.002375,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 2,
+        "measured_client_peak_inflight": 2,
+        "measured_completion_per_minute": 732.8927529647657,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050292216,
+            "return_to_register_seconds": 0.00182,
+            "ready_to_claim_seconds": 0.001562,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:19.654730+00:00",
+                "monotonic_ns": 57869104955884
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:19.705010+00:00",
+                "monotonic_ns": 57869155248100
+              },
+              "clock_id": "4de4a058-12e4-4bf8-b8cf-bd2a9ca7d622",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.400975031,
+            "return_to_register_seconds": 0.001729,
+            "ready_to_claim_seconds": 0.001568,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:19.654773+00:00",
+                "monotonic_ns": 57869104995393
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.055731+00:00",
+                "monotonic_ns": 57869505970424
+              },
+              "clock_id": "cd1a55ac-8a57-45b3-92bb-2f9b0519cb8f",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050760233,
+            "return_to_register_seconds": 0.001651,
+            "ready_to_claim_seconds": 0.054637,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:19.707650+00:00",
+                "monotonic_ns": 57869157875056
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:19.758396+00:00",
+                "monotonic_ns": 57869208635289
+              },
+              "clock_id": "ae463726-92a5-4fec-8491-7f996dbd49dd",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.051139596,
+            "return_to_register_seconds": 0.001772,
+            "ready_to_claim_seconds": 0.405168,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.058286+00:00",
+                "monotonic_ns": 57869508511660
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.109412+00:00",
+                "monotonic_ns": 57869559651256
+              },
+              "clock_id": "955ee454-fe88-4122-ba98-4ecf6aa21aa7",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "50223b6fbaf2d6bd-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180871949,
+            "return_to_register_seconds": 0.002238,
+            "ready_to_claim_seconds": 0.052116,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:19.761114+00:00",
+                "monotonic_ns": 57869211338310
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:19.941948+00:00",
+                "monotonic_ns": 57869392210259
+              },
+              "clock_id": "3be2b425-dc00-42f1-89d9-d65b898e0500",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "e2edab510bdcfd6e-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181200335,
+            "return_to_register_seconds": 0.002375,
+            "ready_to_claim_seconds": 0.05245,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.112034+00:00",
+                "monotonic_ns": 57869562258873
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.293219+00:00",
+                "monotonic_ns": 57869743459208
+              },
+              "clock_id": "22c19cd6-4a88-4822-9cec-bec124fb9d1e",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "679db23b37c963d4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180689403,
+            "return_to_register_seconds": 0.00198,
+            "ready_to_claim_seconds": 0.182835,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:19.945310+00:00",
+                "monotonic_ns": 57869395535955
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.125954+00:00",
+                "monotonic_ns": 57869576225358
+              },
+              "clock_id": "5cc08033-6f86-4ccb-a2ad-48f75a5279cd",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "95990529f0861467-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180784943,
+            "return_to_register_seconds": 0.001772,
+            "ready_to_claim_seconds": 0.01567,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.128895+00:00",
+                "monotonic_ns": 57869579120194
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.309669+00:00",
+                "monotonic_ns": 57869759905137
+              },
+              "clock_id": "166b0580-fd4d-409f-ab88-92bb13256a4f",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "rolling-4",
+      "elapsed_seconds": 0.5955412929979502,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.18036578,
+        "call_p90_seconds": 0.401818358,
+        "registration_p90_seconds": 0.010139,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 4,
+        "measured_client_peak_inflight": 4,
+        "measured_completion_per_minute": 816.4959551680043,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.05036728,
+            "return_to_register_seconds": 0.002567,
+            "ready_to_claim_seconds": 0.001138,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.318736+00:00",
+                "monotonic_ns": 57869768960858
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.369068+00:00",
+                "monotonic_ns": 57869819328138
+              },
+              "clock_id": "621e03c2-0f57-4a10-8dd3-7692adf1e1f9",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.401818358,
+            "return_to_register_seconds": 0.002411,
+            "ready_to_claim_seconds": 0.001143,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.318768+00:00",
+                "monotonic_ns": 57869768990553
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.720569+00:00",
+                "monotonic_ns": 57870170808911
+              },
+              "clock_id": "0ff44014-8321-4707-a2fe-c918980d0a74",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050461343,
+            "return_to_register_seconds": 0.005437,
+            "ready_to_claim_seconds": 0.001144,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.318780+00:00",
+                "monotonic_ns": 57869769002300
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.369238+00:00",
+                "monotonic_ns": 57869819463643
+              },
+              "clock_id": "a357b2ae-9abd-4e0c-8be3-798fc8109a90",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050968609,
+            "return_to_register_seconds": 0.00353,
+            "ready_to_claim_seconds": 0.001145,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.318791+00:00",
+                "monotonic_ns": 57869769012716
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.369755+00:00",
+                "monotonic_ns": 57869819981325
+              },
+              "clock_id": "478f4506-6cd0-4125-99a2-eb1dad235e49",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "50223b6fbaf2d6bd-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180950843,
+            "return_to_register_seconds": 0.002385,
+            "ready_to_claim_seconds": 0.000714,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.379295+00:00",
+                "monotonic_ns": 57869829520205
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.560232+00:00",
+                "monotonic_ns": 57870010471048
+              },
+              "clock_id": "a4e791e8-80ed-4700-8cef-4252eb06d5a2",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "e2edab510bdcfd6e-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180378499,
+            "return_to_register_seconds": 0.001889,
+            "ready_to_claim_seconds": 0.000714,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.726250+00:00",
+                "monotonic_ns": 57870176475026
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.906614+00:00",
+                "monotonic_ns": 57870356853525
+              },
+              "clock_id": "ce037b70-3c8b-48d2-9b4b-c68b377fd5f8",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "679db23b37c963d4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.18036578,
+            "return_to_register_seconds": 0.002924,
+            "ready_to_claim_seconds": 0.000888,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.383806+00:00",
+                "monotonic_ns": 57869834031215
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.564172+00:00",
+                "monotonic_ns": 57870014396995
+              },
+              "clock_id": "c0936e2c-a44f-4c84-856f-276d4fc55f5f",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "95990529f0861467-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180691047,
+            "return_to_register_seconds": 0.010139,
+            "ready_to_claim_seconds": 0.000699,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.381431+00:00",
+                "monotonic_ns": 57869831656184
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.562121+00:00",
+                "monotonic_ns": 57870012347231
+              },
+              "clock_id": "2c846170-e6c8-4d36-a768-1ff0e0146a5f",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "serial",
+      "elapsed_seconds": 1.307477515998471,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.180486331,
+        "call_p90_seconds": 0.401464329,
+        "registration_p90_seconds": 0.002623,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 1,
+        "measured_client_peak_inflight": 1,
+        "measured_completion_per_minute": 369.3810391464664,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050248516,
+            "return_to_register_seconds": 0.001763,
+            "ready_to_claim_seconds": 0.001541,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.917239+00:00",
+                "monotonic_ns": 57870367464824
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:20.967474+00:00",
+                "monotonic_ns": 57870417713340
+              },
+              "clock_id": "e351fe01-ed4c-4cb3-b915-026d3cbaaa20",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.401464329,
+            "return_to_register_seconds": 0.002163,
+            "ready_to_claim_seconds": 0.054375,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:20.970382+00:00",
+                "monotonic_ns": 57870420607920
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:21.371833+00:00",
+                "monotonic_ns": 57870822072249
+              },
+              "clock_id": "871aa10e-8968-408b-8835-557e5a76cac7",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.05096639,
+            "return_to_register_seconds": 0.001858,
+            "ready_to_claim_seconds": 0.827067,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:21.742641+00:00",
+                "monotonic_ns": 57871192866375
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:21.793593+00:00",
+                "monotonic_ns": 57871243832765
+              },
+              "clock_id": "ca4970c0-bcf0-4e3d-8674-1e13b48c6b97",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.051071117,
+            "return_to_register_seconds": 0.001998,
+            "ready_to_claim_seconds": 0.880902,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:21.796483+00:00",
+                "monotonic_ns": 57871246708827
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:21.847541+00:00",
+                "monotonic_ns": 57871297779944
+              },
+              "clock_id": "fdbc6e94-4e53-4fd2-bf13-7f879d7bd47b",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "50223b6fbaf2d6bd-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180704311,
+            "return_to_register_seconds": 0.002271,
+            "ready_to_claim_seconds": 0.403059,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:21.374988+00:00",
+                "monotonic_ns": 57870825215495
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:21.555680+00:00",
+                "monotonic_ns": 57871005919806
+              },
+              "clock_id": "091500eb-d902-4df9-835e-1f2833346a79",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "e2edab510bdcfd6e-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180486331,
+            "return_to_register_seconds": 0.002218,
+            "ready_to_claim_seconds": 0.1825,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:21.558980+00:00",
+                "monotonic_ns": 57871009205957
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:21.739453+00:00",
+                "monotonic_ns": 57871189692288
+              },
+              "clock_id": "e18016d5-0f9f-40a2-859d-d00df5207ba8",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "679db23b37c963d4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.18135518,
+            "return_to_register_seconds": 0.002623,
+            "ready_to_claim_seconds": 0.052899,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:21.850754+00:00",
+                "monotonic_ns": 57871300979785
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:22.032096+00:00",
+                "monotonic_ns": 57871482334965
+              },
+              "clock_id": "5a52d52e-ff7f-4c0f-9ee9-abe117092155",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "95990529f0861467-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180612036,
+            "return_to_register_seconds": 0.002362,
+            "ready_to_claim_seconds": 0.183783,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:22.036113+00:00",
+                "monotonic_ns": 57871486339070
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:22.216710+00:00",
+                "monotonic_ns": 57871666951106
+              },
+              "clock_id": "b69e8ff5-7598-4291-ae91-d63697c18c39",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "batch-2",
+      "elapsed_seconds": 0.7909916220014566,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.18042889,
+        "call_p90_seconds": 0.40168678,
+        "registration_p90_seconds": 0.010847,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 2,
+        "measured_client_peak_inflight": 2,
+        "measured_completion_per_minute": 612.6253905617639,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050253168,
+            "return_to_register_seconds": 0.001806,
+            "ready_to_claim_seconds": 0.0013,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:22.227146+00:00",
+                "monotonic_ns": 57871677371357
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:22.277385+00:00",
+                "monotonic_ns": 57871727624525
+              },
+              "clock_id": "2487c9aa-0de2-4cf8-8286-731eb89b56c1",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.40168678,
+            "return_to_register_seconds": 0.001856,
+            "ready_to_claim_seconds": 0.001313,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:22.227182+00:00",
+                "monotonic_ns": 57871677404918
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:22.628853+00:00",
+                "monotonic_ns": 57872079091698
+              },
+              "clock_id": "5b77f12c-13e6-4c1c-8174-72f7c638c925",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050794935,
+            "return_to_register_seconds": 0.001754,
+            "ready_to_claim_seconds": 0.054214,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:22.279822+00:00",
+                "monotonic_ns": 57871730047323
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:22.330604+00:00",
+                "monotonic_ns": 57871780842258
+              },
+              "clock_id": "136298be-140c-4804-884b-9b4b146aa3ec",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050833219,
+            "return_to_register_seconds": 0.002421,
+            "ready_to_claim_seconds": 0.107406,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:22.333062+00:00",
+                "monotonic_ns": 57871783287229
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:22.383881+00:00",
+                "monotonic_ns": 57871834120448
+              },
+              "clock_id": "89d871dc-abb1-4822-9504-6b0c51e76ade",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "2b5507c21f1828b6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.18042889,
+            "return_to_register_seconds": 0.003902,
+            "ready_to_claim_seconds": 0.000964,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:22.636708+00:00",
+                "monotonic_ns": 57872086933897
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:22.817123+00:00",
+                "monotonic_ns": 57872267362787
+              },
+              "clock_id": "5850ad28-7501-483b-98e7-4b4f75cdac71",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "d130611af8f84760-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180486156,
+            "return_to_register_seconds": 0.010847,
+            "ready_to_claim_seconds": 0.001363,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:22.636751+00:00",
+                "monotonic_ns": 57872086973297
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:22.817236+00:00",
+                "monotonic_ns": 57872267459453
+              },
+              "clock_id": "7006094d-9822-4b26-ab75-f1adfcf94664",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "540a79222d13c3e0-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180677676,
+            "return_to_register_seconds": 0.002623,
+            "ready_to_claim_seconds": 0.187164,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:22.822890+00:00",
+                "monotonic_ns": 57872273115687
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.003555+00:00",
+                "monotonic_ns": 57872453793363
+              },
+              "clock_id": "598dbf8d-1c3c-49a2-b127-e1a4f4317454",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "4b8833955b8f7e29-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181128987,
+            "return_to_register_seconds": 0.0014,
+            "ready_to_claim_seconds": 0.194134,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:22.829530+00:00",
+                "monotonic_ns": 57872279755562
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.010659+00:00",
+                "monotonic_ns": 57872460884549
+              },
+              "clock_id": "2f575339-bbfd-47f0-8e50-d4cc20e85d5a",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "rolling-2",
+      "elapsed_seconds": 0.6632105190001312,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.18053524,
+        "call_p90_seconds": 0.401245323,
+        "registration_p90_seconds": 0.00246,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 2,
+        "measured_client_peak_inflight": 2,
+        "measured_completion_per_minute": 731.493149833828,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050281445,
+            "return_to_register_seconds": 0.0017,
+            "ready_to_claim_seconds": 0.001482,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.021565+00:00",
+                "monotonic_ns": 57872471790184
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.071832+00:00",
+                "monotonic_ns": 57872522071629
+              },
+              "clock_id": "c7baca46-808b-4750-9f0c-2918112161b7",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.401245323,
+            "return_to_register_seconds": 0.001968,
+            "ready_to_claim_seconds": 0.001486,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.021617+00:00",
+                "monotonic_ns": 57872471840149
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.422846+00:00",
+                "monotonic_ns": 57872873085472
+              },
+              "clock_id": "b99d0ffd-c12e-494c-80da-f911015889ab",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050757519,
+            "return_to_register_seconds": 0.002224,
+            "ready_to_claim_seconds": 0.054222,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.074271+00:00",
+                "monotonic_ns": 57872524495718
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.125009+00:00",
+                "monotonic_ns": 57872575253237
+              },
+              "clock_id": "b8809162-6510-4780-bf1e-ca441791f752",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.051332818,
+            "return_to_register_seconds": 0.002288,
+            "ready_to_claim_seconds": 0.406489,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.426656+00:00",
+                "monotonic_ns": 57872876881984
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.477955+00:00",
+                "monotonic_ns": 57872928214802
+              },
+              "clock_id": "750d7b51-7434-4897-867b-5027237b15c1",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "50223b6fbaf2d6bd-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180996016,
+            "return_to_register_seconds": 0.002288,
+            "ready_to_claim_seconds": 0.052942,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.128384+00:00",
+                "monotonic_ns": 57872578609885
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.309367+00:00",
+                "monotonic_ns": 57872759605901
+              },
+              "clock_id": "dbb1531f-42be-433f-a33c-1372c0a8990f",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "e2edab510bdcfd6e-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181173454,
+            "return_to_register_seconds": 0.002248,
+            "ready_to_claim_seconds": 0.052886,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.481295+00:00",
+                "monotonic_ns": 57872931520793
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.662442+00:00",
+                "monotonic_ns": 57873112694247
+              },
+              "clock_id": "9265ccd8-1be2-41a8-900a-0e80df7b32f9",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "679db23b37c963d4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.18053524,
+            "return_to_register_seconds": 0.001932,
+            "ready_to_claim_seconds": 0.183023,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.312701+00:00",
+                "monotonic_ns": 57872762926264
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.493223+00:00",
+                "monotonic_ns": 57872943461504
+              },
+              "clock_id": "aee53e65-d323-4245-9470-7709b3177a5b",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "95990529f0861467-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181651281,
+            "return_to_register_seconds": 0.00246,
+            "ready_to_claim_seconds": 0.011879,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.496157+00:00",
+                "monotonic_ns": 57872946382174
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.677757+00:00",
+                "monotonic_ns": 57873128033455
+              },
+              "clock_id": "2cdf7431-2ad8-46eb-b3ec-c961a68ff39e",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "rolling-4",
+      "elapsed_seconds": 0.5988220369981718,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.180472389,
+        "call_p90_seconds": 0.404023997,
+        "registration_p90_seconds": 0.021325,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 4,
+        "measured_client_peak_inflight": 4,
+        "measured_completion_per_minute": 813.8297699466048,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050335973,
+            "return_to_register_seconds": 0.01275,
+            "ready_to_claim_seconds": 0.001573,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.687484+00:00",
+                "monotonic_ns": 57873137711024
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.737807+00:00",
+                "monotonic_ns": 57873188046997
+              },
+              "clock_id": "95a7cd58-63aa-450b-8edc-a544c6ac7e92",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.404023997,
+            "return_to_register_seconds": 0.002138,
+            "ready_to_claim_seconds": 0.001578,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.687528+00:00",
+                "monotonic_ns": 57873137750855
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:24.091536+00:00",
+                "monotonic_ns": 57873541774852
+              },
+              "clock_id": "7e7f0be0-c667-4a86-b783-29a6b6119563",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.05037355,
+            "return_to_register_seconds": 0.003503,
+            "ready_to_claim_seconds": 0.00158,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.687543+00:00",
+                "monotonic_ns": 57873137765887
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.737916+00:00",
+                "monotonic_ns": 57873188139437
+              },
+              "clock_id": "e30312ff-445f-4974-afc5-a7f207b5f569",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050855146,
+            "return_to_register_seconds": 0.021325,
+            "ready_to_claim_seconds": 0.001579,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.687555+00:00",
+                "monotonic_ns": 57873137777505
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.738407+00:00",
+                "monotonic_ns": 57873188632651
+              },
+              "clock_id": "1b9d44a9-71e0-4c6d-8ee6-6d8d63da6c6e",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "50223b6fbaf2d6bd-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180654971,
+            "return_to_register_seconds": 0.001399,
+            "ready_to_claim_seconds": 0.000854,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.754196+00:00",
+                "monotonic_ns": 57873204421929
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.934849+00:00",
+                "monotonic_ns": 57873385076900
+              },
+              "clock_id": "9b4aebd7-5e4a-4470-ad76-56d2394f9589",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "e2edab510bdcfd6e-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180472389,
+            "return_to_register_seconds": 0.002283,
+            "ready_to_claim_seconds": 0.000685,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:24.096829+00:00",
+                "monotonic_ns": 57873547054780
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:24.277288+00:00",
+                "monotonic_ns": 57873727527169
+              },
+              "clock_id": "6f18ab00-cc98-41e3-8d00-7bbe87000972",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "679db23b37c963d4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180711853,
+            "return_to_register_seconds": 0.001927,
+            "ready_to_claim_seconds": 0.00057,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.744265+00:00",
+                "monotonic_ns": 57873194490485
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.924950+00:00",
+                "monotonic_ns": 57873375202338
+              },
+              "clock_id": "73ec234e-afc1-4081-bc2d-23dcd61e3ef9",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "95990529f0861467-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180998775,
+            "return_to_register_seconds": 0.001305,
+            "ready_to_claim_seconds": 0.000745,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:23.762592+00:00",
+                "monotonic_ns": 57873212816923
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:23.943589+00:00",
+                "monotonic_ns": 57873393815698
+              },
+              "clock_id": "08abb626-1e71-4cfc-8721-49a1ddbc8034",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "serial",
+      "elapsed_seconds": 1.311827978999645,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.180594659,
+        "call_p90_seconds": 0.400988879,
+        "registration_p90_seconds": 0.007288,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 1,
+        "measured_client_peak_inflight": 1,
+        "measured_completion_per_minute": 367.8533049345945,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050296753,
+            "return_to_register_seconds": 0.002073,
+            "ready_to_claim_seconds": 0.001692,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:24.289243+00:00",
+                "monotonic_ns": 57873739468900
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:24.339527+00:00",
+                "monotonic_ns": 57873789765653
+              },
+              "clock_id": "575a552c-759d-4429-9621-b059714e6b99",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.400988879,
+            "return_to_register_seconds": 0.001825,
+            "ready_to_claim_seconds": 0.055679,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:24.343241+00:00",
+                "monotonic_ns": 57873793466708
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:24.744218+00:00",
+                "monotonic_ns": 57874194455587
+              },
+              "clock_id": "0e7f80a3-e172-4358-9df1-b80bd1eb2487",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.051248539,
+            "return_to_register_seconds": 0.007288,
+            "ready_to_claim_seconds": 0.827871,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:25.115527+00:00",
+                "monotonic_ns": 57874565752187
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:25.166761+00:00",
+                "monotonic_ns": 57874617000726
+              },
+              "clock_id": "c3ecedb0-7147-4cde-88eb-71ca69f5fd2c",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.051244087,
+            "return_to_register_seconds": 0.001865,
+            "ready_to_claim_seconds": 0.887538,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:25.175157+00:00",
+                "monotonic_ns": 57874625382134
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:25.226387+00:00",
+                "monotonic_ns": 57874676626221
+              },
+              "clock_id": "2a62d44b-95f5-4bc1-a5c2-88c6b03333c4",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "50223b6fbaf2d6bd-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180835698,
+            "return_to_register_seconds": 0.001854,
+            "ready_to_claim_seconds": 0.402471,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:24.746841+00:00",
+                "monotonic_ns": 57874197065766
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:24.927661+00:00",
+                "monotonic_ns": 57874377901464
+              },
+              "clock_id": "3b85de7e-8ce0-46a7-a879-28c192ae256f",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "e2edab510bdcfd6e-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181180687,
+            "return_to_register_seconds": 0.002381,
+            "ready_to_claim_seconds": 0.182585,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:24.930544+00:00",
+                "monotonic_ns": 57874380769302
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:25.111710+00:00",
+                "monotonic_ns": 57874561949989
+              },
+              "clock_id": "4cdfdf3d-459b-48bd-9387-046a7262d5bf",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "679db23b37c963d4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180594659,
+            "return_to_register_seconds": 0.001882,
+            "ready_to_claim_seconds": 0.052632,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:25.229268+00:00",
+                "monotonic_ns": 57874679493368
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:25.409848+00:00",
+                "monotonic_ns": 57874860088027
+              },
+              "clock_id": "c2b3871f-352a-4df7-b05d-785a9fadf489",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "95990529f0861467-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.18146642,
+            "return_to_register_seconds": 0.002228,
+            "ready_to_claim_seconds": 0.18167,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:25.412658+00:00",
+                "monotonic_ns": 57874862883465
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:25.594111+00:00",
+                "monotonic_ns": 57875044349885
+              },
+              "clock_id": "074b52ae-11c8-4014-99d5-bcffa8ed8a2e",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "batch-2",
+      "elapsed_seconds": 0.7895501180028077,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.180442775,
+        "call_p90_seconds": 0.402323053,
+        "registration_p90_seconds": 0.010883,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 2,
+        "measured_client_peak_inflight": 2,
+        "measured_completion_per_minute": 613.6019130391319,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050259896,
+            "return_to_register_seconds": 0.002235,
+            "ready_to_claim_seconds": 0.001423,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:25.603402+00:00",
+                "monotonic_ns": 57875053626735
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:25.653647+00:00",
+                "monotonic_ns": 57875103886631
+              },
+              "clock_id": "7cbdb27e-2020-42ff-8e0f-0d6d74306357",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.402323053,
+            "return_to_register_seconds": 0.002384,
+            "ready_to_claim_seconds": 0.001428,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:25.603435+00:00",
+                "monotonic_ns": 57875053657571
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.005742+00:00",
+                "monotonic_ns": 57875455980624
+              },
+              "clock_id": "38d2d8ff-4dc2-4e10-a157-93f44adaa723",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050844969,
+            "return_to_register_seconds": 0.001736,
+            "ready_to_claim_seconds": 0.054627,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:25.656633+00:00",
+                "monotonic_ns": 57875106858046
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:25.707463+00:00",
+                "monotonic_ns": 57875157703015
+              },
+              "clock_id": "01c73015-ee70-40c7-9057-2a8a4c631b48",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.051088687,
+            "return_to_register_seconds": 0.001949,
+            "ready_to_claim_seconds": 0.107926,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:25.709915+00:00",
+                "monotonic_ns": 57875160140724
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:25.760988+00:00",
+                "monotonic_ns": 57875211229411
+              },
+              "clock_id": "57ea243a-3885-4c45-b75c-3041706c33bf",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "2b5507c21f1828b6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180442775,
+            "return_to_register_seconds": 0.010883,
+            "ready_to_claim_seconds": 0.000947,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.011566+00:00",
+                "monotonic_ns": 57875461790962
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.191992+00:00",
+                "monotonic_ns": 57875642233737
+              },
+              "clock_id": "d138833a-50f3-4924-8c7a-bdd9d705cb3d",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "d130611af8f84760-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180487542,
+            "return_to_register_seconds": 0.00276,
+            "ready_to_claim_seconds": 0.001437,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.011607+00:00",
+                "monotonic_ns": 57875461830362
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.192095+00:00",
+                "monotonic_ns": 57875642317904
+              },
+              "clock_id": "ae37ca39-d10c-45ed-8371-5ce164770a69",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "540a79222d13c3e0-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181262301,
+            "return_to_register_seconds": 0.002493,
+            "ready_to_claim_seconds": 0.186211,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.196431+00:00",
+                "monotonic_ns": 57875646657263
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.377681+00:00",
+                "monotonic_ns": 57875827919564
+              },
+              "clock_id": "87024d4a-521f-4d99-b03c-80c1f2e9d5dc",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "4b8833955b8f7e29-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181129866,
+            "return_to_register_seconds": 0.001839,
+            "ready_to_claim_seconds": 0.194296,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.204538+00:00",
+                "monotonic_ns": 57875654764197
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.385668+00:00",
+                "monotonic_ns": 57875835894063
+              },
+              "clock_id": "6e6279b3-f4d6-4624-8751-24010b4fc4b1",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "rolling-2",
+      "elapsed_seconds": 0.6634164119968773,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.180216154,
+        "call_p90_seconds": 0.400305858,
+        "registration_p90_seconds": 0.002999,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 2,
+        "measured_client_peak_inflight": 2,
+        "measured_completion_per_minute": 730.1213879540443,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050257634,
+            "return_to_register_seconds": 0.001812,
+            "ready_to_claim_seconds": 0.001515,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.395405+00:00",
+                "monotonic_ns": 57875845630556
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.445649+00:00",
+                "monotonic_ns": 57875895888190
+              },
+              "clock_id": "2d816824-9a35-493f-8c19-75bc5c166332",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.400305858,
+            "return_to_register_seconds": 0.002147,
+            "ready_to_claim_seconds": 0.001519,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.395437+00:00",
+                "monotonic_ns": 57875845659239
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.795726+00:00",
+                "monotonic_ns": 57876245965097
+              },
+              "clock_id": "33e71248-4447-47d0-b655-6271e7b5ac4b",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050666936,
+            "return_to_register_seconds": 0.002999,
+            "ready_to_claim_seconds": 0.05417,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.448113+00:00",
+                "monotonic_ns": 57875898337947
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.498766+00:00",
+                "monotonic_ns": 57875949004883
+              },
+              "clock_id": "4e01f1f9-c00b-4aba-9616-92b927cf4964",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050702049,
+            "return_to_register_seconds": 0.001873,
+            "ready_to_claim_seconds": 0.405055,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.799216+00:00",
+                "monotonic_ns": 57876249441564
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.849903+00:00",
+                "monotonic_ns": 57876300143613
+              },
+              "clock_id": "81ae5627-3d75-4627-b38a-746efdb19df1",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "50223b6fbaf2d6bd-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181231714,
+            "return_to_register_seconds": 0.001934,
+            "ready_to_claim_seconds": 0.053992,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.503258+00:00",
+                "monotonic_ns": 57875953484999
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.684478+00:00",
+                "monotonic_ns": 57876134716713
+              },
+              "clock_id": "d9411bd4-0aaa-47b8-b36a-11e21a0eb41b",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "e2edab510bdcfd6e-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180650308,
+            "return_to_register_seconds": 0.001977,
+            "ready_to_claim_seconds": 0.051711,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.852708+00:00",
+                "monotonic_ns": 57876302941916
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.033353+00:00",
+                "monotonic_ns": 57876483592224
+              },
+              "clock_id": "e9bbb945-853e-4378-9e9f-dcb4357c8252",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "679db23b37c963d4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.181766577,
+            "return_to_register_seconds": 0.002468,
+            "ready_to_claim_seconds": 0.181779,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.687445+00:00",
+                "monotonic_ns": 57876137670471
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:26.869203+00:00",
+                "monotonic_ns": 57876319437048
+              },
+              "clock_id": "4c2d18b1-bc87-450b-b92e-36eeb04e7f7f",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "95990529f0861467-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180216154,
+            "return_to_register_seconds": 0.001762,
+            "ready_to_claim_seconds": 0.017978,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:26.872620+00:00",
+                "monotonic_ns": 57876322845111
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.052830+00:00",
+                "monotonic_ns": 57876503061265
+              },
+              "clock_id": "e4c2b769-af91-4eba-b862-cba775cd298c",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "rolling-4",
+      "elapsed_seconds": 0.5971225129978848,
+      "metrics": {
+        "schema": "schedule-report-1",
+        "attempt_count": 8,
+        "measured_calls": 8,
+        "call_p50_seconds": 0.180266499,
+        "call_p90_seconds": 0.401178141,
+        "registration_p90_seconds": 0.021112,
+        "lag_basis": "caller_UTC_to_local_registration_UTC",
+        "server_parallelism": "unknown",
+        "client_window": 4,
+        "measured_client_peak_inflight": 4,
+        "measured_completion_per_minute": 815.5179576586181,
+        "client_interval_union_basis": "caller_UTC; not server execution",
+        "rows": [
+          {
+            "job": "S01-master",
+            "attempt": "e5924a8f9830f1f4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050287529,
+            "return_to_register_seconds": 0.002608,
+            "ready_to_claim_seconds": 0.001124,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:27.061111+00:00",
+                "monotonic_ns": 57876511335982
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.111385+00:00",
+                "monotonic_ns": 57876561623511
+              },
+              "clock_id": "d2ee281d-34d1-4918-986c-fe3d240db02c",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-master",
+            "attempt": "1bd6cebd1287c533-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.401178141,
+            "return_to_register_seconds": 0.003356,
+            "ready_to_claim_seconds": 0.001128,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:27.061141+00:00",
+                "monotonic_ns": 57876511363273
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.462302+00:00",
+                "monotonic_ns": 57876912541414
+              },
+              "clock_id": "c843bc35-98a5-4f40-a419-cb7ae20e86f1",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-master",
+            "attempt": "2f0ecdcc3c26e8fb-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050339237,
+            "return_to_register_seconds": 0.021112,
+            "ready_to_claim_seconds": 0.001129,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:27.061152+00:00",
+                "monotonic_ns": 57876511374450
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.111490+00:00",
+                "monotonic_ns": 57876561713687
+              },
+              "clock_id": "338e2478-8ba7-46ad-b60e-9d36f3a6051a",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-master",
+            "attempt": "cf5d061d8aaa0bc6-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.050760192,
+            "return_to_register_seconds": 0.01055,
+            "ready_to_claim_seconds": 0.001129,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:27.061161+00:00",
+                "monotonic_ns": 57876511382903
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.111919+00:00",
+                "monotonic_ns": 57876562143095
+              },
+              "clock_id": "5a77f473-84df-4b66-ae54-7ad588dde790",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S01-layer",
+            "attempt": "50223b6fbaf2d6bd-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180590106,
+            "return_to_register_seconds": 0.002142,
+            "ready_to_claim_seconds": 0.000615,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:27.116282+00:00",
+                "monotonic_ns": 57876566682104
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.297033+00:00",
+                "monotonic_ns": 57876747272210
+              },
+              "clock_id": "04f72dce-5fc3-48ac-9b9d-1ed87526187f",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S02-layer",
+            "attempt": "e2edab510bdcfd6e-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180406989,
+            "return_to_register_seconds": 0.00223,
+            "ready_to_claim_seconds": 0.000771,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:27.469306+00:00",
+                "monotonic_ns": 57876919531333
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.649694+00:00",
+                "monotonic_ns": 57877099938322
+              },
+              "clock_id": "b4b6551a-33dc-462e-a9c9-c9d825483407",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S03-layer",
+            "attempt": "679db23b37c963d4-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.180266499,
+            "return_to_register_seconds": 0.001596,
+            "ready_to_claim_seconds": 0.00063,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:27.135670+00:00",
+                "monotonic_ns": 57876585895709
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.315936+00:00",
+                "monotonic_ns": 57876766162208
+              },
+              "clock_id": "fcb50b06-b499-4055-9a09-ce44b4ea4c34",
+              "basis": "adapter_boundary"
+            }
+          },
+          {
+            "job": "S04-layer",
+            "attempt": "95990529f0861467-1",
+            "state": "adopted",
+            "outcome": "returned",
+            "duration_basis": "monotonic",
+            "client_seconds": 0.18056629,
+            "return_to_register_seconds": 0.001726,
+            "ready_to_claim_seconds": 0.000791,
+            "timing": {
+              "submit": {
+                "utc": "2026-09-30T15:09:27.127553+00:00",
+                "monotonic_ns": 57876577778760
+              },
+              "return": {
+                "utc": "2026-09-30T15:09:27.308115+00:00",
+                "monotonic_ns": 57876758345050
+              },
+              "clock_id": "3475ff75-e101-4be3-8325-78d4ed1395a8",
+              "basis": "adapter_boundary"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

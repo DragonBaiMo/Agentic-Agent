@@ -1,0 +1,5 @@
+{
+  "cli.description": "持久化滚动调度：仅管理真实依赖和结果，不调用图片模型",
+  "cli.failed": "schedule_command_failed",
+  "benchmark.description": "实际计时本地异步调度，模拟等待不代表图片服务性能"
+}

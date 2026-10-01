@@ -1,0 +1,180 @@
+{
+  "width": 1024,
+  "height": 1536,
+  "fonts": [
+    {
+      "path": "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
+      "family": "Noto Sans CJK SC",
+      "postscript": "NotoSansCJKsc-Bold",
+      "weight": "bold",
+      "env": "POSTER_FONT_CN"
+    },
+    {
+      "path": "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+      "family": "Liberation Sans",
+      "postscript": "LiberationSans",
+      "weight": "normal",
+      "env": "POSTER_FONT_LATIN"
+    }
+  ],
+  "art": [
+    {
+      "name": "环境 / 冷白空间与投影",
+      "file": "background.png",
+      "crop": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "destination": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "group": "环境",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "expect_alpha": false
+    },
+    {
+      "name": "装置 / 钴蓝陶瓷与拉丝金属",
+      "file": "ring-generated.png",
+      "crop": [
+        58,
+        339,
+        932,
+        858
+      ],
+      "destination": [
+        141,
+        394,
+        800,
+        740
+      ],
+      "group": "悬浮装置",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "expect_alpha": true
+    },
+    {
+      "name": "核心 / 橙色玻璃能量球",
+      "file": "core-generated.png",
+      "crop": [
+        286,
+        564,
+        471,
+        465
+      ],
+      "destination": [
+        443,
+        607,
+        264,
+        260
+      ],
+      "group": "悬浮装置",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "expect_alpha": true
+    }
+  ],
+  "text": [
+    {
+      "name": "眉题 / 实验主题",
+      "value": "SPECULATIVE MATTER / 2026",
+      "x": 64,
+      "baseline": 66,
+      "size": 18,
+      "font": 1,
+      "color": "#132343",
+      "tracking": 70,
+      "group": "文字 / 可编辑原生文字"
+    },
+    {
+      "name": "标题 / 未来",
+      "value": "未来",
+      "x": 56,
+      "baseline": 208,
+      "size": 136,
+      "font": 0,
+      "color": "#132343",
+      "group": "文字 / 可编辑原生文字"
+    },
+    {
+      "name": "标题 / 实验室",
+      "value": "实验室",
+      "x": 56,
+      "baseline": 352,
+      "size": 136,
+      "font": 0,
+      "color": "#132343",
+      "group": "文字 / 可编辑原生文字"
+    },
+    {
+      "name": "副标题 / 让想象发生",
+      "value": "让想象发生",
+      "x": 753,
+      "baseline": 323,
+      "size": 28,
+      "font": 0,
+      "color": "#244ADD",
+      "group": "文字 / 可编辑原生文字"
+    },
+    {
+      "name": "英文标题 / FUTURE LAB",
+      "value": "FUTURE LAB",
+      "x": 64,
+      "baseline": 1340,
+      "size": 58,
+      "font": 1,
+      "color": "#132343",
+      "tracking": -25,
+      "group": "文字 / 可编辑原生文字"
+    },
+    {
+      "name": "说明 / 材料光与未知",
+      "value": "材料、光与未知的交汇",
+      "x": 67,
+      "baseline": 1397,
+      "size": 24,
+      "font": 0,
+      "color": "#132343",
+      "group": "文字 / 可编辑原生文字"
+    },
+    {
+      "name": "底注 / 原创概念海报",
+      "value": "ORIGINAL CONCEPT POSTER",
+      "x": 67,
+      "baseline": 1470,
+      "size": 16,
+      "font": 1,
+      "color": "#132343",
+      "tracking": 60,
+      "group": "文字 / 可编辑原生文字"
+    },
+    {
+      "name": "署名 / DragonBaiMo",
+      "value": "DragonBaiMo",
+      "x": 824,
+      "baseline": 1470,
+      "size": 18,
+      "font": 1,
+      "color": "#132343",
+      "group": "文字 / 可编辑原生文字"
+    }
+  ],
+  "name": "future-laboratory",
+  "groups": [
+    "环境",
+    "悬浮装置",
+    "文字 / 可编辑原生文字"
+  ],
+  "asset_dir": "../assets/future-lab"
+}

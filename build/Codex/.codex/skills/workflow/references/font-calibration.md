@@ -1,0 +1,32 @@
+# 原生文字的字体与行宽校准
+
+目标是让信息行在真实字体可编辑的前提下，与已选母版的字宽、字重、基线和间距关系接近。不能只让字符串正确就算视觉完成，也不要承诺更换设备后 Photoshop 重排完全相同。
+
+## 先认字体，再校宽
+
+1. 找真实可用且可合法使用的字体文件。`project.py doctor --project "$PROJECT"` 可报告路径是否存在，**不识别字体内部身份**。
+2. 使用可用的字体元数据工具核对 family、style、PostScript 名。例如 Linux 的 `fc-scan --format '%{family}\n%{style}\n%{postscriptname}\n' /actual/font.ttf`；先确认该工具存在。
+3. TTC 是集合，可能包含多个字族。不要见到一个文件就把它当所有语种和字重均相同；核对实际使用 face 与 family/PostScript 声明。后端不提供显式 TTC face-index 参数，身份或渲染不确定时用已核实单独字体文件，或者说明限制。
+4. 更新 plan.fonts 的 path/env/family/postscript/weight 一整组，再编译。环境变量只覆盖文件路径，不自动修正另外几个字段。
+
+优先选择字宽与字重相近的家族，再调 size、tracking、baseline、x。明显窄体的母版换成普通宽体后，仅减少字号通常会丢失高度关系；仅压横向比例会改变字形，也不匹配当前简单原生文字后端。
+
+## 复用真实渲染规则测量
+
+compile 后：
+
+```bash
+node scripts/measure_text.cjs --config "$PROJECT/manifest.json" --layer "英文展名_可编辑" --target-width 352
+```
+
+输入是当前 manifest、唯一原生文字层名、可选目标行宽（画布像素）。输出 JSON：实际 family/PostScript、字号、基线、原字符 advance 总宽、现有 tracking 后行宽和建议 tracking。只读，不修改 plan，不调用图片模型。
+
+tracking 单位为千分之一 em。工具采用和 `render.cjs` 相同的逐字符测量方式，字间空隙为字符数减一；末尾不虚加一个空隙。单字不能靠字距调整宽度，因此不返回建议值。结果是**advance 宽度**，不是墨迹包围框，不模拟 Photoshop 的最终重排或复杂塑形。
+
+把建议当起点，改 plan 的 style，再 compile/assemble 并实际看图：字重/字宽、左右位置、基线、上下留白是否协调。不要为了数字宽度一致把字距拉得不自然。文字难以兼顾外观与可改字时，按架构约定选择取舍；从原生降成图片须先说明编辑能力变化。
+
+## 真实试跑给出的教训
+
+潮汐标本的英文和日期初版使用了偏宽字体。改为实际可用的 Open Sans Condensed Light，再按字号/行宽调 tracking，改善了母版对应关系。这说明字体身份和宽度校准有价值，不表示以后所有海报都该使用该字体或这组数值。中文字体和西文字体可以有不同的角色，艺术标题仍可保持独立图片字形。
+
+交接写明：字体来源/准备方式、准确 family/PostScript、哪些为图片字、哪些为 native type，以及是否做过实际 Photoshop 开档改字再保存验证。不要把缓存文字像素可见或解析成功写成实机重排已验证。
