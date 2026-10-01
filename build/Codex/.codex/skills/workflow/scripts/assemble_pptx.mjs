@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Compile and assemble an image-first deck, finalize, then render the actual PPTX.
+// Compile native and semantic-image objects, finalize, then render the actual PPTX.
 // Usage: node scripts/assemble_pptx.mjs --project DIR --build B01 --presentations-skill DIR
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -58,7 +58,9 @@ async function main() {
   layout.setParentLayoutId(master.id);
   for (const page of data.slides) {
     const slide = deck.slides.add(); slide.setLayout(layout);
-    await addImage(slide,{file:data.background,box:[0,0,...data.canvas],alt:data.background_alt},root);
+    if (data.background !== undefined) {
+      await addImage(slide,{file:data.background,box:[0,0,...data.canvas],alt:data.background_alt},root);
+    }
     for (const item of page.elements) await addObject(slide,item,root,rt.applyPresentationChartFont);
     slide.speakerNotes.textFrame.setText(page.notes || '');
   }

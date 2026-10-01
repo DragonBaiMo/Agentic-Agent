@@ -94,16 +94,23 @@ def transform(source, destination, manifest):
         xml = ET.fromstring(files[part])
         tree = xml.find('p:cSld/p:spTree', NS)
         pics = tree.findall('p:pic', NS)
-        if len(pics) != len(slide['images']) + 1:
+        # NOTE: A solid native master has no synthetic picture to promote.
+        background_count = 1 if 'background' in manifest else 0
+        if len(pics) != len(slide['images']) + background_count:
             raise ValueError(f'Unexpected picture count on slide {index}')
-        seen_hash, master = promote_background(files, part, pics[0], seen_hash)
+        if background_count:
+            seen_hash, master = promote_background(files, part, pics[0], seen_hash)
+            tree.remove(pics[0])
+        else:
+            layout = target(files, part, 'slideLayout')
+            master = target(files, layout, 'slideMaster')
         masters.add(master)
-        tree.remove(pics[0])
-        for pic, spec in zip(pics[1:], slide['images'], strict=True):
+        semantic_pics = pics[background_count:]
+        for pic, spec in zip(semantic_pics, slide['images'], strict=True):
             props = pic.find('p:nvPicPr/p:cNvPr', NS)
             props.set('name', spec['id'])
             props.set('descr', spec['alt'])
-        fixed = [pic for pic, spec in zip(pics[1:], slide['images'], strict=True) if spec.get('fixed_layout')]
+        fixed = [pic for pic, spec in zip(semantic_pics, slide['images'], strict=True) if spec.get('fixed_layout')]
         if fixed:
             move_fixed_art(files, part, tree, fixed, index)
         files[part] = serialize(xml)

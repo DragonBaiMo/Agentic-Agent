@@ -48,6 +48,17 @@ class PptxCliTests(unittest.TestCase):
         self.assertEqual(error.exception.code,2)
         self.assertEqual(json.loads((self.root/'compiled.json').read_text()),{'prior':'kept'})
 
+    def test_compile_cli_reports_invalid_native_theme_without_traceback(self):
+        del self.plan['background']
+        self.plan['theme']=[]
+        write_json(self.root/'deck.json',self.plan)
+        argv=['pptx_project','--project',str(self.root),'--out','compiled.json']
+        with patch.object(sys,'argv',argv),self.assertLogs(level='ERROR') as log,self.assertRaises(SystemExit) as error:
+            pptx_project.main()
+        self.assertEqual(error.exception.code,2)
+        self.assertIn('invalid_solid_background: theme',log.output[0])
+        self.assertFalse((self.root/'compiled.json').exists())
+
     def test_compile_cli_saves_pending_art_job_and_stops(self):
         self.plan['data_file']='data.json'
         self.plan['art_bindings']=[{'key':'score','approved_value':72.6,'file':'art.png','object_id':'title',

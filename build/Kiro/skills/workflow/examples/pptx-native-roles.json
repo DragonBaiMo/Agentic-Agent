@@ -1,0 +1,27 @@
+{
+  "schema_version": "pptx-1",
+  "name": "Native role regression fixture",
+  "canvas": [1280, 720],
+  "theme": {"background": "#F6FAFB"},
+  "font_policy": {"basis": "design", "families": ["Noto Sans CJK SC"]},
+  "text_styles": {
+    "title": {"typeface": "Noto Sans CJK SC", "fontSize": 64, "bold": true, "color": "#183D50", "autoFit": "none", "wrap": "none", "insets": {"left": 0, "right": 0, "top": 0, "bottom": 0}},
+    "body": {"typeface": "Noto Sans CJK SC", "fontSize": 32, "color": "#244B58", "autoFit": "none", "wrap": "square", "insets": {"left": 0, "right": 0, "top": 0, "bottom": 0}},
+    "section.normal": {"typeface": "Noto Sans CJK SC", "fontSize": 28, "bold": false, "italic": false, "color": "#244B58", "autoFit": "none", "wrap": "none", "insets": {"left": 0, "right": 0, "top": 0, "bottom": 0}},
+    "section.active": {"typeface": "Noto Sans CJK SC", "fontSize": 36, "bold": true, "italic": false, "color": "#B34425", "autoFit": "none", "wrap": "none", "insets": {"left": 0, "right": 0, "top": 0, "bottom": 0}}
+  },
+  "slides": [
+    {"id": "S01", "section_id": "scope", "notes": "Synthetic fixture for native role reuse. No customer data or licensed artwork.", "elements": [
+      {"id": "title", "kind": "text", "text": "夜读计划", "box": [80, 90, 1120, 110], "style_role": "title"},
+      {"id": "body", "kind": "text", "text": "这份合成样例用于检查原生文字、统一样式和保存重开。", "box": [80, 245, 980, 140], "style_role": "body"},
+      {"id": "section-scope", "kind": "text", "text": "计划范围", "box": [80, 610, 360, 65], "style_role": "section.active"},
+      {"id": "section-evidence", "kind": "text", "text": "编辑验证", "box": [490, 610, 360, 65], "style_role": "section.normal"}
+    ]},
+    {"id": "S02", "section_id": "evidence", "notes": "Synthetic fixture. Navigation is a visual section marker, not a clickable link.", "elements": [
+      {"id": "title", "kind": "text", "text": "原生样式复用", "box": [80, 90, 1120, 110], "style_role": "title"},
+      {"id": "body", "kind": "text", "text": "标题、正文和章节标记复用同一份角色样式，切换当前章节时保持文字框位置。", "box": [80, 245, 980, 140], "style_role": "body"},
+      {"id": "section-scope", "kind": "text", "text": "计划范围", "box": [80, 610, 360, 65], "style_role": "section.normal"},
+      {"id": "section-evidence", "kind": "text", "text": "编辑验证", "box": [490, 610, 360, 65], "style_role": "section.active"}
+    ]}
+  ]
+}

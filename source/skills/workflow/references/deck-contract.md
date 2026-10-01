@@ -29,8 +29,9 @@ content 的最小有效内容是每页的 purpose、可见文字角色与准确�
 | 字段 | 用途 |
 |---|---|
 | schema_version, name, canvas | 协议、作品名、[宽,高]，单位 CSS px/96 DPI |
-| background, background_alt | 真实干净共用 PNG 的项目相对路径与说明 |
-| theme.background | 背景备用纯色；详细图形由真实素材承担 |
+| background, background_alt | 可选，真实干净共用PNG的项目相对路径与说明；显式提供时图片优先，缺文件不回退 |
+| theme.background | 有PNG时为原有备用纯色；省略background时必须为#RRGGBB，由公开母版fill直接实现，不需要制造背景图片 |
+| text_styles | 可选，项目自己的角色名到当前JS完整文字style；不固定字体、字号或主题 |
 | font_policy | `{basis:"design",families:[实际字体族]}`，按当前 Presentations 规则使用 |
 | slides | 有顺序的真实页；含唯一 id、section_id、master_reference、elements、notes |
 | data_file, data_bindings, art_bindings | 可选；单源数值与艺术标签一致性契约 |
@@ -38,12 +39,12 @@ content 的最小有效内容是每页的 purpose、可见文字角色与准确�
 elements 数组是普通页的绘制顺序，每个元素有本页唯一 id 和 kind。跨页共用艺术导航可引用同一 file，目标框来自同一 design-system 状态表。不要给同一状态生成六套不一致的导航。
 
 - image：file（项目内 PNG）、box=[x,y,w,h]、alt、可选 fixed_layout。图片字的准确文案及编辑职责可放 copy/role 注释字段。fixed_layout=true 表示版式图片，始终在普通页对象后面，需版式视图编辑
-- text：text、box、style。style 是当前 Artifact Tool 的完整文字样式，例如 typeface、fontSize、color、bold、italic、autoFit、wrap、insets、lineSpacing；可用字段以已读 API 为准，不加一个字段就声称有该效果
+- text：text、box、style，或以style_role引用text_styles，再用可选style覆盖顶级字段。嵌套对象整体替换，未知角色或无效样式拒绝并定位页/对象。style是当前Artifact Tool的完整文字样式，如typeface、fontSize、color、bold、italic、autoFit、wrap、insets、lineSpacing；字段须查API并实测。单位、状态复位与长文验证见[原生样式源](native-style-tokens.md)
 - chart：chart_type、options、font_family。options 是已读公开 chart API 对象，包括 position、categories、series、axis、format 等；用原生数据绘制，艺术外置标签不自动绑定
 - table：options（rows、columns、left/top/width/height、columnWidths、values）、ranges。每项 range={block:{row,column,rowCount,columnCount},style:{...}}，复用当前公开 table API
 - rule：box、fill。只用于母图中实际存在的信息分隔/结构线；不能用它编程绘制装饰插图代替生图
 
-背景 PNG 自动提升到一个真实共享 slideMaster；本页 fixed_layout 图片置于单独 slideLayout。普通页对象保持独立。当前实现不是完整主题字体/配色令牌引擎：文字明确带字体/色号，改 PowerPoint 主题不保证自动替换图片字或所有直接格式。
+背景PNG自动提升到真实共享slideMaster；省略PNG时保留该母版的原生纯色。本页fixed_layout图片置于单独slideLayout。普通页对象保持独立。text_styles是源工程复用入口，不是完整PowerPoint主题字体/配色引擎；改PowerPoint主题不保证自动替换图片字或所有直接格式。
 
 ## 单源数值与艺术图片
 

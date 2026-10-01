@@ -1,5 +1,12 @@
 # 可复用工具索引
 
+## native-first-roles-1 兼容扩展
+
+- `scripts/pptx_project.py`保留旧入口，新增`text_styles`/`style_role`解析与纯色背景验证；`scripts/pptx_backend/contract.py`是唯一实现。未知角色和无效核心样式定位页/对象/角色/字段
+- `examples/pptx-native-roles.json`是无外部素材的两页合成回归输入，复制为项目deck.json后用现有`assemble_pptx.mjs`构建；不代表商业视觉模板
+- `references/native-style-tokens.md`说明单位、覆盖顺序、完整状态重设、字体/长文与能力证据；`tests/test_native_roles.py`覆盖兼容、拒绝与输入不变
+- `semantics.py`在没有background PNG时保留公开API写出的纯色母版；旧PNG母版、fixed_layout与所有PSD工具不变，不创建额外绘图后端
+
 ## 1.4.1-rc.3 有界原依赖保全
 
 - `tools/bounded-pptx-preservation/finalize_restoration.mjs --source SRC --authored ARTIFACT_DRAFT --out-dir NEW --requirements JSON`：同次自动证明单原生barChart与五部件inline静态xlsx的对应关系，只恢复原依赖，再严格finalizer与原子发布；原文件只读

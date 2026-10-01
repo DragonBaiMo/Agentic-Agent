@@ -35,7 +35,7 @@ def main():
             raise ValueError('stale_art_labels')
         write_json(output, compiled)
         LOGGER.info(json.dumps({'level': 'INFO', 'event': 'deck_compiled', 'output': str(output)}))
-    except (ValueError, KeyError, OSError) as error:
+    except (ValueError, TypeError, KeyError, OSError) as error:
         LOGGER.error(json.dumps({'level': 'ERROR', 'event': 'deck_compile_failed', 'detail': str(error)}))
         raise SystemExit(2) from error
 

@@ -41,7 +41,7 @@ crop 的 threshold 使用 Alpha >= threshold，默认 1 包含全部非零像素
 
 ## 4．编译与组装
 
-可先只检查资源/数据：
+原生/图片角色决定后再建实际需要的图片任务；纯原生页无需jobs或空的图片回执。可先只检查资源/数据：
 
 ```bash
 python scripts/pptx_project.py --project "$PROJECT" --plan deck.json --out builds/check-01/compiled.json
@@ -88,6 +88,8 @@ python scripts/pptx_project.py --project "$PROJECT" --plan deck.json --out build
 | job_exists / output_exists / build_namespace_exists | 用新任务/版本目录，不覆盖来源或旧证据；不要只清空报错的回执后重跑 |
 | build_parent_not_directory | 核对项目内 builds/tmp/evidence 父级；它们须是普通目录，不能借外指或断链写到其他位置；不自动删改原链接 |
 | stale_art_labels | 读 pending-art-replacements，局部更新数值艺术图并核对，再更新绑定 |
+| unknown_text_style / invalid_text_style_value | 按页ID/对象ID/角色/字段定位样式源或覆盖值；不能用默认字体静默替代 |
+| missing_solid_background / invalid_solid_background | 没有PNG背景时显式提供theme.background的#RRGGBB；不自动生成背景图片 |
 | 图像不透明、背景残留或软边断裂 | 修该语义素材，保留原件，不用高阈值硬切掩盖 |
 | 图表零点或数据不准 | 修唯一数据源与原生 chart 配置，重新渲染，不沿用母图错误 |
 | 字体重排/错位 | 确认真实字体与样式、框和间距；艺术文字不够接近时保留图片 |

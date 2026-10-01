@@ -6,6 +6,7 @@ Public functions accept project-relative resources; they never call image tools.
 import copy
 import hashlib
 import math
+import re
 from pathlib import Path
 
 
@@ -63,8 +64,9 @@ def compile_deck(root, plan, source):
     if result.get('schema_version') != 'pptx-1':
         raise ValueError('unsupported_deck_schema')
     numeric_box([0, 0, *result['canvas']])
-    if not result['slides'] or not inside(root, result['background']).is_file():
+    if not result['slides']:
         raise ValueError('missing_slides_or_background')
+    check_background(root, result)
     data = resolve_data(source)
     pending = pending_art(root, data, result.get('art_bindings', []))
     for binding in result.get('data_bindings', []):
@@ -76,8 +78,68 @@ def compile_deck(root, plan, source):
     if len(slide_ids) != len(set(slide_ids)):
         raise ValueError('duplicate_slide_id')
     for page in result['slides']:
+        resolve_text_roles(page, result.get('text_styles', {}))
         check_page(root, page)
     return result, pending
+
+
+def check_background(root, plan):
+    """Keep explicit image backgrounds authoritative; otherwise require a solid color."""
+    if 'background' in plan:
+        if not isinstance(plan['background'], str) or not plan['background']:
+            raise ValueError('invalid_background: background')
+        if not inside(root, plan['background']).is_file():
+            raise ValueError('missing_slides_or_background')
+        return
+    theme = plan.get('theme', {})
+    if not isinstance(theme, dict):
+        raise TypeError('invalid_solid_background: theme')
+    color = theme.get('background')
+    if color is None:
+        raise ValueError('missing_solid_background')
+    if not isinstance(color, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', color):
+        raise ValueError('invalid_solid_background')
+
+
+def resolve_text_roles(page, roles):
+    """Resolve optional role styles in a compiled copy; explicit fields win atomically.
+
+    NOTE: Nested API objects such as insets are replaced whole, never guessed or
+    merged from a previous state. Existing text without a role is left unchanged.
+    """
+    for item in page['elements']:
+        if item['kind'] != 'text' or 'style_role' not in item:
+            continue
+        role = item['style_role']
+        source = page['id'] + '/' + item['id']
+        if not isinstance(roles, dict) or not isinstance(role, str) or role not in roles:
+            raise ValueError('unknown_text_style: ' + source + '/' + str(role))
+        if not isinstance(roles[role], dict) or not roles[role]:
+            raise ValueError('invalid_text_style: ' + source + '/' + role)
+        override = item.get('style', {})
+        if not isinstance(override, dict):
+            raise TypeError('invalid_text_style_override: ' + source)
+        item['style'] = copy.deepcopy(roles[role]) | copy.deepcopy(override)
+        validate_role_style(item['style'], source + '/' + role)
+
+
+def validate_role_style(style, source):
+    """Reject invalid core typography values in the new role path, with provenance.
+
+    This is input validation, not a capability or visual-approval gate. Other
+    current API fields retain their public types and require actual export QA.
+    """
+    for key in ('fontSize', 'lineSpacing'):
+        value = style.get(key)
+        if key in style and (isinstance(value, bool) or not isinstance(value, (int, float))
+                             or not math.isfinite(value) or value <= 0):
+            raise ValueError('invalid_text_style_value: ' + source + '/' + key)
+    for key in ('bold', 'italic'):
+        if key in style and not isinstance(style[key], bool):
+            raise ValueError('invalid_text_style_value: ' + source + '/' + key)
+    if 'typeface' in style and (not isinstance(style['typeface'], str)
+                                or not style['typeface'].strip()):
+        raise ValueError('invalid_text_style_value: ' + source + '/typeface')
 
 
 def check_page(root, page):
@@ -95,4 +157,3 @@ def check_page(root, page):
             numeric_box(item['box'])
         if kind == 'image' and not item.get('alt'):
             raise ValueError('missing_image_description: ' + item['id'])
-
