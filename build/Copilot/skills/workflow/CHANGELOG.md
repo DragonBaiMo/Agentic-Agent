@@ -1,3 +1,16 @@
+# native-typography-1（混排覆盖与局部行距兼容修复）
+
+2026-10-01，当前JS真实两行混排暴露整体style覆盖run字体、字号、颜色和bold=false。仅修structured text的默认样式顺序，普通字符串/字符串数组路径、图片与PSD生产功能不变。
+
+- structured run保留显式局部字体/字号/颜色/粗斜体；段落缺省继承整体行距，显式lineSpacingPercent或lineSpacingPoints优先，不用末尾全局补写覆盖局部。输入不变，非实测排版字段不扩展为完整引擎
+- 三页合成输入真实finalizer、重开、逐页PNG；两行中英数字混排、渐变描边、局部1.8倍/固定48pt/默认1.25倍及段前后间距分别核验。旧字符串数组页与修复前PNG逐字节相同
+- 实际导入副本把TIDE 2026改成长文本TIDE OBSERVATIONS 2027，局部32→34pt；保存重开后目标run样式、四周文本框保持，其他run及未改页2/3 PNG字节不变
+- 研究02描边导航从菜单激活再切回体验：显式fill与outline清除后，8个标签的框/字色/字号、原图字节与图片身份、活动签坐标通过；研究03的gradFill/描边/run阴影/纹理/spc=300保留，textWave1/baseline/kern=0丢失。Noto Serif CJK角色外观未通过，不称跨字体或目标应用通过
+- 205项Python、71项Node通过，含原PSD真实流水线；修改模块Node行覆盖100%、分支94.59%。首轮Python未继承NODE_PATH造成PSD依赖加载失败，补回已存在的锁定依赖环境后通过，没有改供应PPTX运行时
+- 新增无外部素材的可运行typography fixture与字段/证据范围；根README只引用唯一metadata入口。补官方AVI失败样例链接与内容hash，仍不外推全部视频编码
+
+这些是局部功能和回归证据，不计作十轮完整商业验收。PowerPoint/WPS、真实媒体播放与商业审美仍按各自实际状态报告。
+
 # native-first-roles-1（原生优先、角色样式与纯色母版候选）
 
 2026-10-01，按新的17项商业PPT要求及原生文字研究，修正旧入口仍要求所有PPTX先生完整母图、艺术风格默认图片化的冲突；PSD母图/分层与原生产工具不变。

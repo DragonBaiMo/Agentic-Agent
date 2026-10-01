@@ -1,5 +1,11 @@
 # 可复用工具索引
 
+## native-typography-1 兼容修复
+
+- `scripts/pptx_backend/render_objects.mjs`仅对structured text先赋默认样式、再保留run覆盖；段落局部倍率/固定pt优先，缺省继承整体行距。普通字符串/字符串数组、PSD与图片路径不变
+- `examples/pptx-native-typography.json`用现有`assemble_pptx.mjs`真实构建三页功能回归，含中文/英文/数字混排、渐变描边、不同多行间距和旧字符串对照；不是商业设计模板
+- `tests/pptx.test.cjs`覆盖赋值顺序、局部间距优先、输入不变和旧调用契约；实际导出与目标应用证据分别记录。字段单位、清除描边与已观察失败见`references/native-style-tokens.md`
+
 ## native-first-roles-1 兼容扩展
 
 - `scripts/pptx_project.py`保留旧入口，新增`text_styles`/`style_role`解析与纯色背景验证；`scripts/pptx_backend/contract.py`是唯一实现。未知角色和无效核心样式定位页/对象/角色/字段

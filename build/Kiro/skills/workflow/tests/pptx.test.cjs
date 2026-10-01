@@ -32,6 +32,72 @@ test('PPTX native text uses entire authored style without default typography',as
   assert.deepEqual(actual.text.style,style);
 });
 
+test('PPTX structured runs apply explicit formatting after whole-shape defaults',async()=>{
+  const {addObject}=await api;const calls=[];
+  const textState={set style(value){calls.push(['style',value]);}};
+  const shape={set text(value){calls.push(['text',value]);},get text(){return textState;}};
+  const style={typeface:'Default Font',fontSize:48,bold:true,color:'#182029'};
+  const text=[[{run:'Default '},{run:'Local',textStyle:{bold:false,fontSize:'24pt',color:'#B34425'}}]];
+  await addObject({shapes:{add:()=>shape}},
+    {kind:'text',id:'mixed',box:[0,0,600,90],text,style},root);
+  assert.deepEqual(calls,[['style',style],['text',text]]);
+});
+
+test('PPTX structured paragraph object also retains explicit run overrides',async()=>{
+  const {addObject}=await api;const calls=[];
+  const textState={set style(value){calls.push(['style',value]);}};
+  const shape={set text(value){calls.push(['text',value]);},get text(){return textState;}};
+  const style={fontSize:48,alignment:'right',lineSpacing:1.25,insets:{left:12,right:16}};
+  const text={runs:[{run:'Local',textStyle:{bold:false}}]};
+  await addObject({shapes:{add:()=>shape}},
+    {kind:'text',id:'mixed',box:[0,0,600,90],text,style},root);
+  assert.deepEqual(calls,[['style',style],['text',[
+    {...text,paragraphStyle:{lineSpacingPercent:125000}},
+  ]]]);
+});
+
+test('PPTX paragraph-local line spacing wins over defaults without mutating input',async()=>{
+  const {addObject}=await api;const calls=[];
+  const textState={set style(value){calls.push(['style',value]);}};
+  const shape={set text(value){calls.push(['text',value]);},get text(){return textState;}};
+  const style={fontSize:48,lineSpacing:1.25};
+  const text=[
+    {runs:[{run:'Wide\nWide'}],paragraphStyle:{lineSpacingPercent:180000},spaceAfter:800},
+    {runs:[{run:'Fixed\nFixed'}],paragraphStyle:{lineSpacingPoints:4800},spaceBefore:600},
+    [{run:'Inherited\nInherited',textStyle:{bold:false}}],
+  ];
+  const before=structuredClone(text);
+  await addObject({shapes:{add:()=>shape}},
+    {kind:'text',id:'mixed',box:[0,0,600,500],text,style},root);
+  assert.deepEqual(calls,[['style',style],['text',[
+    text[0],text[1],{runs:text[2],paragraphStyle:{lineSpacingPercent:125000}},
+  ]]]);
+  assert.deepEqual(text,before);
+});
+
+test('PPTX flat structured runs form one paragraph with inherited line spacing',async()=>{
+  const {addObject}=await api;const calls=[];
+  const textState={set style(value){calls.push(['style',value]);}};
+  const shape={set text(value){calls.push(['text',value]);},get text(){return textState;}};
+  const style={fontSize:48,lineSpacing:1.25};
+  const text=[{run:'Plain '},{run:'Local',textStyle:{fontSize:'24pt'}}];
+  await addObject({shapes:{add:()=>shape}},
+    {kind:'text',id:'mixed',box:[0,0,600,100],text,style},root);
+  assert.deepEqual(calls,[['style',style],['text',[
+    {runs:text,paragraphStyle:{lineSpacingPercent:125000}},
+  ]]]);
+});
+
+test('PPTX string paragraph arrays keep the existing assignment order',async()=>{
+  const {addObject}=await api;const calls=[];
+  const textState={set style(value){calls.push(['style',value]);}};
+  const shape={set text(value){calls.push(['text',value]);},get text(){return textState;}};
+  const text=['First paragraph','Second paragraph'];const style={fontSize:32};
+  await addObject({shapes:{add:()=>shape}},
+    {kind:'text',id:'paragraphs',box:[0,0,600,100],text,style},root);
+  assert.deepEqual(calls,[['text',text],['style',style]]);
+});
+
 test('PPTX native chart receives exact category order and explicit data',async()=>{
   const {addObject}=await api;
   const options={categories:['B','A'],series:[{values:[80,60]}]};let assigned;

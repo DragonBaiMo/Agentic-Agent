@@ -19,6 +19,41 @@ export async function addImage(slide, item, root) {
     contentType:'image/png', alt:item.alt, fit:'contain', position:{left,top,width,height}});
 }
 
+/** Supply only missing paragraph line spacing without mutating authored runs or local spacing. */
+function withDefaultLineSpacing(text, lineSpacing) {
+  if (lineSpacing === undefined) return text;
+  const isParagraph = part => Array.isArray(part) ||
+    (part !== null && typeof part === 'object' && !('run' in part));
+  const paragraphs = Array.isArray(text) && text.some(isParagraph) ? text : [text];
+  return paragraphs.map(part => {
+    const paragraph = Array.isArray(part) ? {runs:part} : part;
+    const local = paragraph.paragraphStyle || {};
+    // NOTE: These mutually exclusive fields use 1/1000 percent and 1/100 point, respectively.
+    if (local.lineSpacingPercent !== undefined || local.lineSpacingPoints !== undefined) {
+      return paragraph;
+    }
+    return {...paragraph, paragraphStyle:{...local,
+      lineSpacingPercent:Math.round(lineSpacing * 100000)}};
+  });
+}
+
+/** Preserve explicit run overrides; string and string-paragraph inputs keep their old order. */
+function applyNativeText(shape, item) {
+  const structured = item.text !== null && typeof item.text === 'object' &&
+    (!Array.isArray(item.text) || item.text.some(part => typeof part !== 'string'));
+  if (structured) {
+    // NOTE: The whole-shape setter overwrites existing run font/size/fill. Apply defaults first.
+    shape.text.style = item.style;
+    // NOTE: Structured text replaces paragraph records. Inherit spacing before assignment so
+    // explicit local percent/point values survive without a later whole-shape overwrite.
+    shape.text = withDefaultLineSpacing(item.text, item.style?.lineSpacing);
+    return;
+  }
+  shape.text = item.text;
+  // NOTE: Set the complete style in one call; the getter is not a mutable style object.
+  shape.text.style = item.style;
+}
+
 /** Add one object without substituting the author's typography or chart styling. */
 export async function addObject(slide, item, root, fontHelper) {
   if (item.kind === 'image') return addImage(slide, item, root);
@@ -38,10 +73,7 @@ export async function addObject(slide, item, root, fontHelper) {
     position:{left,top,width,height}, fill:item.kind === 'text' ? 'none' : item.fill,
     line:{fill:'none',width:0}});
   if (item.kind === 'text') {
-    shape.text = item.text;
-    // NOTE: Set the complete style in one call; the getter is not a mutable style object.
-    shape.text.style = item.style;
+    applyNativeText(shape, item);
   }
   return shape;
 }
-

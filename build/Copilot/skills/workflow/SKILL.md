@@ -3,7 +3,7 @@ name: workflow
 description: 将海报、KV、封面制作成真正分层PSD，或把新需求与已有多种材料制作、优化为专业可编辑PPTX。先理解业务与文案，按视觉要求选择原生对象、图片设计和保真用户素材，支持统一样式、语义拆层、局部修改、续做与回放。
 metadata:
   version: "1.4.1-rc.3"
-  validation_candidate: "native-first-roles-1"
+  validation_candidate: "native-typography-1"
 ---
 
 # workflow：内容与视觉设计，原生与图片混合，PSD / PPTX

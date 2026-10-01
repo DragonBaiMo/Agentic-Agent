@@ -1,0 +1,270 @@
+{
+  "schema_version": "pptx-1",
+  "name": "Native typography property probes",
+  "canvas": [
+    1280,
+    720
+  ],
+  "theme": {
+    "background": "#EAF2F5"
+  },
+  "font_policy": {
+    "basis": "design",
+    "families": [
+      "Noto Sans CJK SC",
+      "DejaVu Serif"
+    ]
+  },
+  "text_styles": {
+    "display.gradient": {
+      "typeface": "Noto Sans CJK SC",
+      "fontSize": 112,
+      "bold": true,
+      "fill": {
+        "type": "gradient",
+        "gradientKind": "linear",
+        "angleDeg": 0,
+        "stops": [
+          {
+            "offset": 0,
+            "color": "#153A70"
+          },
+          {
+            "offset": 100000,
+            "color": "#13A09A"
+          }
+        ]
+      },
+      "outline": {
+        "fill": "#143A55",
+        "width": 0.5
+      },
+      "wrap": "none",
+      "autoFit": "none",
+      "insets": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      }
+    },
+    "mixed": {
+      "typeface": "Noto Sans CJK SC",
+      "fontSize": 48,
+      "bold": true,
+      "color": "#153A70",
+      "alignment": "right",
+      "lineSpacing": 1.25,
+      "wrap": "none",
+      "autoFit": "none",
+      "insets": {
+        "left": 12,
+        "right": 16,
+        "top": 8,
+        "bottom": 8
+      }
+    },
+    "paragraph": {
+      "typeface": "Noto Sans CJK SC",
+      "fontSize": 32,
+      "color": "#244B58",
+      "lineSpacing": 1.25,
+      "wrap": "square",
+      "autoFit": "none",
+      "insets": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      }
+    }
+  },
+  "slides": [
+    {
+      "id": "S01",
+      "notes": "Synthetic authoring probe for gradient, outline, structured mixed runs and paragraph line spacing. This is not a customer presentation.",
+      "elements": [
+        {
+          "id": "gradient-title",
+          "kind": "text",
+          "text": "潮汐观察",
+          "box": [
+            80,
+            70,
+            1120,
+            160
+          ],
+          "style_role": "display.gradient"
+        },
+        {
+          "id": "mixed-subtitle",
+          "kind": "text",
+          "text": [
+            [
+              {
+                "run": "潮汐 "
+              },
+              {
+                "run": "TIDE 2026",
+                "textStyle": {
+                  "typeface": "DejaVu Serif",
+                  "fontSize": "32pt",
+                  "bold": false,
+                  "italic": true,
+                  "color": "#B34425"
+                }
+              }
+            ],
+            [
+              {
+                "run": "海岸 "
+              },
+              {
+                "run": "COAST",
+                "textStyle": {
+                  "typeface": "DejaVu Serif",
+                  "fontSize": "28pt",
+                  "bold": false,
+                  "italic": false,
+                  "color": "#647B87"
+                }
+              }
+            ]
+          ],
+          "box": [
+            80,
+            260,
+            1120,
+            180
+          ],
+          "style_role": "mixed"
+        },
+        {
+          "id": "paragraph",
+          "kind": "text",
+          "text": "日落之后，潮线渐渐退去。\n同一段落继续记录海岸的变化。",
+          "box": [
+            80,
+            520,
+            1120,
+            140
+          ],
+          "style_role": "paragraph"
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "notes": "Control page for existing strings and string paragraph arrays.",
+      "elements": [
+        {
+          "id": "gradient-title",
+          "kind": "text",
+          "text": "潮汐观察",
+          "box": [
+            80,
+            70,
+            1120,
+            160
+          ],
+          "style_role": "display.gradient"
+        },
+        {
+          "id": "paragraph-array",
+          "kind": "text",
+          "text": [
+            "日落之后，潮线渐渐退去。",
+            "同一段落继续记录海岸的变化。"
+          ],
+          "box": [
+            80,
+            310,
+            1120,
+            160
+          ],
+          "style_role": "paragraph"
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "notes": "Synthetic local paragraph-spacing regression. Percent, fixed point, and inherited spacing use multiple visible lines.",
+      "elements": [
+        {
+          "id": "local-percent",
+          "kind": "text",
+          "text": [
+            {
+              "runs": [
+                {
+                  "run": "潮汐 TIDE\n海岸 COAST"
+                }
+              ],
+              "spaceBefore": 600,
+              "spaceAfter": 800,
+              "paragraphStyle": {
+                "lineSpacingPercent": 180000
+              }
+            },
+            {
+              "runs": [
+                {
+                  "run": "潮汐 TIDE\n海岸 COAST"
+                }
+              ],
+              "spaceBefore": 200,
+              "spaceAfter": 400
+            }
+          ],
+          "box": [
+            80,
+            60,
+            500,
+            540
+          ],
+          "style_role": "paragraph",
+          "style": {
+            "fontSize": 40
+          }
+        },
+        {
+          "id": "local-points",
+          "kind": "text",
+          "text": [
+            {
+              "runs": [
+                {
+                  "run": "潮汐 TIDE\n海岸 COAST"
+                }
+              ],
+              "spaceBefore": 600,
+              "spaceAfter": 800,
+              "paragraphStyle": {
+                "lineSpacingPoints": 4800
+              }
+            },
+            {
+              "runs": [
+                {
+                  "run": "潮汐 TIDE\n海岸 COAST"
+                }
+              ],
+              "spaceBefore": 200,
+              "spaceAfter": 400
+            }
+          ],
+          "box": [
+            700,
+            60,
+            500,
+            540
+          ],
+          "style_role": "paragraph",
+          "style": {
+            "fontSize": 40
+          }
+        }
+      ]
+    }
+  ]
+}
