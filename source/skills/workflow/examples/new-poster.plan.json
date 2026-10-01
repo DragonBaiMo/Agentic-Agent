@@ -1,0 +1,25 @@
+{
+  "entry": "existing_design",
+  "output_name": "night-voyage",
+  "canvas": [1080, 1350],
+  "brief": {"purpose": "香水宣传海报转真实分层 PSD", "audience": "需要继续编辑的设计师"},
+  "direction": "保留用户成图的玻璃瓶、金属艺术字、前景丝带与薄雾关系；示例坐标应在查看实际母图后替换",
+  "interaction": {"mode": "staged", "stop_at": ["master", "layer_architecture"], "user_visual_approval": false, "notes": "默认合并展示完整母版与推荐分层。只有实际明确全自动授权时改为 autonomous，并记录依据。", "decisions": []},
+  "master": {},
+  "copy": [
+    {"id": "headline", "value": "夜航"},
+    {"id": "label", "value": "NIGHT VOYAGE"},
+    {"id": "caption", "value": "EAU DE PARFUM · 50 mL"}
+  ],
+  "fonts": [{"path": "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", "env": "POSTER_FONT_LATIN", "family": "Liberation Sans", "postscript": "LiberationSans", "weight": "normal"}],
+  "groups": ["背景", "氛围", "产品", "前景", "标题", "信息"],
+  "layers": [
+    {"id": "background", "name": "完整背景", "type": "image", "kind": "background", "group": "背景", "z": 0, "owns": "原图背景空间、地面与环境光", "excludes": "瓶体、丝带、薄雾、标题及其他文字", "occlusion": "补全被瓶体和丝带挡住的背景", "copy_ids": [], "alpha": false, "target_box": [0,0,1080,1350], "blend": "normal", "opacity": 1},
+    {"id": "haze", "name": "独立薄雾", "type": "image", "kind": "effects", "group": "氛围", "z": 10, "owns": "瓶后薄雾与柔光", "excludes": "瓶体、丝带、文字、实体背景", "occlusion": "自然补全瓶后薄雾", "copy_ids": [], "alpha": true, "target_box": [100,400,880,750], "effect_box": [0,300,1080,1000], "blend": "normal", "opacity": 1},
+    {"id": "bottle", "name": "玻璃瓶与固定标签", "type": "image", "kind": "glass", "group": "产品", "z": 20, "owns": "玻璃香水瓶、瓶盖、瓶身固定标签", "excludes": "丝带、外部薄雾、海报标题、底部说明和背景", "occlusion": "补全被前景丝带遮住的瓶体，保留玻璃半透明与标签", "copy_ids": ["label"], "alpha": true, "target_box": [330,360,420,660], "effect_box": [300,340,480,700], "blend": "normal", "opacity": 1},
+    {"id": "ribbon", "name": "前景丝带", "type": "image", "kind": "object", "group": "前景", "z": 30, "owns": "瓶前丝带的完整可见走向", "excludes": "瓶体、薄雾、背景和所有文字", "occlusion": "按丝带结构自然补全，以便移动后不露矩形残片", "copy_ids": [], "alpha": true, "target_box": [100,760,900,350], "blend": "normal", "opacity": 1},
+    {"id": "headline", "name": "金属艺术标题夜航", "type": "image", "kind": "typography", "group": "标题", "z": 40, "owns": "顶部金属艺术字夜航及其字内高光", "excludes": "瓶体、丝带、背景、标签和底部说明", "occlusion": "保持字形完整，不补入背景", "copy_ids": ["headline"], "alpha": true, "target_box": [210,100,660,200], "blend": "normal", "opacity": 1},
+    {"id": "caption", "name": "可编辑底部说明", "type": "native_text", "group": "信息", "z": 50, "copy_id": "caption", "style": {"x": 245, "baseline": 1240, "size": 28, "font": 0, "color": "#E8E4DC", "tracking": 40}}
+  ],
+  "resume_note": "先导入并查看真实母图，核对文案与坐标。此计划示例没有假造生成文件。"
+}
