@@ -47,7 +47,9 @@ crop 的 threshold 使用 Alpha >= threshold，默认 1 包含全部非零像素
 python scripts/pptx_project.py --project "$PROJECT" --plan deck.json --out builds/check-01/compiled.json
 ```
 
-正式组装使用新 build 名，自动做同样检查、构建、调用当前 Presentations finalizer 和实际回读渲染：
+正式组装使用新 build 名，自动做同样检查、构建、调用当前 Presentations finalizer 和实际回读渲染。builds、tmp、evidence 下的同名目录都须未占用；即使恢复包没有旧PPTX，仍不能复用它已有回执的 build 名。组装器会在编译和加载后端前拒绝占用，保留旧文件，换一个新名字继续：
+
+检查只防止预先存在的占用与异常父级，不防御检查和创建之间的恶意父级替换；继续遵守同一工程单写者要求。三个目录并非全局原子预留，I/O失败可能留下本次新建的空目录。
 
 ```bash
 "$RUNTIME_NODE" scripts/assemble_pptx.mjs --project "$PROJECT" --plan deck.json \
@@ -83,7 +85,8 @@ python scripts/pptx_project.py --project "$PROJECT" --plan deck.json --out build
 |---|---|
 | 缺 consumer/Presentations/指定运行时 | 报缺项和受影响阶段；不虚构安装位置或使用证据 |
 | reference_missing / outside_project | 核对实际项目内副本和授权来源，更新路径；不能绕过访问拒绝 |
-| job_exists / output_exists | 用新任务/版本目录，不覆盖来源或旧证据 |
+| job_exists / output_exists / build_namespace_exists | 用新任务/版本目录，不覆盖来源或旧证据；不要只清空报错的回执后重跑 |
+| build_parent_not_directory | 核对项目内 builds/tmp/evidence 父级；它们须是普通目录，不能借外指或断链写到其他位置；不自动删改原链接 |
 | stale_art_labels | 读 pending-art-replacements，局部更新数值艺术图并核对，再更新绑定 |
 | 图像不透明、背景残留或软边断裂 | 修该语义素材，保留原件，不用高阈值硬切掩盖 |
 | 图表零点或数据不准 | 修唯一数据源与原生 chart 配置，重新渲染，不沿用母图错误 |
@@ -92,3 +95,9 @@ python scripts/pptx_project.py --project "$PROJECT" --plan deck.json --out build
 | 传输中断、工具状态未知 | 保存确定完成项，先有界只读核验；不猜写入成功、不盲重试可能已完成的外部调用 |
 
 一处视觉问题先做有依据的局部修复，默认最多两次同方法尝试。没有新依据就换已授权方法或报告缺口；这不是每页强制两轮。用户反馈拒绝整体审美时回完整代表页和视觉系统，技术通过不能当艺术验收。
+
+## 7．减少重复准备
+
+方向尚待确认时先整理余页准确内容、绑定和原媒体清单。代表方向确认或已有全自动授权后，集中准备必需素材，完成一次组装和一次实际PDF逐页回看，再只修发现的差异。已经看过且字节未变的同一文件可以沿用检查记录；新输出仍按当前Presentations完成严格校验和真实渲染，不把旧截图当新版本结果。记录制作、模型等待、宿主落盘与人工/执行者审阅分别花在哪里，不把一次环境恢复当成每稿固定成本。
+
+目前未实现跨版本渲染缓存。文件名或mtime不能证明结果可复用；输入PPTX、渲染参数、字体文件及回退配置、后端版本或相关实现改变时，旧渲染可能失效。身份不完整时重新渲染，保留实际PDF视觉检查。没有性能对照就不承诺缓存或并发能缩短整段制作时间。

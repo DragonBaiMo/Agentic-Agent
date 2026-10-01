@@ -8,6 +8,7 @@ import {createRequire} from 'node:module';
 import {parseArgs} from 'node:util';
 import {execFileSync} from 'node:child_process';
 import {addImage,addObject} from './pptx_backend/render_objects.mjs';
+import {reserveBuildPaths} from './pptx_backend/build_paths.mjs';
 
 const {values:args} = parseArgs({options:{
   project:{type:'string'}, plan:{type:'string',default:'deck.json'},
@@ -31,7 +32,7 @@ async function runtime() {
   const require = createRequire(path.join(env.RUNTIME_NODE_MODULES,'..','package.json'));
   const api = await import(require.resolve('@oai/artifact-tool'));
   const skill = args['presentations-skill'];
-  const utils = await import(pathToFileURL(path.join(skill,'container_tools/artifact_tool_utils.mjs')));
+  const utils = await import(pathToFileURL(path.join(skill,'container_tools/artifact_tool_utils.mjs')).href);
   return {...api,...utils,skill,python:env.RUNTIME_PYTHON};
 }
 
@@ -39,17 +40,13 @@ async function runtime() {
 async function main() {
   if (!args.project || !/^[A-Za-z0-9][A-Za-z0-9_-]*$/.test(args.build || '')) throw new Error('project_and_build_required');
   const root = await fs.realpath(path.resolve(args.project));
-  const dir = path.join(root,'builds',args.build);
-  await fs.mkdir(path.dirname(dir),{recursive:true});
-  await fs.mkdir(dir,{recursive:false});
+  const {build:dir,temporary:tmp} = await reserveBuildPaths(root,args.build);
   const compiled = path.join(dir,'compiled.json');
   execFileSync(process.env.RUNTIME_PYTHON,[path.join(scripts,'pptx_project.py'),
     '--project',root,'--plan',args.plan,'--out',path.relative(root,compiled)],
     {stdio:'inherit',timeout:30000});
   const data = JSON.parse(await fs.readFile(compiled,'utf8'));
   const rt = await runtime();
-  const tmp = path.join(root,'tmp',args.build);
-  await fs.mkdir(tmp,{recursive:true});
   // NOTE: This marker is required by the active host presentation authoring workflow.
   execFileSync(process.env.RUNTIME_NODE,[path.join(rt.skill,'container_tools/mark_artifact_operation_started.mjs'),
     '--operation-kind','create','--expected-output-count','1','--output-format','pptx'],
@@ -80,7 +77,6 @@ async function main() {
 async function finalize(root,dir,candidate,data,rt) {
   const output = path.join(dir,'final.pptx');
   const checks = path.join(root,'evidence',path.basename(dir));
-  await fs.mkdir(checks,{recursive:true});
   const owners = kind => data.slides.flatMap((s,i)=>s.elements.some(e=>e.kind===kind)?[i+1]:[]);
   const tables = owners('table');
   await rt.finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath:output,

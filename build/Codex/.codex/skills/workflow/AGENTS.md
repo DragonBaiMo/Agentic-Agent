@@ -24,6 +24,7 @@
 - `scripts/pptx_project.py`：编译 deck.json 与 data.json，拒绝过期艺术标签，输出局部替换任务
 - `scripts/pptx_backend/contract.py`：路径/对象/数据约束公共实现；不执行表达式、不自动批准艺术图
 - `scripts/assemble_pptx.mjs`：调用当前 Presentations 的真实 JavaScript API、finalizer 与导出回读渲染
+- `scripts/pptx_backend/build_paths.mjs`：组装入口内部先核并独占新建 builds/tmp/evidence 同名空间；旧回执或中间文件不覆盖，测试 `tests/build_paths.test.cjs`
 - `scripts/pptx_backend/render_objects.mjs`：按资源定位独立图片/原生文字/图表/表格；不绘制装饰图形
 - `scripts/pptx_backend/semantics.py`：对本构建器新导出的包写语义名称、真实共用背景母版与页级固定版式
 - `scripts/verify_pptx_edits.mjs`：编辑真实 PPTX 测试副本、保存重开；不把诊断副本作为正式交付
