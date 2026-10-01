@@ -3,7 +3,7 @@ name: workflow
 description: 将原创海报、KV、封面或演示文稿制作成真正分层 PSD 或可编辑 PPTX。先完成受众与文案，再用图片模型设计完整画面并拆成语义素材，代码忠实定位组装；支持艺术文字与必要原生文字混合、统一章节导航、已有图、续做与回放。适用于需要图片设计观感和实际对象编辑能力的任务。
 metadata:
   version: "1.4.1-rc.3"
-  validation_candidate: "consumer-art-routing-1"
+  validation_candidate: "commercial-role-continuity-1"
 ---
 
 # workflow：图片设计，语义分层，PSD / PPTX
