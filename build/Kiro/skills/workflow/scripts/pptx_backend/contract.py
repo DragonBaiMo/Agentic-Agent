@@ -55,7 +55,37 @@ def pending_art(root, data, bindings):
             pending.append({'object_id': item['object_id'], 'key': item['key'],
                             'old_value': item['approved_value'], 'new_value': actual,
                             'file': item['file'], 'reason': 'value_or_asset_changed'})
+            if 'slide_id' in item:
+                pending[-1]['slide_id'] = item['slide_id']
     return pending
+
+
+def check_art_targets(root, slides, bindings):
+    """Resolve each binding to one used image; optional slide_id scopes repeated IDs.
+
+    NOTE: Byte/value checks alone can approve an unused old asset. Inspect the
+    resolved page objects so a data binding cannot replace the image afterwards.
+    """
+    targets = {}
+    for page in slides:
+        for item in page['elements']:
+            targets.setdefault(item['id'], []).append((page['id'], item))
+    for binding in bindings:
+        matches = targets.get(binding['object_id'], [])
+        scope = binding.get('slide_id')
+        if scope is not None:
+            matches = [target for target in matches if target[0] == scope]
+        label = str(scope or '*') + '/' + binding['object_id']
+        if not matches:
+            raise ValueError('art_binding_target_missing: ' + label)
+        if len(matches) != 1:
+            raise ValueError('art_binding_target_ambiguous: ' + label)
+        page_id, target = matches[0]
+        label = page_id + '/' + target['id']
+        if target['kind'] != 'image':
+            raise ValueError('art_binding_requires_image: ' + label)
+        if inside(root, target['file']) != inside(root, binding['file']):
+            raise ValueError('art_binding_file_mismatch: ' + label)
 
 
 def compile_deck(root, plan, source):
@@ -68,7 +98,6 @@ def compile_deck(root, plan, source):
         raise ValueError('missing_slides_or_background')
     check_background(root, result)
     data = resolve_data(source)
-    pending = pending_art(root, data, result.get('art_bindings', []))
     for binding in result.get('data_bindings', []):
         target = result
         for key in binding['path'][:-1]:
@@ -80,6 +109,8 @@ def compile_deck(root, plan, source):
     for page in result['slides']:
         resolve_text_roles(page, result.get('text_styles', {}))
         check_page(root, page)
+    check_art_targets(root, result['slides'], result.get('art_bindings', []))
+    pending = pending_art(root, data, result.get('art_bindings', []))
     return result, pending
 
 

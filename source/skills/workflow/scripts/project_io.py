@@ -6,8 +6,8 @@ No approval engine or model calls. Mutating commands are single-writer tools.
 
 import hashlib
 import json
-from pathlib import Path
 import uuid
+from pathlib import Path
 
 
 def read_json(path):
@@ -43,7 +43,11 @@ def digest(path):
 
 def load_plan(root):
     """Check identifiers needed to route jobs; visual approval is not a field gate."""
-    plan = read_json(Path(root) / "plan.json")
+    return validate_plan(read_json(Path(root) / "plan.json"))
+
+
+def validate_plan(plan):
+    """Validate an in-memory plan without writes, preserving existing load behavior."""
     identifiers = [item["id"] for item in plan["layers"]]
     copies = [item["id"] for item in plan["copy"]]
     if len(set(identifiers)) != len(identifiers) or len(set(copies)) != len(copies):

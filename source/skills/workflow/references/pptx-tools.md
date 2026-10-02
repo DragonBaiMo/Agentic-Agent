@@ -90,6 +90,7 @@ python scripts/pptx_project.py --project "$PROJECT" --plan deck.json --out build
 | job_exists / output_exists / build_namespace_exists | 用新任务/版本目录，不覆盖来源或旧证据；不要只清空报错的回执后重跑 |
 | build_parent_not_directory | 核对项目内 builds/tmp/evidence 父级；它们须是普通目录，不能借外指或断链写到其他位置；不自动删改原链接 |
 | stale_art_labels | 读 pending-art-replacements，局部更新数值艺术图并核对，再更新绑定 |
+| art_binding_target_missing / art_binding_target_ambiguous / art_binding_requires_image / art_binding_file_mismatch | 按页/对象定位实际图片；跨页同名用slide_id明确页，修复实际引用并看图。无效绑定先停止编译，不靠修改登记值或哈希掩盖错图 |
 | unknown_text_style / invalid_text_style_value | 按页ID/对象ID/角色/字段定位样式源或覆盖值；不能用默认字体静默替代 |
 | missing_solid_background / invalid_solid_background | 没有PNG背景时显式提供theme.background的#RRGGBB；不自动生成背景图片 |
 | 图像不透明、背景残留或软边断裂 | 修该语义素材，保留原件，不用高阈值硬切掩盖 |

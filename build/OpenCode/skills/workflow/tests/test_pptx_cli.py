@@ -4,11 +4,12 @@ Exercise the actual new CLI entrypoints, including structured failures and saved
 """
 import hashlib
 import json
-from pathlib import Path
 import sys
 import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
+
 from PIL import Image
 
 ROOT=Path(__file__).parents[1];sys.path.insert(0,str(ROOT/'scripts'))
@@ -16,6 +17,7 @@ import crop_alpha
 import image_job
 import pptx_project
 from project_io import write_json
+
 TMP=ROOT/'tmp/pptx-cli-tests';TMP.mkdir(parents=True,exist_ok=True)
 
 
@@ -70,6 +72,20 @@ class PptxCliTests(unittest.TestCase):
         actual=json.loads((self.root/'builds/B01/pending-art-replacements.json').read_text())
         self.assertEqual(actual[0]['new_value'],80)
         self.assertFalse((self.root/'builds/B01/compiled.json').exists())
+
+    def test_compile_cli_rejects_missing_art_target_without_writing_candidate(self):
+        self.plan['data_file']='data.json'
+        self.plan['art_bindings']=[{'key':'score','approved_value':80,'file':'art.png','object_id':'missing',
+            'sha256':hashlib.sha256(self.image.read_bytes()).hexdigest()}]
+        write_json(self.root/'deck.json',self.plan);write_json(self.root/'data.json',{'score':80})
+        before=(self.root/'deck.json').read_bytes()
+        argv=['pptx_project','--project',str(self.root),'--out','builds/B01/compiled.json']
+        with patch.object(sys,'argv',argv),self.assertLogs(level='ERROR') as log,self.assertRaises(SystemExit) as error:
+            pptx_project.main()
+        self.assertEqual(error.exception.code,2)
+        self.assertIn('art_binding_target_missing: */missing',log.output[0])
+        self.assertFalse((self.root/'builds/B01/compiled.json').exists())
+        self.assertEqual((self.root/'deck.json').read_bytes(),before)
 
     def test_crop_cli_saves_compensated_ledger(self):
         argv=['crop_alpha','--input',str(self.image),'--output',str(self.root/'crop.png'),

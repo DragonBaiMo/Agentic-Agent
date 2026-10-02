@@ -1,5 +1,17 @@
 # 可复用工具索引
 
+## cold-start-integrity-1
+
+- `scripts/pptx_backend/contract.py`在data_bindings解析与页校验后核对艺术绑定的实际图片对象和资源身份；可选slide_id消除跨页同名歧义，过期待替换项保留该页身份。值/哈希检查与实际对象引用检查共同成立，不替代看图
+- `tests/test_art_binding_targets.py`与`tests/test_pptx_cli.py`覆盖悬空/非图片/错文件/歧义目标、绑定后换图、旧唯一对象、多值共图及无候选退出
+- `scripts/project_io.py`的`validate_plan`复用原有PSD计划约束；`project.py init`在创建目录前执行，`tests/test_project_init.py`覆盖已知错误不残留及修正后同目录重试。I/O中途失败仍可能留下部分目录，不宣称全局事务
+
+## art-first-roles-1
+
+- 当前文字策略见`references/native-text-routing.md`：先保完整美观，再逐角色选择原生或独立艺术文字图层；实际渲染优于字体声明，未放宽的硬性编辑承诺不静默降级
+- `references/pptx-production.md`与`visual-production.md`要求主模型亲眼对照母图和真实组装预览；技术通过、视觉观察与用户认可分别记录
+- 本批仅更新说明、提示词和发现元数据，没有增加作者后端、校验门禁或修改PSD/PPTX生产脚本
+
 ## cold-start-review-isolation-1
 
 - `scripts/review_psd.py` 的显隐诊断使用公开 `layer_filter` 只读排除目标，保留原可见性与 `is_updated` 状态；不修改真实PSD或作者依赖

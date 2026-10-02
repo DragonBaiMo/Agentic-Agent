@@ -5,14 +5,21 @@ Usage: python scripts/project.py init --project DIR --plan PLAN.json
 """
 
 import argparse
-from datetime import datetime, timezone
 import json
-from pathlib import Path
 import shutil
 import uuid
+from datetime import datetime, timezone
+from pathlib import Path
 
-from project_io import compile_plan, inside, load_plan, read_json, write_json
 from environment_check import inspect_environment
+from project_io import (
+    compile_plan,
+    inside,
+    load_plan,
+    read_json,
+    validate_plan,
+    write_json,
+)
 
 
 def snapshot(root):
@@ -27,17 +34,18 @@ def snapshot(root):
 
 
 def initialize(root, plan_file):
-    """Create only a new project, preserving an existing project on collision."""
+    """Validate known plan constraints before writing; preserve existing projects."""
     root = Path(root)
     if root.exists() and any(root.iterdir()):
         raise ValueError("project_not_empty")
-    plan = read_json(plan_file)
+    # NOTE: Invalid identifiers/canvas must not leave a directory that blocks retry.
+    # I/O failures during the subsequent writes can still leave partial output.
+    plan = validate_plan(read_json(plan_file))
     root.mkdir(parents=True, exist_ok=True)
     for folder in ("inputs", "design", "assets", "jobs", "rejected", "review", "builds", "revisions", "logs"):
         (root / folder).mkdir(exist_ok=True)
     write_json(root / "plan.json", plan)
     write_json(root / "receipts.json", [])
-    load_plan(root)
     return status(root)
 
 

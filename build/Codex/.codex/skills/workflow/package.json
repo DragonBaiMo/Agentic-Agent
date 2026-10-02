@@ -2,7 +2,7 @@
   "name": "workflow",
   "version": "1.4.1-rc.3",
   "private": true,
-  "description": "Layered PSD and native-first editable PPTX workflow",
+  "description": "Art-directed PSD and PPTX workflow with role-based editability",
   "license": "MIT",
   "engines": {
     "node": ">=20"
