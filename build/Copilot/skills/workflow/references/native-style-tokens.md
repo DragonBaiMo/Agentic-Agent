@@ -27,7 +27,7 @@
 }
 ```
 
-这段是deck片段。可运行的完整合成样例见`examples/pptx-native-roles.json`，按[pptx-tools](pptx-tools.md)用现有`assemble_pptx.mjs`构建；无需生图。项目仍须验证实际字体与视觉，示例不提供字体文件。
+这段是deck片段。可运行的完整合成样例见`examples/pptx-native-roles.json`，按[pptx-tools](pptx-tools.md)用现有`assemble_pptx.mjs`构建；无需新增图片调用，完整Skill的图像工具前置不变。项目仍须验证实际字体与视觉，示例不提供字体文件。
 
 合成顺序为角色完整style，再以对象style覆盖同名顶级字段。嵌套对象如insets整体替换，不能只提供一个方向又期待隐式保留其他方向。编译在副本中执行，保留原输入；未知角色、非对象角色/覆盖值报告页ID、对象ID与角色。未使用style_role的旧对象保持原协议。角色引用不自动改变文字内容、框或字号，不会启用隐藏缩字。
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "workflow"
-  short_description: "美观优先设计PSD与PPTX，逐角色保留实际编辑能力"
-  default_prompt: "使用 $workflow，先读取 consumer 文案前置并理解我的用途与材料，优先做好完整艺术设计，再逐角色选择匹配的原生或图片形态。亲眼对照实际组装预览，交付真实源文件并说明编辑边界。"
+  short_description: "需可用生图工具，由主模型统筹设计并组装PSD与PPTX"
+  default_prompt: "使用 $workflow，先确认可调用的生图/参考图编辑工具与返回保存能力，缺失则停止Skill。读取 consumer 并理解用途与材料，由主模型统筹内容、设计、图片调用及逐页看图，用轻量代码组装真实源文件；美观优先，再争取实际编辑能力。"

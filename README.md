@@ -4,7 +4,7 @@
 
 ## PSD / PPTX 设计与编辑
 
-`source/skills/workflow/SKILL.md` 提供完整画面设计、语义分层、PSD 与可编辑 PPTX 双出口，以及已有商业材料、指定原媒体、局部修改和源工程恢复入口。开始制作前先完整读取同级 `consumer-first-writing`，再按 workflow 的路由加载当前宿主的设计、编码和 Presentations 前置。运行库、模型权限和字体由宿主提供，仓库不含这些依赖的安装副本。
+`source/skills/workflow/SKILL.md` 提供完整画面设计、语义分层、PSD 与可编辑 PPTX 双出口，以及已有商业材料、指定原媒体、局部修改和源工程恢复入口。使用前必须有可调用的图片生成/参考图编辑工具并能保存返回；缺失则停止整个workflow，不自动降为模板或代码视觉。主模型统筹内容、设计、图片调用与逐页看图，代码轻量组装真实文件。先完整读取同级 `consumer-first-writing`，再按 workflow 路由加载设计、编码和 Presentations 前置。运行库、模型权限和字体由宿主提供，仓库不含这些依赖的安装副本。
 
 当前版本与候选以 [workflow入口的metadata](source/skills/workflow/SKILL.md) 为准，具体变更见[验证与变更记录](source/skills/workflow/CHANGELOG.md)。历史案例与每项能力边界保留在Skill中，不能据此推断任意PPTX无损编辑、目标桌面应用或视频播放均已验证。来源及素材使用范围见 `source/skills/workflow/THIRD_PARTY_NOTICES.md`。
 

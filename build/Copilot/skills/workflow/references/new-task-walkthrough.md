@@ -6,6 +6,8 @@
 
 ## 1．准备工程
 
+先按[工具前置](dependencies-and-start.md#必需的图像工具)确认主模型可调用图片生成/参考图编辑工具并保存返回；没有该能力时本演练停止，不能把不存在的图片换成模板或代码图后继续。
+
 从 `examples/new-poster.plan.json` 复制一份到自己的任务目录外作为初始化输入。看用户图片后核对其中的 NIGHT VOYAGE 标签是否真的存在，修改实际文案、方向、目标框与字体；不要盲抄示例坐标。本演练明确已获“自主完成”授权，因此把示例的 staged 改 autonomous、stop_at 改 []，记录本任务的真实授权与 5 张图片层 + 1 层可改说明的方案。普通未授权任务保持 staged，推荐分层与母版一起给用户选择。设置 PROJECT=/absolute/work/night-voyage。按 manifest.md 一次安装依赖，然后：
 
 ```bash

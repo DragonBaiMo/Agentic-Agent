@@ -1,5 +1,7 @@
 # 配置与命令
 
+这些命令是Skill的文件组装接口，不能独自证明图像生成能力。使用workflow前仍须满足[全局图像工具前置](dependencies-and-start.md#必需的图像工具)；纯技术回归无图片调用的事实，不是无生图工具启动Skill的例外。
+
 ## 一次安装，直接重用
 
 运行目录为本 Skill 根目录。`npm ci` 使用锁文件安装 ag-psd 31.0.0 和 @napi-rs/canvas 0.1.100。独立验证使用 `requirements.lock` 的 psd-tools 1.21.0 及其合成依赖；锁定的 NumPy/SciPy 等要求 Python 3.12+，本次验证 3.12.14。并非免安装软件，不包含 Photoshop 或字体授权。
