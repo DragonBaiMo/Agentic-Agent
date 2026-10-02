@@ -14,12 +14,13 @@ const {values:args} = parseArgs({options:{project:{type:'string'},input:{type:'s
 const root = await fs.realpath(path.resolve(args.project));
 const out = path.resolve(root,args.out);
 if (!out.startsWith(root+path.sep)) throw new Error('outside_project');
-const require = createRequire(path.join(process.env.RUNTIME_NODE_MODULES,'..','package.json'));
-const {PresentationFile,FileBlob} = await import(require.resolve('@oai/artifact-tool'));
 const source = await assetPath(root,args.input);
 const actionFile = await assetPath(root,args.actions);
 const config = JSON.parse(await fs.readFile(actionFile,'utf8'));
+const mediaPreflight = inspectMedia(source);
 const tableEligibility = inspectPlainTables(source);
+const require = createRequire(path.join(process.env.RUNTIME_NODE_MODULES,'..','package.json'));
+const {PresentationFile,FileBlob} = await import(require.resolve('@oai/artifact-tool'));
 await fs.mkdir(path.dirname(out),{recursive:true});
 await fs.mkdir(out,{recursive:false});
 const deck = await PresentationFile.importPptx(await FileBlob.load(source));
@@ -71,7 +72,7 @@ for (const index of config.render_indices) {
 await fs.writeFile(path.join(out,'inspect.ndjson'),snapshot);
 await fs.writeFile(path.join(out,'result.json'),JSON.stringify({passed:true,input:args.input,
   actions:config.actions,targetApplicationTest:false,workbookPreservationVerified:false,
-  diagnosticOnly:true,tableChecks,tableEligibility},null,2));
+  diagnosticOnly:true,tableChecks,tableEligibility,mediaPreflight},null,2));
 process.stdout.write(JSON.stringify({level:'INFO',event:'edit_copy_reopened',output:args.out})+'\n');
 
 /** Covered merged cells can store changed text without displaying it; reject that route. */
@@ -81,4 +82,13 @@ function inspectPlainTables(file) {
   if (!path.isAbsolute(python || '')) throw new Error('missing_runtime_python');
   const script = fileURLToPath(new URL('./pptx_backend/inspect_plain_tables.py',import.meta.url));
   return JSON.parse(execFileSync(python,[script,file,actionFile],{encoding:'utf8',timeout:30000}));
+}
+
+/** Stop before importing or creating output when this route would risk dropping media. */
+function inspectMedia(file) {
+  const python = process.env.RUNTIME_PYTHON || process.env.CODEX_PRIMARY_RUNTIME_PYTHON;
+  if (!path.isAbsolute(python || '')) throw new Error('missing_runtime_python');
+  const script = fileURLToPath(new URL('./inspect_pptx_media.py',import.meta.url));
+  return JSON.parse(execFileSync(python,[script,file],
+    {encoding:'utf8',timeout:30000,maxBuffer:2*1024*1024}));
 }

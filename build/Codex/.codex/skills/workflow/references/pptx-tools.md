@@ -64,6 +64,8 @@ python scripts/pptx_project.py --project "$PROJECT" --plan deck.json --out build
 
 ## 5．真实编辑副本
 
+当前JS编辑入口会在作者库导入与输出目录创建前调用`scripts/inspect_pptx_media.py`。已有用户PPTX也应先单独运行这个只读入口，再做需要保留原媒体的编辑。发现音视频或无法判定时不产生候选文件；状态、检测边界和替代路线见[音视频预检](media-preflight.md)。它不影响普通图片或无媒体的既有诊断。
+
 从实际 inspect 中选择唯一对象，准备 edit-actions.json：actions 里的 kind=image/textbox/chart/table、slide（1 起）、name（图表/表格唯一时可省略）；给图片 left、文字 text、图表 series/values、表格 row/column/text。render_indices 为从 0 起的待检查页索引，expected_text 为编辑后应存在的文字。
 
 表格的 row/column 从0起，可加 expected_before 防止改到陈旧报价。同批actions重复指定同一格会在修改前以duplicate_table_cell_target拒绝；每格保留一个最终目标，不推断顺序编辑语义。脚本只对无合并的矩形表自动校验：先只读检查实际PPTX中的目标表结构，再通过当前公开getCell逐格读回，记录原值、目标值和重开值，并核对未改格与行列数。inspect里的表格preview可能只有首行，不能拿它搜索非首行报价来判定成败。表格分支使用当前宿主的RUNTIME_PYTHON（或CODEX_PRIMARY_RUNTIME_PYTHON）运行只读结构检查，不安装额外生产依赖。
@@ -94,6 +96,7 @@ python scripts/pptx_project.py --project "$PROJECT" --plan deck.json --out build
 | 图表零点或数据不准 | 修唯一数据源与原生 chart 配置，重新渲染，不沿用母图错误 |
 | 字体重排/错位 | 确认真实字体与样式、框和间距；艺术文字不够接近时保留图片 |
 | native/chart/table/workbook 验证失败 | 读具体报告，查配置和公开 API；不关闭检查冒充通过 |
+| 音视频预检BLOCKED / UNKNOWN | 保留原PPTX和媒体，停当前JS往返；UNKNOWN先核具体解析问题，BLOCKED另选当前宿主允许且验证过的保媒体后端，无可用路径则报告卡点 |
 | 传输中断、工具状态未知 | 保存确定完成项，先有界只读核验；不猜写入成功、不盲重试可能已完成的外部调用 |
 
 一处视觉问题先做有依据的局部修复，默认最多两次同方法尝试。没有新依据就换已授权方法或报告缺口；这不是每页强制两轮。用户反馈拒绝整体审美时回完整代表页和视觉系统，技术通过不能当艺术验收。

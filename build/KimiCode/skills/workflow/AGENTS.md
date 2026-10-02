@@ -1,5 +1,11 @@
 # 可复用工具索引
 
+## media-preflight-1 只读媒体边界
+
+- `scripts/inspect_pptx_media.py SOURCE.pptx`：当前JS往返前检查embedded/external音视频关系、播放对象及引用/孤立媒体；CLEAR退出0，BLOCKED/UNKNOWN退出2，不读取外链或改原件
+- `scripts/pptx_backend/media_preflight.py`为唯一检查实现；`verify_pptx_edits.mjs`在加载作者库和创建输出目录前调用。普通PNG、未使用媒体MIME声明和外部超链接不误报；损坏/冲突/超限包不默认放行
+- `tests/test_media_preflight.py`覆盖上述正反例及入口无候选、原件字节不变；具体范围与AVI/H.264失败证据见`references/media-preflight.md`
+
 ## native-typography-1 兼容修复
 
 - `scripts/pptx_backend/render_objects.mjs`仅对structured text先赋默认样式、再保留run覆盖；段落局部倍率/固定pt优先，缺省继承整体行距。普通字符串/字符串数组、PSD与图片路径不变

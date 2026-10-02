@@ -20,7 +20,9 @@
 
 ## 视频与媒体
 
-视频必须保持真实媒体对象、文件或链接关系、位置比例及播放行为。poster只作封面，不能代替媒体交付。2026-10-01当前JS公开help未找到视频入口；对[LibreOffice官方tdf106867.pptx](https://github.com/LibreOffice/core/blob/master/sd/qa/unit/data/pptx/tdf106867.pptx)内嵌AVI样例的真实导入导出，AVI、media/video关系及a:videoFile丢失，仅poster保留，故该样例往返为FAIL。实测文件SHA-256为`d46a098caa019a2219ac91592c6e1e444cc9cafb207895208390092ef70c28ed`，Git blob为`5bf16d690ef21e2bb3c9f12f5437cae248b3d245`；该结果不外推所有编码或后端。此次环境没有PowerPoint/WPS/Impress，目标播放为NOT_RUN；有视频保留要求时此路线BLOCKED，不把poster版冒充完成。
+视频必须保持真实媒体对象、文件或链接关系、位置比例及播放行为。poster只作封面，不能代替媒体交付。当前JS在官方AVI和H.264 MP4样例往返中均丢失真实媒体；已有PPTX在导入前先执行[音视频预检](media-preflight.md)，发现媒体或无法判定时停止这条往返路线，保留原件。
+
+本次供应soffice headless入口可以渲染及重保存诊断稿，但所测H.264媒体保留同样失败；不存在由此自动获准的保媒体备用路线。源文件、后端版本、hash及失败范围集中在上述参考。PowerPoint/WPS及真实播放为NOT_RUN，不把命令行转换当实机播放，也不推断PPTX格式不支持视频。
 
 按实际可用工具、权限和经验证能力调查后端：先核所选实现的API、格式/编码与最小媒体样例，再验证原媒体字节、关系、框和真实目标应用播放。允许且可用的PowerPoint自动化、PptxGenJS或受控OOXML实现可单独验证，不从格式文档推定实现成功。选定后端没有可靠入口时保护原件，记录版本和具体卡点，继续不依赖视频的工作。
 
