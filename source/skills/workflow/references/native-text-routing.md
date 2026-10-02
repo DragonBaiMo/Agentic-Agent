@@ -41,7 +41,7 @@
 - 渲染器如何显示，编辑和保存重开后是否保留
 - 本机和目标使用者实际有哪些字体，授权是否允许分发/嵌入
 
-当前 workflow 的文本入口是 `scripts/pptx_backend/render_objects.mjs` 中创建 textbox，再一次性设置 `shape.text.style = item.style`。这只证明一个样式入口存在，不证明它支持所有 OOXML/WordArt 属性。字段必须查当前 Presentations/实际后端的文档和实验，不猜 `stroke`、`warp` 等名字。
+当前 workflow 的文本入口是 `scripts/pptx_backend/render_objects.mjs`。普通字符串与结构化run使用不同赋值顺序：结构化文字先设默认样式，再赋带局部覆盖的内容，避免整体setter覆盖run字体、字号和颜色；段落局部间距优先。准确契约见[原生样式源](native-style-tokens.md)，不另造一份排版引擎。这不证明支持所有OOXML/WordArt属性；字段仍须查当前Presentations/实际后端文档和实验，不猜 `stroke`、`warp` 等名字。
 
 缺字体要说明替换后的视觉差异；缺后端功能要说明是当前库未提供或往返丢失，不笼统说“PPT做不到”。未经许可不下载、嵌入或分发字体；只有文件内声明字体族，不能称字体已携带。
 
