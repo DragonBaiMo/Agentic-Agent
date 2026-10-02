@@ -28,7 +28,7 @@ image：id/name/type/kind/group/z，owns/excludes/copy_ids，alpha，target_box/
 
 native_text：id/name/type/group/z、copy_id、style。style 必需 x/baseline/size/font/color，可有 tracking。它没有图片源文件，不走 visual_job。简单多行按行分层；复杂脚本/艺术效果与真实文本框能力见 limitations。
 
-每个文字片段由一个明确层或明确分行组拥有。瓶标签可和瓶体同层，但应说明它是图片文字，不能称为可改字。特殊艺术标题仍使用 image/typography，不因为原生排版方便而擅自改风格。
+每个文字片段由一个明确层或明确分行组拥有。实物表面的瓶标签可和瓶体同层，但应说明它是图片文字，不能称为可改字；单独排版的普通标签按native_text能力处理。特殊艺术造型超出当前Type能力时使用image/typography，不因它叫标题就自动出图，也不因原生排版方便而改掉所需风格。
 
 向用户展示的是叶层数量、分组与每层能编辑的内容；数量按 layer 项统计，不能把文件夹数或整张母图缓存算成真实编辑层。全自动默认按最小充分编辑动作拆分，没有固定层数要求。
 
