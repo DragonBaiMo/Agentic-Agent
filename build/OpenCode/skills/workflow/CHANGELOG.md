@@ -1,3 +1,14 @@
+# cold-start-review-isolation-1（冷启动入口与只读PSD诊断）
+
+2026-10-02，从已发布ZIP空目录解压后复走入口和真实PSD回放。作者自测，不称新代理盲测或用户最终验收。
+
+- 修正使用说明仍称PPTX“图片设计优先”的旧入口，与原生达标优先及PSD母图路线对齐；当前候选统一指向SKILL metadata与CHANGELOG，移除两处包内不存在的说明文件指针
+- 写清consumer同级配套目录，以及未随包分发的frontend/coding-rule/Presentations如何经当前宿主发现、读取真实参考；读取失败时请求完整可读原包，不能假称已加载或猜私有路径
+- 真实PSD保持3组、11叶层和8个Type层。旧hide_view虽然恢复visible，却把is_updated从false改成true；3个小红例和真实流水线状态红例复现后，改用公开layer_filter只读排除目标
+- 覆盖指定叶/组、原已隐藏叶/组、预先updated与输出失败；旧、新隐藏预览文件和像素哈希相同，原PSD未改。不把验证过程中误读多图展示的现象写成PSD丢层或依赖缺陷
+- 237项Python与71项Node回归通过，review_psd模块行覆盖100%；新增/修改Python文件ruff通过。实际从ZIP重建、独立读层及显隐图另存证据，单测不替代看图
+- 不更换PSD/PPTX作者、依赖或既有项目接口；目标Photoshop/PowerPoint/WPS仍未实机验证。本轮发现并修复问题，不能计作后续清洁复查
+
 # whole-deck-review-1（轻量全套视觉复核）
 
 2026-10-02，四页虚构商业试制暴露代表封面通过后，正文页仍可能退成普通粗体和通用排版。兼容修订制作判断，生产脚本、依赖、PSD能力和原生优先路线不变。

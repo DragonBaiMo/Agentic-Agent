@@ -7,9 +7,9 @@ Nothing here edits the PSD, chooses acceptable artwork or computes a pass score.
 from PIL import Image, ImageOps
 
 
-def render(psd):
+def render(psd, layer_filter=None):
     """Reconstruct layer data instead of trusting the PSD merged-image cache."""
-    return psd.composite(force=True).convert("RGBA")
+    return psd.composite(force=True, layer_filter=layer_filter).convert("RGBA")
 
 
 def side_by_side(master, rebuilt):
@@ -23,17 +23,14 @@ def side_by_side(master, rebuilt):
 
 
 def hide_view(psd, name, destination):
-    """Temporarily hide a unique layer/folder and restore its exact prior visibility."""
+    """Render without one unique layer/folder; preserve visibility and update state."""
     matches = [layer for layer in psd.descendants() if layer.name == name]
     if len(matches) != 1:
         raise ValueError(f"toggle_name: {name}")
-    layer = matches[0]
-    was_visible = layer.visible
-    layer.visible = False
-    try:
-        render(psd).save(destination)
-    finally:
-        layer.visible = was_visible
+    target = matches[0]
+    # NOTE: Setting visible marks the whole document updated, changing compositor
+    # behavior even after restoring it. A read-only filter also respects hidden ancestors.
+    render(psd, lambda layer: layer is not target and layer.is_visible()).save(destination)
 
 
 def make_review(psd, out, master=None, toggles=()):

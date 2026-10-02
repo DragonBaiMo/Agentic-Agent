@@ -14,15 +14,17 @@
 ```text
 解压目录/
   workflow/SKILL.md
+  workflow/使用说明.md
   workflow/references/...
   consumer-first-writing/SKILL.md
   consumer-first-writing/references/...
-  使用与依赖.md
 ```
 
 这两个目录是独立标准 Skill。保留同级结构时，可以从 workflow 根目录读取 `../consumer-first-writing/SKILL.md`，再以该目录为基准读 references。安装时分别放到宿主支持的技能目录，通过名称发现；不要将 consumer 主文摘录成几个口号代替完整前置。
 
 配套 consumer 来自用户原包，内容不作修改。原 ZIP 的 SHA-256 为 `f8e48c5bdcf2f7c9a749b0af2605605687d11f2c0e1cbcedc812f6d2a3d21727`。本包不自动安装，不包含其他技能的私有副本、图片模型、账号权限或 API Key。
+
+frontend-development、coding-rule及当前Presentations不在此配套包中。先通过宿主提供的技能发现/读取入口按名称查找，再完整读取所需主文与参考；宿主没有技能目录入口时，使用用户已提供且有权读取的完整原包或明确路径。确认不可读或未安装后再请求对应技能，不猜测别的机器或私有路径，不将一次缺项解释为宿主永远不支持。
 
 优先读已安装的所需技能；找不到 consumer 时检查同级配套目录。路径存在但子参考读取失败，报告具体文件、失败和影响，可读取用户提供且已验证的同一配套文件。两处都缺失时，明确“缺少 consumer-first-writing，内容与文案定稿暂不能按所需前置进行，请提供完整包或可读目录”；可以继续源资料整理和运行时检查，不伪称已加载，不静默用自己的概括顶替。frontend/coding-rule/Presentations 缺失时同样准确说明，不凭私有绝对路径猜测安装。
 

@@ -5,20 +5,25 @@ Requires npm ci and the example fonts. Does not call any image model.
 """
 
 import json
-from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
 import zipfile
+from pathlib import Path
+
+from PIL import Image
+from psd_tools import PSDImage
 
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+from deliver_project import package
 from project import initialize
 from project_io import compile_plan, digest, read_json
 from record_asset import record
 from review_assets import moved_view, viewer
-from deliver_project import package
+from review_psd import hide_view, render
+from verify_psd import check_structure
 
 TMP = ROOT / "tmp/pipeline-tests"
 TMP.mkdir(parents=True, exist_ok=True)
@@ -93,6 +98,19 @@ class PipelineTests(unittest.TestCase):
         moved_view(self.psd, "核心 / 橙色玻璃能量球", destination)
         self.assertEqual(digest(self.psd), before)
         self.assertTrue(destination.is_file())
+
+    def test_hide_real_leaf_preserves_unrelated_type_pixels(self):
+        psd = PSDImage.open(self.psd)
+        check_structure(psd, read_json(self.root / "manifest.json"))
+        before = render(psd)
+        destination = self.root / "review/hidden-ring.png"
+        destination.parent.mkdir(exist_ok=True)
+        hide_view(psd, "装置 / 钴蓝陶瓷与拉丝金属", destination)
+        with Image.open(destination) as image:
+            # NOTE: The title region is above the ring and must remain pixel-identical.
+            self.assertEqual(image.crop((0, 0, 1024, 370)).tobytes(),
+                             before.crop((0, 0, 1024, 370)).tobytes())
+        self.assertFalse(psd.is_updated())
 
     def test_package_rejects_asset_path_escape(self):
         file = self.root / "manifest.json"

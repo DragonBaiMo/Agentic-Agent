@@ -1,5 +1,11 @@
 # 可复用工具索引
 
+## cold-start-review-isolation-1
+
+- `scripts/review_psd.py` 的显隐诊断使用公开 `layer_filter` 只读排除目标，保留原可见性与 `is_updated` 状态；不修改真实PSD或作者依赖
+- `tests/test_review_isolation.py` 覆盖目标叶/组、原已隐藏叶/组、写图失败与更新状态；`tests/test_pipeline.py` 从真实组装PSD核对隐藏主体后未选Type层像素仍保留
+- 冷启动入口见 `使用说明.md` 与 `references/dependencies-and-start.md`；配套consumer在同级目录，frontend/coding-rule/Presentations按宿主发现，不假称已随包提供
+
 ## media-preflight-1 只读媒体边界
 
 - `scripts/inspect_pptx_media.py SOURCE.pptx`：当前JS往返前检查embedded/external音视频关系、播放对象及引用/孤立媒体；CLEAR退出0，BLOCKED/UNKNOWN退出2，不读取外链或改原件
