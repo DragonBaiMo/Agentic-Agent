@@ -22,7 +22,7 @@ content 的最小有效内容是每页的 purpose、可见文字角色与准确�
 
 标题在同一内容资源中以title_contracts记录slide_id、text、origin（user_specified或lead_model）、source、change_frequency（fixed或frequent）、representation（native或semantic_art_image）及object_id。用户指定标题的text保留原话；主模型拟题记录事实或页面职责依据。艺术图另写editing说明，不能把“整体可移动”称为“可逐字输入”。标题来源、编辑频率与对象形式是独立字段，不互相推导。后端保留这些说明字段，但不声称自动识别图片里的汉字；艺术字准确性仍需看实际输出。
 
-例如固定“四周试用”采用艺术图时，试用周数仍是业务事实。如果它会受data.json变化影响，按下文art_bindings绑定对应周数或标题字段，修改事实后走局部艺术层替换，不能沿用过期图片标题。
+载体判断依据保留在当前内容/对象清单，按[逐对象方法](native-text-routing.md)说明真实造型与能力；这些记录不是新后端字段，也不靠title_contracts自动分类。例如“四周试用”因特殊艺术造型采用图片时，试用周数仍是业务事实；不是因为文字固定才图片化。如果它会受data.json变化影响，按下文art_bindings绑定对应周数或标题字段，修改事实后走局部艺术层替换，不能沿用过期图片标题。
 
 ## 组装字段
 

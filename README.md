@@ -8,6 +8,8 @@
 
 当前版本与候选以 [workflow入口的metadata](source/skills/workflow/SKILL.md) 为准，具体变更见[验证与变更记录](source/skills/workflow/CHANGELOG.md)。历史案例与每项能力边界保留在Skill中，不能据此推断任意PPTX无损编辑、目标桌面应用或视频播放均已验证。来源及素材使用范围见 `source/skills/workflow/THIRD_PARTY_NOTICES.md`。
 
+PPTX按真实字形逐对象混合：普通字体加常规格式可实现的文字保持原生可改，特殊艺术造型才按当前能力选择艺术图片。同区块可混合；标题、正文或固定文案不决定载体。具体判断、反例、真实字体与改字保存重开检查见[文字选择方法](source/skills/workflow/references/native-text-routing.md)。
+
 ## 目录结构
 
 ```

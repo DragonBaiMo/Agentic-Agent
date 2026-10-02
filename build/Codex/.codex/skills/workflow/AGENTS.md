@@ -1,5 +1,11 @@
 # 可复用工具索引
 
+## ordinary-text-native-1
+
+- `references/native-text-routing.md`是逐对象文字载体选择的主方法：实际造型、原生能力、业务用途、编辑频率；普通文字必须原生，特殊艺术造型才按实测选图片。八个不同情境防止把标题/正文/固定文字当成载体规则，同区块可混合
+- `references/font-calibration.md`区分声明、字体集合字面、公开加载、真实PPTX字形与目标应用；普通字体故障先排错，不用粗黑或图片掩盖。`resources/handover.md`接续实际选择与编辑证据
+- 本批仅改说明、提示词和发现元数据；已有`verify_pptx_edits.mjs`用于真实修改/保存重开，不增加图形作者、机器艺术分类器或新依赖。B06的普通文字修订是案例证据，不成为通用模板
+
 ## image-tool-prerequisite-1
 
 - 全局生图工具前置与主模型/图片工具/代码职责在`SKILL.md`第0节和`references/dependencies-and-start.md`；无工具时整个workflow停止，旧素材、纯改字、回放与CLI成功不构成自动豁免
@@ -14,7 +20,7 @@
 
 ## art-first-roles-1
 
-- 当前文字策略见`references/native-text-routing.md`：先保完整美观，再逐角色选择原生或独立艺术文字图层；实际渲染优于字体声明，未放宽的硬性编辑承诺不静默降级
+- 该候选的历史背景见CHANGELOG；当前文字策略以`references/native-text-routing.md`逐对象判断为准，普通字体加载失败不得自动切图片，实际渲染优于字体声明
 - `references/pptx-production.md`与`visual-production.md`要求主模型亲眼对照母图和真实组装预览；技术通过、视觉观察与用户认可分别记录
 - 本批仅更新说明、提示词和发现元数据，没有增加作者后端、校验门禁或修改PSD/PPTX生产脚本
 
